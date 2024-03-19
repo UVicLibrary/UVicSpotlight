@@ -11,7 +11,7 @@ We use a combination of Ubuntu on WSL 2 and Docker for our development environme
 * **Solr (v. 9.4)**
 
 #### Apps Components
-* **ImageMagick (development) or GraphicsMagick (production)** - For the IIIF server (powered by the [RIIIF gem](https://github.com/sul-dlss/riiif)). In future, we hope to create a version of RIIIF that uses VIPS instead.
+* **ImageMagick or GraphicsMagick** - For the IIIF server (powered by the [RIIIF gem](https://github.com/sul-dlss/riiif)). In future, we hope to create a version of RIIIF that uses VIPS instead.
 * **ffmpeg** - audio/video processing library for thumbnail generation.
 * **Redis (production only)** - used to run batch uploads in the background.
 * **poppler utils** - PDF processing library used for PDF thumbnail generation (required by [pdftoimage gem](https://github.com/robflynn/pdftoimage)).
@@ -55,7 +55,7 @@ GRANT ALL ON spotlight.* to 'spotlight'@'localhost' IDENTIFIED BY 'spotlight';
 You have a few choices:
 1. Run a Docker container (recommended). See the instructions below for starting one up.
 2. Install Solr locally (you'll need to install Java as well).
-3. Use the solr_wrapper gem. Open a new tab in Windows Terminal (or other Terminal program), `cd` into the Spotlight directory, and run `solr_wrapper`. In our experience, this approach breaks whenever Solr updates/upgrades.
+3. Use the solr_wrapper gem. Open a new tab in Windows Terminal (or other Terminal program), `cd` into the Spotlight directory, and run `solr_wrapper`. In our experience, this approach can break when Apache releases a new version of Solr.
 
 ##### Create a Solr Docker container
 
@@ -75,7 +75,7 @@ Solr should now be running at `localhost:8983`. See the official [Solr documenta
 
 Our custom Solr configuration files are stored in `solr/conf`. To create the core configured in `config/blacklight.yml`, go to the **Solr Dashboard (localhost:8983) > Core Admin > Add Core**. Fill out the popup with the following options:
 
-![](solr_core_config.jpg)
+![](./solr_core_config.jpg)
 
 ### App Components
 
