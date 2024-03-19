@@ -1,0 +1,18 @@
+<%# fields can be document_show_fields(document) or index_fields(document) %>
+<% fields.each do |field_name, field| -%>
+  <% if should_render_field?(field, document) and document_presenter(document).field_value(field).present? %>
+    <div class="metadata-field">
+        <dt class="blacklight-<%= field_name.parameterize %> text-left" onclick="hideShow(event)">
+          <%# From font-awesome-rails gem %>
+          <%= fa_icon "chevron-down" %><%= field.label + ":" %>
+        </dt>
+      <%# end %>
+      <dd class="blacklight-<%= field_name.parameterize %>">
+        <%= document_presenter(document).field_value(field) %>
+      </dd>
+    </div>
+    <!-- show field_name <%= field_name %> -->
+  <% else %>
+    <!-- dont show field_name <%= field_name %> -->
+  <% end %>
+<% end %>

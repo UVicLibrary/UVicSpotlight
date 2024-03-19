@@ -1,0 +1,9 @@
+<%# default partial to display solr document fields in catalog show view -%>
+<br>
+<div class="dl-invert metadata-default">
+  <%= render "metadata_fields", fields: document_show_fields(document), document: document %>
+  <br/>
+  <div id="object-download">
+    <%= render_download_item_link(@document) if action_name == "show" %>
+  </div>
+</div>

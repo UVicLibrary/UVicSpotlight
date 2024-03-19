@@ -1,0 +1,24 @@
+<div class="content-block item-text row clearfix">
+  <% urls = oembed_block.url.split('|') %>
+  <% if urls.count > 1 %>
+    <% urls.each do |url| %>
+      <% width = 12/urls.count %>
+      <div class="col-md-<%= width %> oembed-block">
+        <%= render_oembed_tag url %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="<%= 'col-md-6' if oembed_block.text? %> col-12 <%= oembed_block.content_align == 'right' ? 'float-right' : 'float-left' %> oembed-block">
+      <%= render_oembed_tag oembed_block.url %>
+    </div>
+
+    <% if oembed_block.text? %>
+      <div class="text-col col-md-6 mw-100">
+        <% unless oembed_block.title.blank? %>
+          <h3><%= oembed_block.title %></h3>
+        <% end %>
+        <%= sir_trevor_markdown oembed_block.text %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

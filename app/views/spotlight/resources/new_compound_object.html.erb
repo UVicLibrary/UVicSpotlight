@@ -1,0 +1,147 @@
+<% content_for(:sidebar) do %>
+  <%= render 'spotlight/shared/exhibit_sidebar' %>
+<% end %>
+
+<%= curation_page_title t("Add compound object") %>
+
+<p>Combine multiple items into one object (e.g. several pages in the same book). Items must be <%= link_to "uploaded", new_exhibit_resource_path(current_exhibit) %> images.</p>
+
+<%= bootstrap_form_for([current_exhibit, @resource.becomes(Spotlight::Resources::Upload)], layout: :horizontal, label_col: 'col-md-2', control_col: 'col-sm-6 col-md-6', html: { class: 'item-upload-form', multipart: true } ) do |f| %>
+  <%= f.fields_for :data do |d| %>
+    <% Spotlight::Resources::Upload.fields(current_exhibit).each do |config| %>
+      <%= d.send(config.form_field_type, config.field_name, label: uploaded_field_label(config)) %>
+    <% end %>
+
+    <% current_exhibit.custom_fields.each do |custom_field| %>
+      <%= render partial: "spotlight/custom_fields/form_group/#{custom_field.field_type}", locals: { inline: true, f: d, field: custom_field, value: nil }  %>
+    <% end %>
+  <% end %>
+
+
+<!-- Item IDs field -->
+  <div class="form-group item-ids-field">
+    <div class = "col-sm-6 col-md-6 item-ids-input" style="display:block;">
+      <input class="form-control" type="hidden" name="resources_upload[compound_ids][]" id="resources_upload_compound_ids" value>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <div class="primary-actions">
+      <%= cancel_link @resource, :back, class: 'btn btn-default' %>
+      <%= f.submit 'Add compound object', class: 'btn btn-primary submit-compound-object' %>
+    </div>
+  </div>
+  <% end %><!-- bootstrap_form_for -->
+
+<%= form_tag(exhibit_resources_path, remote: true, method: :get, class: "mt-4") do %>
+  <div class="form-group row" id="resources-lookup">
+    <!-- Search for an item -->
+    <div id="search-option">
+      <label class="col-form-label" for="toggleSelection2">
+        Look up an Item
+      </label>
+    </div>
+    <div class="mb-3 col-sm-6 col-md-6">
+        <%= text_field_tag(:cdq, "", class: 'form-control', placeholder: "Title or description", disabled: false, id: "search-field") %>
+        </div>
+        <%= button_tag(type: :submit, class: "btn btn-large btn-secondary", disabled: false, id: "submit-search", style: "height: fit-content;") do %>
+          Search
+        <% end %>
+        <%= link_to 'See all items', admin_exhibit_catalog_path(current_exhibit), target: "_blank", class: "ml-3 mt-2" %>
+  </div><!-- /#resources-lookup -->
+<% end %>
+
+  <!-- Panels added from search-->
+  <div class="row">
+    <div class="panel-group dd col-sm-6 col-md-6 col-lg-6">
+      <ol id="items">
+      </ol>
+    </div>
+  </div>
+
+  <div id="results" class="col-md-10">
+      <%= render 'results' %>
+  </div>
+
+<script>
+
+  $( document ).on('turbolinks:load', function() {
+
+    // Validate item IDs
+    $('.submit-compound-object').click(function(e) {
+      errorMessage = '<span class="invalid-feedback">You did not define Item IDs for your compound object.</span>'
+      // If the IDs field is empty or blank
+      if (!$('#resources_upload_compound_ids').val() || $('#resources_upload_compound_ids').val() == '""') {
+        e.preventDefault();
+        if (!$('.item-ids-field span').length) {
+          $('.item-ids-field').append(errorMessage);
+        }
+      }
+    });
+    // Events for buttons and sortable panels
+    $('#results').on('click', '.add-doc-id', addPanel);
+    $(document).on('click', '.remove-id', removePanel);
+  }); // turbolinks:load
+
+    var idsInOrder = [];
+
+    // Update the order of compound ids with quotation marks and separated by commas ("1-385","1-386")
+    function updateIdsOrder() {
+      idsInOrder = [];
+      // console.log("Sorted!");
+      $('.panel-heading').each(function(){
+        idsInOrder.push($(this).attr('id'));
+      });
+      var quotedIds = '["' + idsInOrder.join('","') + '"]';
+      // var quotedIds = "['" + idsInOrder.join("','") + "']";
+      // var quotedIds = idsInOrder;
+      $('#resources_upload_compound_ids').val(quotedIds);
+    }
+
+//==========================================================================================================//
+
+// SEARCH AND PANELS
+
+    // Create sortable panels for search option
+    // See https://sortablejs.github.io/Sortable/
+    var sortable = new Sortable(items, {
+        ghostClass: 'ghost',
+        sort: true,
+        onSort: function() {
+          updateIdsOrder();
+        }
+    });
+
+    function addPanel() {
+      // Grab the appropriate title from the link clicked
+      var title = $(this).parents('tr').find('.title').text();//.text();
+      // Add compound ID to text box
+      var doc = $(this).parents('tr').find('.doc-id > span').text();
+      //var docSpan = '<span class="doc-span">' + doc + '</span>';
+      var thumbnail = $(this).parents('tr').find('.document-thumbnail img').attr('src');
+
+      panelContent =
+      '<li class="dd-item">' +
+      '<div class="dd3-content card d-flex">' +
+          '<div class="dd-handle dd3-handle"></div>' +
+          '<div class="new-manifest-panel d-flex card-header panel-heading" id="' + doc + '">' +
+            '<div class="document-thumbnail">' +
+              '<img src="' + thumbnail + '"/>' +
+            '</div>' +
+            '<span>' + title + '</span>' +
+            '<a class="btn btn-link remove-id">' + '<span class="glyphicon glyphicon-remove remove-button" aria-hidden="true"></span>' +
+            '</a>' +
+          '</div>' +
+          '</div>' +
+      '</div>' +
+      '</li>'
+      $('.panel-group > ol').append(panelContent);
+      updateIdsOrder();
+    }
+
+    function removePanel() {
+      $(this).parents('.dd3-content.panel').remove();
+      updateIdsOrder();
+    }
+
+</script>

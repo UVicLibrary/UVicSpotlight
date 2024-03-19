@@ -1,0 +1,33 @@
+<% audio_with_image_block.with_solr_helper(self) %>
+
+<style>
+  audio { width: 100% }
+</style>
+
+<div class="content-block audio-with-image-block row">
+  <% if audio_with_image_block.documents? %>
+  <div class="items-col spotlight-flexbox pull-<%= audio_with_image_block.content_align %> <%= audio_with_image_block.text? ? "col-md-6" : "col-md-12" %> ">
+    <div class="box">
+      <div class="image-container" data-id="<%=audio_with_image_block.image.id %>">
+        <% if audio_with_image_block.use_viewer == "true" %>
+          <%= render_document_partials audio_with_image_block.image, blacklight_config.view.embed.partials, (blacklight_config.view.embed.locals || {}).reverse_merge(block: audio_with_image_block) %>
+        <% else %>
+          <img src="<%= audio_with_image_block.image['thumbnail_url_ssm'].first %>" />
+        <% end %>
+      </div>
+      <div class="audio-container" data-id="<%= audio_with_image_block.audio.id %>">
+        <%= render_document_partials audio_with_image_block.audio, blacklight_config.view.embed.partials, (blacklight_config.view.embed.locals || {}).reverse_merge(block: audio_with_image_block) %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <% if audio_with_image_block.text? %>
+    <div class="text-col col-md-6">
+      <% unless audio_with_image_block.title.blank? %>
+        <h3><%= audio_with_image_block.title %></h3>
+      <% end %>
+      <%= sir_trevor_markdown audio_with_image_block.text %>
+    </div>
+  <% end %>
+</div>

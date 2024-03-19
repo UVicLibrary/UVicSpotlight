@@ -1,0 +1,6 @@
+<div id="content" class="<%= show_content_classes %>"><!-- see app/helpers/blacklight/layout_helper_behavior -->
+  <%= render_document_main_content_partial %>
+</div>
+<div id="metadata-sidebar" class="<%= show_sidebar_classes %>">
+  <%= render partial: "metadata_pages" if @resource.compound_object? %>
+</div>

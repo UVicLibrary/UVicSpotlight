@@ -1,0 +1,27 @@
+<% resource = document.uploaded_resource %>
+<% if resource.compound_object? %>
+  <% count = resource.compound_ids.count %>
+  <div class="osd-toolbar row">
+    <div class="col-md-6 pagination">
+      <a id="osd-previous" onclick="updatePlayer(this, <%= count %>);"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <span id="osd-page">1</span> of <%= count %>
+      <a id="osd-next" onclick="updatePlayer(this, <%= count %>);"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div>
+  </div>
+<% end %>
+<% resources = resource.compound_object? ? child_resources(resource.compound_ids) : [resource] %>
+<% page_number = 0 %>
+<% resources.each do |resource| %>
+  <%# videos are initially set to display:none, then the first resource is made visible %>
+  <% display = (resources.count > 1 ? "none" : "block") %>
+  <video class="pull-left audioplayer" id="audio_<%= page_number %>" style="display: <%= display %>" controls>
+    <source src="<%= file_url(resource) %>" type="video/mp4">
+  </video>
+  <% page_number += 1 %>
+<% end %>
+<% if resource.file_type == "compound object" %>
+  <script>
+  // Next and previous audio files for audio compound objects (e.g. SolrDocument.find("1-32"))
+  document.getElementById('audio_0').style.display = "block";
+  </script>
+<% end %>

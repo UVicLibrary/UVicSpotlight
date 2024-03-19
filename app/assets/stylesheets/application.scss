@@ -1,0 +1,20 @@
+// Import gem scss files
+@import 'bootstrap-tagsinput';
+@import 'spotlight/variables_bootstrap';
+@import "bootstrap";
+@import "sir-trevor/main";
+@import 'leaflet';
+@import "font-awesome";
+@import "blacklight/blacklight";
+@import "spotlight/spotlight";
+
+//Import custom css files
+@import "catalog_admin";
+@import "custom";
+@import "custom_blacklight_styles";
+@import "dashboard";
+@import "pages";
+
+// Import all top-level css files. To include a file in a
+// subdirectory, use @import "relative_path/to/file"
+//@import "*";

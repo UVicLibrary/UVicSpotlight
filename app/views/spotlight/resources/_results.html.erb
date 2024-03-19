@@ -1,0 +1,53 @@
+<% if @results %>
+  <% if @results.empty? %>
+    <p>No results found. (Only files that are images can be part of compound objects.)</p>
+  <% else %>
+    <table id="documents" class="table">
+      <thead>
+        <tr>
+          <th scope="col"></th><!-- For thumbnail -->
+          <th scope="col" class="doc-id-column">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col"></th><!-- For add button -->
+        </tr>
+      </thead>
+      <tbody>
+        <% @results.each do |result| %>
+          <tr>
+            <td>
+              <div class="document-thumbnail spotlight-admin-thumbnail">
+                <%= render_thumbnail_tag(result, { skip_pipeline: true }) %>
+              </div>
+            </td>
+            <td class="doc-id" style="display:none;">
+              <span ><%= result['id'] %></span>
+            </td>
+            <td class="title">
+              <%= link_to exhibit_solr_document_path(current_exhibit.slug, result['id']) do %>
+              <!-- Title, or document ID if resource has no title -->
+              <% if result["full_title_tesim"].blank? %>
+                  <span>Untitled</span>
+              <% else %>
+                <span><%= result["full_title_tesim"][0] %></span>
+              <% end %>
+              <% end %>
+            </td>
+            <td class="description" >
+              <!-- Description -->
+              <% if result["spotlight_upload_description_tesim"].blank? and result["spotlight_upload_dc_description_tesim"].blank? %>
+                No Description.
+              <% elsif result["spotlight_upload_dc_description_tesim"].present? %>
+                <%= result["spotlight_upload_dc_description_tesim"][0].truncate(60, separator: ' ') %>
+              <% else %>
+                <%= result["spotlight_upload_description_tesim"][0].truncate(60, separator: ' ') %>
+              <% end %>
+            </td>
+            <td class="text-center">
+              <a class="add-doc-id" role="button"><button type="button" class="btn btn-success add">Add</button></a>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+  <% end %>

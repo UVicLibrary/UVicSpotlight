@@ -1,0 +1,8 @@
+---
+:concurrency: 20
+:queues:
+  - [default, 5]
+  - event
+  - mailers
+:verbose: true
+:logfile: /home/spotlight/exhibits/log/sidekiq.log

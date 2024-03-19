@@ -1,0 +1,21 @@
+<%# OVERRIDE Spotlight v.3.4 %>
+<%# Include all pages that the current user can read instead of only published pages %>
+<%# pages.published => pages.select { |page| can? :read, page } %>
+<% cache_unless current_user, [current_exhibit, @page, I18n.locale] do %>
+  <ol class="nav sidenav flex-column">
+    <% @exhibit.feature_pages.for_locale.at_top_level.select { |page| can? :read, page }.each do |feature_section| %>
+      <li class="<%= 'active' if current_page? [spotlight, @exhibit, feature_section] %>">
+        <h2 class="h6"><%= link_to_unless_current feature_section.title, [spotlight, @exhibit, feature_section] %></h2>
+        <% child_pages = feature_section.child_pages.select { |page| can? :read, page } %>
+
+        <% if child_pages.any? %>
+          <ol class="subsection">
+            <% child_pages.each do |page| %>
+              <li class="<%= 'active' if current_page? [spotlight, @exhibit, page] %>"><%= link_to_unless_current page.title, [spotlight, @exhibit, page] %></li>
+            <% end %>
+          </ol>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

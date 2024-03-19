@@ -1,0 +1,286 @@
+.items-block .items-col:last-child .box img.embedded-image,
+.items-block .box img.embedded-image {
+    max-height: 500px;
+}
+
+.audioplayer {
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#main-container #sidebar ol.sidenav li > h4 > a {
+    color: #337ab7;
+}
+
+/* -----
+For custom footnotes block
+----- */
+
+.footnote-container {
+    position: relative;
+}
+
+.add-footnote {
+    position: absolute;
+    top: 20px;
+    right: 5px;
+    color: #9B9B9B !important;
+}
+
+.tooltip-inner {
+    white-space:nowrap;
+    max-width:none;
+}
+
+.remove-footnote:hover, .remove-footnote:focus {
+    color: #d9534f !important;
+    opacity: 1;
+}
+
+.add-footnote:hover, .add-footnote:focus {
+    color: #337ab7 !important;
+}
+
+.remove-footnote {
+    display: inline-block;
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    color: #9B9B9B !important;
+}
+
+.footnote-container textarea.st-text-block {
+    width: 95%;
+}
+
+a[href^="#footnote"] {
+    position: relative;
+    bottom: 0.5em;
+    font-size: 0.8em;
+    left: 0.1em;
+}
+
+.footnote-text {
+    font-size: 13px;
+    padding-bottom: 1em;
+}
+
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+.svg-icon {
+    width: 1em;
+    height: 1em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+    fill: #4691f6;
+}
+
+.svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+}
+
+#how-to-manifest-url {
+    left: 1em;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+video {
+  height: fit-content;
+  width: 100%;
+  max-height: 500px !important;
+}
+
+td.delete-button-cell, #documents tr th:nth-child(4), #documents tr.doc-row td:nth-child(4) {
+  text-align: center;
+}
+
+/* New manifest form */
+
+.item-ids-input {
+  display: none;
+}
+
+.invalid-feedback {
+  width: 100%;
+  margin-top: .25rem;
+  color: #dc3545;
+  display: inline-inline-block;
+  position: relative;
+  left: 20%;
+}
+
+.panel-heading.new-manifest-panel .document-thumbnail img {
+  border: 1px solid #777777;
+  width: 60px;
+  height: 60px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  margin-right: 1em;
+}
+.panel-heading.new-manifest-panel .document-thumbnail {
+  display: inline;
+  float: left;
+}
+
+.panel-heading.new-manifest-panel span {
+  /* padding: 1em;
+  display: block; */
+}
+
+.panel-heading.new-manifest-panel {
+  min-height: 80px;
+}
+
+#resources-lookup form {
+  display: inline-block;
+  padding-left: 2em;
+}
+
+#search-option .control-label {
+  text-align: left;
+  margin-bottom: 1.5%;
+  margin-left: 3%;
+}
+
+#search-option .control-label input {
+  text-align: left;
+  margin-right: 5%;
+}
+
+.ghost {
+  opacity: .7;
+  background: #C8EBFB;
+}
+
+.remove-button, .remove-id {
+  position: absolute !important;
+  top: 0.5em !important;
+  right: 0.5em !important;
+}
+
+th.doc-id-column {
+  width: 10%;
+}
+
+tr .title {
+  width: 40%;
+}
+
+tr .description {
+  width: 30%;
+}
+
+.manifest-image {
+  padding-right: 10%;
+}
+
+.panel-group > ol {
+  list-style-type: none;
+}
+
+/* Next and previous page links */
+.next-prev-links {
+    margin-top: 1.5rem;
+    display: block;
+}
+
+ .go-to-prev {
+   display: inline-block;
+   position: absolute;
+   left: 0;
+   margin-bottom: 10%;
+ }
+
+ .go-to-next {
+   display: inline-block;
+   position: absolute;
+   right: 0;
+   margin-bottom: 10%;
+ }
+
+ /* Prevents edit fields from floating right when displaying video, audio, or a model */
+ .blacklight-catalog-edit .edit_solr_document,
+ .blacklight-catalog-show .edit_solr_document {
+   float: left !important;
+ }
+
+/* .items-block .items-col .box {
+  min-height: 600px;
+} */
+
+.custom-navbar-brand {
+	width: 160px;
+    height: 40px;
+    background: transparent url(/uploads/spotlight/LIBR_white.png) no-repeat top left;
+    display: inline-block;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 0;
+    margin-right: 20px;
+    padding-left: 0;
+    margin-top: 8px;
+}
+
+.navbar.navbar-dark:not(#exhibit-navbar) {
+  background-color: #002754 !important;
+  color: #fff;
+}
+
+/*.navbar-right .nav.navbar-nav > li > a {*/
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-item a:not(.dropdown-item),
+.navbar-dark .navbar-nav .nav-item,
+.image-masthead .exhibit-navbar .navbar-nav .nav-link {
+    color: #E6E6E6;
+}
+
+.navbar-dark .navbar-nav .nav-item a:not(.dropdown-toggle) {
+    margin-right: 1rem;
+}
+
+.navbar-dark .navbar-nav.mr-auto {
+    margin-right: 0 !important;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #337AB7;
+    border-color: #204d74;
+}
+
+a, .page-links a, .pagination a {
+    color: #337ab7;
+}
+
+.page-sidebar .nav-link:hover {
+    text-decoration: underline;
+}
+
+#sidebar li {
+    margin-bottom: 0.25rem;
+}
+
+.page-item.active .page-link {
+    background-color: #337AB7;
+}
+
+h1.page-title {
+    margin-bottom: 2.5rem;
+}

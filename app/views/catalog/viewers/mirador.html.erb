@@ -1,0 +1,53 @@
+<%= javascript_include_tag "application" %>
+<%= stylesheet_link_tag "application" %>
+
+<body style="margin-bottom: 0 !important;">
+ <!-- Mirador renders the viewer in this div -->
+ <div class="mirador-viewer" id="mirador-<%= @document.id %>" />
+</body>
+
+<script type="text/javascript">
+  // Initialize the Mirador viewer
+  var mirador = Mirador.viewer({
+      "id": "mirador-<%= @document.id %>",
+      "windows": [
+          {
+              "loadedManifest": "<%= request.base_url %>/spotlight/<%= current_exhibit.slug %>/catalog/<%= @document.id %>/manifest.json",
+              "canvasIndex": 1,
+              "thumbnailNavigationPosition": 'far-bottom'
+          }
+      ]
+  });
+
+  // Only post messages if we're on the catalog#show page
+  if (!!window.parent.location.href.match(/catalog\/\d+-\d+/)) {
+      // For image compound objects, check every 100ms if Mirador thumbnails
+      // are loaded and use them to determine what image is currently selected.
+      var readyStateCheckInterval = setInterval(function() {
+          element = $('div.mirador-current-canvas-grouping.mirador87').find('img');
+          if (element.length > 0) {
+              clearInterval(readyStateCheckInterval);
+
+              // Send a message to the parent window (catalog#show page) that has the iframe
+              // https://javascriptbit.com/transfer-data-between-parent-window-and-iframe-postmessage-api/
+              window.parent.postMessage(`{
+                "canvasIndex" : ${element.closest('.mirador-thumbnail-nav-canvas').data('canvasIndex')}
+              }`);
+
+              // Dispatch an event when a different image is selected (i.e. user clicks
+              // the next or previous buttons, or an image thumbnail)
+              let navTools = $('.mirador-osd-navigation').add($('.mirador-thumbnail-nav-container'));
+              navTools.on('click', function() {
+                  // Waiting to allow time for selected image to have the mirador87 class
+                  setTimeout(function() {
+                      selectedImage = $('div.mirador-current-canvas-grouping.mirador87').find('img');
+                      window.parent.postMessage(`{
+                          "canvasIndex" : ${selectedImage.closest('.mirador-thumbnail-nav-canvas').data('canvasIndex')}
+                      }`);
+                      // console.log(imageChanged);
+                  }, 200);
+              });
+          }
+      }, 100);
+  }
+</script>

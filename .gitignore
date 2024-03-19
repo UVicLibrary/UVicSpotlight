@@ -1,0 +1,28 @@
+public/tmp
+public/uploads/spotlight/exhibit_thumbnail
+public/uploads/spotlight/featured_image
+public/uploads/spotlight/masthead
+public/uploads/spotlight/temporary_image
+
+log/*
+
+tmp/*
+tmp_uploads_cache/*
+.byebug_history
+.idea
+config/secrets.yml
+
+# Ignore Solr data & logs, but keep the configuration
+# files and data dir (needed to create the core)
+solr/data/blacklight-core/data/*
+solr/data/blacklight-core/core.properties
+!solr/data/blacklight-core/data/.keep
+solr/data/gettingstarted
+solr/logs
+solr/log4j2.xml
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

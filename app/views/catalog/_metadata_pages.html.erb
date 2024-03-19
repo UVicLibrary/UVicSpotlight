@@ -1,0 +1,28 @@
+<%# Renders file-level metadata for compound objects %>
+<% page_number = 0 %>
+<% @child_docs.each do |child_doc| %>
+  <% display = (page_number == 0 ? "block" : "none") %>
+  <div class="page metadata-page" id="page_<%= page_number %>" data-canvas-id="<%= child_doc.id %>" style="display: <%= display %>;">
+    <% if @exhibit.users.include? current_or_guest_user %>
+      <%= exhibit_edit_link child_doc, [:edit, current_exhibit, child_doc], class: 'pull-right btn btn-primary' if can?(:curate, current_exhibit) %>
+    <% end %>
+    <div class="metadata-field">
+      <dt class="blacklight-full_title_tesim" onclick="hideShow(event)">
+          <span class="glyphicon glyphicon-chevron-down"></span>
+          Page Title:
+      </dt>
+      <dd class="blacklight-full_title_tesim"><%= child_doc['full_title_tesim'].first %></dd>
+    </div>
+    <%# if @iiif_urls.nil? %>
+      <%= render partial: "metadata_fields", locals: { fields: document_show_fields(child_doc), document: child_doc } %>
+    <%# end -%>
+    <br/>
+    <% download_url = child_doc['thumbnail_url_ssm'].first.gsub('!400,400','full') %>
+    <% if child_doc['resource_file_type_ssi'] == "image" %>
+      <a role="button" class="btn btn-primary" id="download-current-image" target="_blank" href="<%= download_url %>">
+        Download Current Image
+      </a>
+    <% end %>
+  </div>
+  <% page_number += 1 %>
+<% end %>

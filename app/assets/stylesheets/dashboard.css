@@ -1,0 +1,74 @@
+.border-bottom, .page-sidebar .nav-heading {
+    /*border-color: #dee2e6 !important;*/
+    border: none !important;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+h1.page-header {
+    /*font-size: 2rem;*/
+}
+
+.reindexingHistory h2,
+.pageHistory h2,
+.updatedItems h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.25rem;
+    font-weight: normal;
+}
+
+h2 {
+    margin-bottom: 1rem;
+}
+
+p.instructions {
+    border: none;
+}
+
+.reindexingHistory.mb4,
+.pageHistory.mb4 {
+    margin-bottom: 2rem !important;
+}
+
+.page-header small {
+    font-size: 1.75rem;
+}
+
+.breadcrumb-item.active {
+    color: #333;
+}
+
+table.table th {
+    font-weight: 500;
+}
+
+#documents.table tbody .page-links {
+    padding: 0;
+}
+
+#documents.table tbody .page-links a {
+    line-height: 1.25;
+}
+
+.pageHistory .table {
+    margin-bottom: 2.5rem;
+}
+
+.pageHistory h4 {
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 0.25rem !important;
+}
+
+.documentHeader.row h5.index_title {
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+#documents.table .document-thumbnail {
+    width: 60px;
+}
+
+.page-sidebar .nav-heading {
+    font-weight: 400;
+}

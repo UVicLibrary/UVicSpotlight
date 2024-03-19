@@ -1,0 +1,103 @@
+/*****************/
+/* METADATA PAGE */
+/****************/
+
+/* page {
+	padding: 30px;
+	margin-left: 60%;
+} */
+
+#document:not(.documents-list) .metadata-field dt,
+#metadata-sidebar .metadata-field dt {
+    margin-top: 1rem;
+    color: #337ab7;
+}
+
+/*#document .metadata-field dt {*/
+/*    font-weight: 500;*/
+/*}*/
+
+#documents.documents-list .metadata-field {
+    margin-top: 1rem;
+}
+
+#documents.documents-list .metadata-field dt {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+    /*.document-list .metadata-field {*/
+/*    margin-top: 10px;*/
+/*}*/
+
+.dl-invert.metadata-default dt:hover {
+    text-decoration: underline;
+}
+
+.dl-invert.metadata-default dt, #object-download {
+    font-weight: bold !important;
+}
+
+.blacklight-spotlight_upload_dc_description_transcript_tesim {
+    white-space: pre-line;
+}
+
+.dl-invert.metadata-default {
+    clear:both;
+    background-color: rgba(222,205,184,.4);
+    padding:30px;
+}
+
+/*************************/
+/* CATALOG#SHOW SIDEBAR */
+/*************************/
+
+#results p {
+    margin-top: 2em;
+    text-align: center;
+}
+
+#documents.documents-list .document-thumbnail img {
+    max-width: 300px;
+}
+
+.items-col video {
+    height: auto;
+}
+
+/**********/
+/* FACETS */
+/**********/
+
+/* Applied filter lists */
+.appliedFilter.filter-spotlight_upload_dc_coverage-spatial_location_ftesim .filterValue,
+.appliedFilter.filter-spotlight_upload_dc_subject_people_ftesim .filterValue,
+.appliedFilter.filter-spotlight_upload_dc_subjects_ftesim span::first-letter
+{
+    text-transform: capitalize;
+}
+
+.appliedFilter.filter-spotlight_upload_dc_subjects_ftesim .filterValue
+{
+    display: inline-block;
+}
+
+/* Facet labels */
+#facet-spotlight_upload_dc_subject_people_ftesim ul.facet-values,
+#facet-spotlight_upload_dc_coverage-spatial_location_ftesim ul.facet-values,
+#facet-spotlight_upload_language_ftesim ul.facet-values,
+/* Custom (exhibit-specific) fields */
+#facet-exhibit_marybutts_people-referenced-in-letter_ftesim ul.facet-values,
+#facet-exhibit_marybutts_texts-referenced-in-letter_ftesim ul.facet-values,
+#facet-exhibit_marybutts_places-referenced-in-letter_ftesim ul.facet-values,
+#facet-exhibit_marybutts_sent-to-location_ftesim ul.facet-values,
+#facet-spotlight_upload_dc_subjects_ftesim ul.facet-values span::first-letter
+{
+    text-transform: capitalize;
+}
+
+.documents-list .document .documentHeader.row .index_title.document-title-heading {
+    font-weight: 500 !important;
+    font-size: 1.5rem !important;
+}

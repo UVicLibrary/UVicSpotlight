@@ -1,0 +1,40 @@
+<hr/>
+<div class="row">
+  <div class="col-md-12">
+    <ol>
+      <% footnotes = footnotes_block.to_h.delete_if{ |key, value| value.blank? }.values %>
+      <%#= footnotes %>
+      <% footnotes.each do |value| -%>
+        <li class="footnote-text">
+          <a class="footnote-link" id="footnote-<%= footnotes.index(value) + 1 %>"></a><%# if value contains link regex %>
+          <% if value.match?(/(?:__|[*#])|\[(.*?)\]\((.*?)\)/) %>
+          <%# gsub the markdown syntax for the relevant html %>
+            <% new_value = value.clone %>
+            <%# Return match data for all regex matches. See https://stackoverflow.com/questions/6804557/how-do-i-get-the-match-data-for-all-occurrences-of-a-ruby-regular-expression-in %>
+            <% matches = value.to_enum(:scan, /(?:__|[*#])|\[(.*?)\]\((.*?)\)/).map { Regexp.last_match } %>
+            <% matches.each do |match| %>
+              <% to_replace = match[0] %>
+              <% replace_with = %Q(<a href="#{match[2]}">#{match[1]}</a>) %>
+              <% new_value.gsub!(to_replace, replace_with) %>
+            <% end %>
+            <%= new_value.gsub(/\n/,'<br/>').html_safe %>
+          <% else %>
+            <%= value.gsub(/\n/,'<br/>').html_safe %>
+          <% end %>
+          <a class="back-link" href="javascript:;" back-to="footnote-<%= footnotes.index(value) + 1 %>"> Back ↑</a>
+        </li>
+      <%- end -%>
+    </ol>
+  </div>
+</div>
+<style>
+
+</style>
+<script>
+  $(document).on('click','.back-link', function(e) {
+      // Use a filtered list of visible (i.e. not blank) keys or attributes
+      footnote = $(this).attr("back-to");
+      // Scroll back to the footnote location and center it in the window
+      $('a[href="#' + footnote + '"]').get(0).scrollIntoView({block: "center"});
+  });
+</script>

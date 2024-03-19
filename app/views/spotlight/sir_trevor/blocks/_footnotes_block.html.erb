@@ -1,0 +1,26 @@
+<hr/>
+<div class="row">
+  <div class="col-md-12">
+    <ol>
+      <% footnotes = footnotes_block.to_h.delete_if{ |_, value| value.blank? }.values %>
+      <% footnotes.each do |value| -%>
+        <li class="footnote-text">
+          <a class="footnote-link" id="footnote-<%= footnotes.index(value) + 1 %>"></a><%# if value contains link regex %>
+          <%= sir_trevor_markdown value %>
+          <a class="back-link" href="javascript:;" back-to="footnote-<%= footnotes.index(value) + 1 %>"> Back ↑</a>
+        </li>
+      <%- end -%>
+    </ol>
+  </div>
+</div>
+<style>
+
+</style>
+<script>
+  $(document).on('click','.back-link', function(e) {
+      // Use a filtered list of visible (i.e. not blank) keys or attributes
+      footnote = $(this).attr("back-to");
+      // Scroll back to the footnote location and center it in the window
+      $('a[href="#' + footnote + '"]').get(0).scrollIntoView({block: "center"});
+  });
+</script>
