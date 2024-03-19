@@ -75,7 +75,7 @@ Solr should now be running at `localhost:8983`. See the official [Solr documenta
 
 Our custom Solr configuration files are stored in `solr/conf`. To create the core configured in `config/blacklight.yml`, go to the **Solr Dashboard (localhost:8983) > Core Admin > Add Core**. Fill out the popup with the following options:
 
-![](./solr_core_config.JPG)
+![](./solr_core_config.jpg)
 
 ### App Components
 
