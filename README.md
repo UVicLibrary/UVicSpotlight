@@ -11,7 +11,6 @@ We use a combination of Ubuntu on WSL 2 and Docker for our development environme
 * **Solr (v. 9.4)**
 
 #### Apps Components
-* **VIPS** - image processing library for thumbnail generation. 
 * **ImageMagick (development) or GraphicsMagick (production)** - For the IIIF server (powered by the [RIIIF gem](https://github.com/sul-dlss/riiif)). In future, we hope to create a version of RIIIF that uses VIPS instead.
 * **ffmpeg** - audio/video processing library for thumbnail generation.
 * **Redis (production only)** - used to run batch uploads in the background.
