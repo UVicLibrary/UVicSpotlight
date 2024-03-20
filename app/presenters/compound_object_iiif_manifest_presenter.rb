@@ -8,6 +8,13 @@ class CompoundObjectIiifManifestPresenter < ImageIiifManifestPresenter
   def iiif_manifest_json
     manifest = JSON.parse(super)
     child_docs = child_docs_query(@resource.uploaded_resource.compound_ids)
+
+    # Match the document ids to the resource's compound_ids
+    # to ensure they're in the correct order
+    child_docs.sort_by! do |hash|
+      @resource.uploaded_resource.compound_ids.index(hash['id'])
+    end
+
     sequence = manifest['sequences'][0]
 
     # The compound object itself shouldn't be listed as a canvas
