@@ -87,6 +87,7 @@ Spotlight::ResourcesController.class_eval do
           q: params[:cdq],
           rows: 20,
           fl: ["id", "full_title_tesim", "spotlight_upload_description_tesim", "thumbnail_url_ssm"],
+          # TO DO: Limit this to images, video, and audio only
           fq:["spotlight_exhibit_slug_#{@exhibit.slug}_bsi:true"]
        })
     end
