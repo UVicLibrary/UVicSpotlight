@@ -7,7 +7,7 @@ gem 'video_thumbnailer'
 gem 'streamio-ffmpeg'
 # gem 'mimemagic', '0.3.10'
 gem 'combine_pdf'
-gem 'pdftoimage', '0.2.0'
+gem 'pdftoimage', '>= 0.2.0'
 gem 'rest-client'
 
 # gem 'mime-types'

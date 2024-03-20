@@ -534,7 +534,7 @@ DEPENDENCIES
   matrix
   mysql2
   net-http
-  pdftoimage (= 0.2.0)
+  pdftoimage (>= 0.2.0)
   popper_js
   posix-spawn
   psych (~> 3.3)
