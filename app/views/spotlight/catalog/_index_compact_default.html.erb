@@ -1,6 +1,7 @@
 <%# Table row for doc items in catalog#admin and /:exhibit_id/dashboard -%>
 <td>
-  <%= render_document_partial document, 'spotlight/catalog/admin_thumbnail', document_counter: document_counter %>
+  <%#= render_document_partial document, 'spotlight/catalog/admin_thumbnail', document_counter: document_counter %>
+  <%= render partial: 'spotlight/catalog/admin_thumbnail_default', locals: { document: document, document_counter: document_counter } %>
 </td>
 <td>
   <%= render_document_partial document, 'admin_index_header', document_counter: document_counter %>
