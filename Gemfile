@@ -7,10 +7,10 @@ gem 'video_thumbnailer'
 gem 'streamio-ffmpeg'
 # gem 'mimemagic', '0.3.10'
 gem 'combine_pdf'
-gem 'pdftoimage'
+gem 'pdftoimage', '0.2.0'
 gem 'rest-client'
 
-gem 'mime-types'
+# gem 'mime-types'
 gem 'httparty'
 gem 'sortable-rails'
 
@@ -61,10 +61,10 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
-gem 'blacklight-spotlight', '3.4' # '3.1'
+gem 'blacklight-spotlight', '3.5.0.3' # '3.1'
 
 # Changes for Rails 6 and sprockets
-gem 'rails', '6.1.7'
+gem 'rails', '7.0.8.1' # '6.1.7'
 # See https://github.com/projectblacklight/blacklight/wiki/Using-Sprockets-to-compile-javascript-assets
 gem 'bootstrap', '~> 4.0'
 gem 'popper_js'
@@ -93,3 +93,6 @@ gem "http_parser.rb"
 gem 'ruby-oembed'
 gem "psych", '~> 3.3'
 gem 'net-http'
+
+# New for Ruby 3
+gem 'matrix'

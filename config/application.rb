@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Exhibits
   class Application < Rails::Application
 
-    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol]
+    # config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol]
     # config.assets.initialize_on_precompile = true
 
     config.to_prepare do
@@ -21,7 +21,7 @@ module Exhibits
 
     config.after_initialize do
       # Psych Allow YAML Classes
-      config.active_record.yaml_column_permitted_classes = [Symbol, Hash, Array, ActiveSupport::HashWithIndifferentAccess, ActiveModel::Attribute.const_get(:FromDatabase), Time]
+      # config.active_record.yaml_column_permitted_classes = [Symbol, Hash, Array, ActiveSupport::HashWithIndifferentAccess, ActiveModel::Attribute.const_get(:FromDatabase), Time]
     end
 
         # config.action_mailer.default_url_options = { host: "mail", from: "noreply@example.com" }
