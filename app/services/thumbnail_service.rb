@@ -1,8 +1,6 @@
 class ThumbnailService
   include VideoThumbnailer
 
-  require 'combine_pdf'
-  require 'pdftoimage'
   require 'fileutils'
   require 'rest_client'
 
@@ -38,14 +36,11 @@ class ThumbnailService
         "/uploads/spotlight/audio.png"
       end
     when "pdf"
-      first_page = CombinePDF.load("#{full_thumbnail_dir_path}/#{@resource.file_name}", allow_optional_content: true).pages[0]
-      pdf_name = File.basename(@resource.file_name)
-      new_pdf = CombinePDF.new
-      new_pdf << first_page
-      first_page_path = "#{full_thumbnail_dir_path}/#{File.basename(pdf_name)}-cover.pdf"
-      new_pdf.save first_page_path
-      PDFToImage.open(first_page_path).first.resize("50%").save("#{full_thumbnail_dir_path}/#{pdf_name}-thumb.jpeg")
-      "/#{thumbnail_dir_path(@resource)}/#{pdf_name}-thumb.jpeg"
+      pdf_name = File.basename(@resource.file_name, '.pdf')
+      # Run vips from the command line
+      `vips thumbnail #{full_thumbnail_dir_path}/#{@resource.file_name} #{full_thumbnail_dir_path}/#{pdf_name}-thumb.jpg 500x`
+      # Return the thumbnail path for indexing
+      "/#{thumbnail_dir_path(@resource)}/#{pdf_name}-thumb.jpg"
     when "model"
       if @resource.data.has_key? "spotlight_upload_Sketchfab-uid_tesim"
         uid = (@resource.uid || @resource.data["spotlight_upload_Sketchfab-uid_tesim"])
