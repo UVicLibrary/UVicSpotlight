@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 Spotlight::ResourcesController.class_eval do
   include Spotlight::Catalog
 
