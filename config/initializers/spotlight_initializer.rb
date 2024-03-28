@@ -28,7 +28,7 @@ require 'spotlight/upload_field_config'
 # ==> Solr configuration
 # Spotlight::Engine.config.writable_index = true
 # Spotlight::Engine.config.solr_batch_size = 20
-# Spotlight::Engine.config.filter_resources_by_exhibit = true
+Spotlight::Engine.config.filter_resources_by_exhibit = true
 # Spotlight::Engine.config.autocomplete_search_field = 'autocomplete'
 # Spotlight::Engine.config.default_autocomplete_params = { qf: 'id^1000 full_title_tesim^100 id_ng full_title_ng' }
 
@@ -311,5 +311,9 @@ ActiveSupport::Reloader.to_prepare do
   Spotlight::Resource.class_eval do
 		has_many :solr_document_sidecars, dependent: :destroy
 		serialize :compound_ids, Array
-	end
+  end
+
+  Translation.class_eval do
+    include Spotlight::CustomTranslationExtension
+  end
 end
