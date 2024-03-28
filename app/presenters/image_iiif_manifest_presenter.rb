@@ -37,10 +37,12 @@ class ImageIiifManifestPresenter < Spotlight::IiifManifestPresenter
     def add_metadata(manifest)
       metadata = fields.map do |field|
         next if (excluded_field_labels.include?(field.label) || @resource.keys.exclude?(field.field_name))
-        values = @resource[field.field_name].join('/n')
+        values = Array.wrap(@resource[field.field_name]).flatten.join('/n')
         label = field.label
         { 'label' => label, 'value' => values }
       end.select(&:presence)
+      # Unescape HTML entities that are are escaped by the IIIF manifest gem
+      manifest['label'] = Nokogiri::XML.fragment(manifest['label']).text
       manifest['metadata'] = metadata
     end
 
