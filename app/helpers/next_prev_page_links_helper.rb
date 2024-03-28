@@ -14,13 +14,18 @@ module NextPrevPageLinksHelper
   end
 
   def previous_page
-    return if @page == viewable_pages.first
+    return if @page == viewable_pages.first or omit_page_links?
     viewable_pages[viewable_pages.index(@page) - 1]
   end
 
   def next_page
-    return if @page == viewable_pages.last
+    return if @page == viewable_pages.last or omit_page_links?
     viewable_pages[viewable_pages.index(@page) + 1]
+  end
+
+  def omit_page_links?
+    included_classes = [Spotlight::HomePage, Spotlight::FeaturePage]
+    included_classes.exclude? @page.class
   end
 
 end
