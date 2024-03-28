@@ -15,7 +15,7 @@ class CatalogController < ApplicationController
 
     config.view.gallery(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index_header, :index])
     config.view.masonry(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index])
-    # config.view.slideshow(document_component: Blacklight::Gallery::SlideshowComponent, partials: [:index])
+    config.view.slideshow(document_component: Blacklight::Gallery::SlideshowComponent, partials: [:index])
     config.view.embed.partials = [:item_viewer]
 
     config.index.title_field = 'full_title_tesim'
