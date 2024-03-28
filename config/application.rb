@@ -12,6 +12,11 @@ module Exhibits
     # config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol]
     # config.assets.initialize_on_precompile = true
 
+    # Since Rails 6/7, the new autoloader, Zeitwerk, will eagerload any dir in app.
+    # However, we don't want to eagerload our decorators just yet, since Spotlight and
+    # other gems need to be loaded before we load our decorators.
+    Rails.autoloaders.main.ignore(Rails.root.join('app/decorators'))
+
     config.to_prepare do
       # Allows us to use decorator files
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")).sort.each do |c|
@@ -21,7 +26,8 @@ module Exhibits
 
     config.after_initialize do
       # Psych Allow YAML Classes
-      # config.active_record.yaml_column_permitted_classes = [Symbol, Hash, Array, ActiveSupport::HashWithIndifferentAccess, ActiveModel::Attribute.const_get(:FromDatabase), Time]
+      # config.active_record.yaml_column_permitted_classes = [Symbol, Hash, Array,
+      # ActiveSupport::HashWithIndifferentAccess, ActiveModel::Attribute.const_get(:FromDatabase), Time]
     end
 
         # config.action_mailer.default_url_options = { host: "mail", from: "noreply@example.com" }
