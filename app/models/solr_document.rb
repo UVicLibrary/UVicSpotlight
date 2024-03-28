@@ -27,10 +27,14 @@ class SolrDocument
     self['resource_file_type_ssi'] || file_type_from_resource
   end
 
+  def resource
+    self.try(:uploaded_resource) || Spotlight::Resource.find(self.id.split('-').last.to_i)
+  end
+
   private
 
   def file_type_from_resource
-    Spotlight::Resource.find(self.id.split('-').last.to_i).file_type
+    resource.file_type
   end
 
 end

@@ -20,24 +20,25 @@ Spotlight::CatalogController.class_eval do
     authenticate_user! && authorize!(:curate, current_exhibit) if @document.private? current_exhibit
 
     add_document_breadcrumbs(@document)
-    @resource = @document.uploaded_resource
+    @resource = @document.resource
 
-    if @resource.compound_object?
-      query = "id:(#{@resource.compound_ids.join(" OR ")})"
-      # _response, @child_docs = search_service.search_results(q: query, rows: 500, qt: 'standard')
-      _response, @child_docs = search_service.search_results do |builder|
-        builder.with({
-           q: query,
-           rows: 500,
-           qt: 'standard'
-       })
+    if @document.uploaded_resource?
+      if @resource.compound_object?
+        query = "id:(#{@resource.compound_ids.join(" OR ")})"
+        _response, @child_docs = search_service.search_results do |builder|
+          builder.with({
+                           q: query,
+                           rows: 500,
+                           qt: 'standard'
+                       })
+        end
       end
     end
   end
 
   def update
     @response, @document = search_service.fetch params[:id]
-    @resource = @document.uploaded_resource
+    @resource = @document.resource
 
     if params[:solr_document][:uploaded_resource]
       new_file_name = params[:solr_document][:uploaded_resource][:url].original_filename
@@ -56,7 +57,7 @@ Spotlight::CatalogController.class_eval do
 
   def edit
     @response, @document = search_service.fetch params[:id]
-    @resource = @document.uploaded_resource
+    @resource = @document.resource
     @docs = []
   end
 
@@ -68,8 +69,10 @@ Spotlight::CatalogController.class_eval do
 
   def manifest_presenter_class
     _, @document = search_service.fetch params[:id]
+    @resource = @document.resource
+
     if @document.uploaded_resource?
-      @resource = @document.uploaded_resource
+      # @resource = @document.uploaded_resource
       case @resource.file_type
       when "image"
         ImageIiifManifestPresenter
@@ -88,7 +91,7 @@ Spotlight::CatalogController.class_eval do
   # Render a manifest as a raw json file
   # Order of operations: Spotlight's pre-generated manifest -> modified manifest
   # -> manifest_fullscreen -> _mirador partial.
-  # Catalog#show calls openseadragon_default view, which has an iframe to manifest_fullscreen.
+  # Catalog#show calls openseadragon_default view, which has an iframe to mirador.
   # See http://projectmirador.org/docs/docs/getting-started.html#iframe
   def manifest
     manifest = manifest_presenter_class.new(@document, self).iiif_manifest_json
