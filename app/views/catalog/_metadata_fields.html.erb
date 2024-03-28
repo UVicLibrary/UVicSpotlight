@@ -6,9 +6,8 @@
           <%# From font-awesome-rails gem %>
           <%= fa_icon "chevron-down" %><%= field.label + ":" %>
         </dt>
-      <%# end %>
       <dd class="blacklight-<%= field_name.parameterize %>">
-        <%= document_presenter(document).field_value(field) %>
+        <%= field_value(document_presenter(document), field) %>
       </dd>
     </div>
     <!-- show field_name <%= field_name %> -->
