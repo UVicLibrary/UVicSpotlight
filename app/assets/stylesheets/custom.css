@@ -1,3 +1,15 @@
+.img-thumbnail {
+    border: none;
+}
+
+.exhibit-card {
+    background: #f5f5f5;
+}
+
+.exhibit-card .card-title a {
+    color: #333;
+}
+
 .items-block .items-col:last-child .box img.embedded-image,
 .items-block .box img.embedded-image {
     max-height: 500px;
