@@ -45,7 +45,7 @@ Spotlight::Resources::UploadController.class_eval do
         'isPublished' => "true",
         'modelFile'=> File.new(@resource.upload.image.file.file, 'rb')
     }
-    response = RestClient.post("https://api.sketchfab.com/v3/models", data, { Authorization: "Token #{Rails.application.secrets[:sketchfab_api_key]}", accept: :json })
+    response = RestClient.post("https://api.sketchfab.com/v3/models", data, { Authorization: "Token #{Rails.application.credentials.gmaps_api_key}", accept: :json })
     # Save Sketchfab uid to column in resource
     @resource.uid = JSON.parse(response.body)["uid"]
   end

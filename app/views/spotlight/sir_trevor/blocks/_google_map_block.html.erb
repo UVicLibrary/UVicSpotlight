@@ -150,7 +150,7 @@ var openInfoWindow;
 * The callback parameter executes the initMap() function
 -->
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.secrets[:gmaps_api_key]%>&callback=initMap">
+src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.gmaps_api_key %>&callback=initMap">
 </script>
 
 <!--<div class="content-block google-map-block"> -->
