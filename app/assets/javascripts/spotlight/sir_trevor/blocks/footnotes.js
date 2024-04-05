@@ -118,7 +118,7 @@ function footnoteTextbox(counter) { return [
 function addButton() {
     return [
         '<a class="btn btn-link add-footnote" data-toggle="tooltip" data-placement="right" title="Add footnote after">',
-            '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>',
+            '<i class="fa fa-plus" aria-hidden="true"></i>',
         '</a>'
     ].join("\n")
 }
@@ -126,7 +126,7 @@ function addButton() {
 function deleteButton() {
     return [
         '<a class="btn btn-link remove-footnote" data-toggle="tooltip" data-placement="right" title="Delete this footnote">',
-            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>',
+            '<i class="fa fa-times" aria-hidden="true"></i>',
         '</a>'
     ].join("\n")
 }

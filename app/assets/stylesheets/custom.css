@@ -1,3 +1,7 @@
+a.remove-id i.fa-times {
+    color: #dc3545;
+}
+
 .img-thumbnail {
     border: none;
 }

@@ -129,7 +129,8 @@
               '<img src="' + thumbnail + '"/>' +
             '</div>' +
             '<span>' + title + '</span>' +
-            '<a class="btn btn-link remove-id">' + '<span class="glyphicon glyphicon-remove remove-button" aria-hidden="true"></span>' +
+              '<a class="btn btn-link remove-id">' +
+                '<i class="fa fa-times" aria-hidden="true"></i>' +
             '</a>' +
           '</div>' +
           '</div>' +
@@ -140,7 +141,7 @@
     }
 
     function removePanel() {
-      $(this).parents('.dd3-content.panel').remove();
+      $(this).parents('.dd-item').remove();
       updateIdsOrder();
     }
 
