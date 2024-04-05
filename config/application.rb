@@ -9,7 +9,9 @@ Bundler.require(*Rails.groups)
 module Exhibits
   class Application < Rails::Application
 
-    # config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol]
+    # Prevents errors related to Psych gem
+    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, DateTime, Time]
+
     # config.assets.initialize_on_precompile = true
 
     # Since Rails 6/7, the new autoloader, Zeitwerk, will eagerload any dir in app.
@@ -18,7 +20,7 @@ module Exhibits
     Rails.autoloaders.main.ignore(Rails.root.join('app/decorators'))
 
     config.to_prepare do
-      # Allows us to use decorator files
+      # Now we load decorator files
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")).sort.each do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
       end
