@@ -3,9 +3,9 @@
   <% count = resource.compound_ids.count %>
   <div class="osd-toolbar row">
     <div class="col-md-6 pagination">
-      <a id="osd-previous" onclick="updatePlayer(this, <%= count %>);"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a id="osd-previous" onclick="updatePlayer(this, <%= count %>);"><span class="carousel-control-prev-icon custom-chevron-left"></span></a>
       <span id="osd-page">1</span> of <%= count %>
-      <a id="osd-next" onclick="updatePlayer(this, <%= count %>);"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      <a id="osd-next" onclick="updatePlayer(this, <%= count %>);"><span class="carousel-control-next-icon custom-chevron-right"></span></a>
     </div>
   </div>
 <% end %>

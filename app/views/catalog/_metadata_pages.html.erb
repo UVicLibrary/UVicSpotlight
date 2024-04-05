@@ -9,7 +9,7 @@
       <% end %>
       <div class="metadata-field">
         <dt class="blacklight-full_title_tesim" onclick="hideShow(event)">
-            <span class="glyphicon glyphicon-chevron-down"></span>
+          <%= fa_icon "chevron-down" %>
             Page Title:
         </dt>
         <dd class="blacklight-full_title_tesim"><%= child_doc['full_title_tesim'].first %></dd>
@@ -18,8 +18,8 @@
         <%= render partial: "metadata_fields", locals: { fields: document_show_fields(child_doc), document: child_doc } %>
       <%# end -%>
       <br/>
-      <% download_url = child_doc['thumbnail_url_ssm'].first.gsub('!400,400','full') %>
       <% if child_doc['resource_file_type_ssi'] == "image" %>
+        <% download_url = child_doc['thumbnail_url_ssm'].first.gsub('!400,400','full') %>
         <a role="button" class="btn btn-primary" id="download-current-image" target="_blank" href="<%= download_url %>">
           Download Current Image
         </a>
