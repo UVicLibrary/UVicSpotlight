@@ -1,0 +1,10 @@
+div.documents-gallery .caption-area .document-metadata dt,
+div.documents-gallery .caption-area .document-metadata dd {
+    flex: 1;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+div.documents-gallery .caption-area .document-metadata dt {
+    text-align: left;
+}
