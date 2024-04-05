@@ -36,7 +36,8 @@
 
     <%# show the custom wwi homepage and masthead if we're in the wwi exhibit %>
     <% if params[:controller] == "spotlight/home_pages" && params[:action] == "show" && params[:exhibit_id] == "wwi" %>
-      <%= render partial: 'wwi/home' %>
+      <%#= render partial: 'wwi/home' %>
+      <%= render 'wwi/exhibit_navbar' if current_exhibit && !resource_masthead? %>
     <% else %>
       <%= render partial: 'shared/masthead' %>
     <% end %>
@@ -49,6 +50,9 @@
       <%= render partial: 'shared/flash_msg', layout: 'shared/flash_messages' %>
 
       <div class="row">
+        <% if params[:controller] == "spotlight/home_pages" && params[:action] == "show" && params[:exhibit_id] == "wwi" %>
+          <%= render partial: 'wwi/home' %>
+        <% end %>
         <%= content_for?(:content) ? yield(:content) : yield %>
       </div>
     </main>
