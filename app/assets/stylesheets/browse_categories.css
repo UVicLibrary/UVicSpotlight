@@ -1,0 +1,73 @@
+.categories-1[data-sidebar="false"] .browse-category,
+.categories-2[data-sidebar="false"] .browse-category,
+.categories-3[data-sidebar="false"] .browse-category,
+.categories-4[data-sidebar="false"] .browse-category,
+.categories-5[data-sidebar="false"] .browse-category,
+.categories-1[data-sidebar="true"] .browse-category,
+.categories-2[data-sidebar="true"] .browse-category,
+.categories-3[data-sidebar="true"] .browse-category,
+.categories-4[data-sidebar="true"] .browse-category,
+.categories-5[data-sidebar="true"] .browse-category {
+    max-width: 550px !important;
+}
+
+.spotlight-flexbox.browse-categories .box {
+    flex: 1;
+}
+
+@media (min-width: 500px) {
+    .categories-3[data-sidebar="false"] .browse-category,
+    .categories-3[data-sidebar="true"] .browse-category {
+        width: 156px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .categories-3[data-sidebar="false"] .browse-category {
+        width: 215px;
+    }
+
+    .categories-2[data-sidebar="true"] .browse-category {
+        width: 329px !important;
+    }
+}
+
+@media (min-width: 992px) {
+
+    .categories-3[data-sidebar="false"] .browse-category {
+        width: 328px;
+    }
+
+    .categories-3[data-sidebar="true"] .browse-category {
+        width: 218px;
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+    .spotlight-flexbox.browse-categories.categories-3,
+    .spotlight-flexbox.browse-categories.categories-2 {
+        padding: 0 2rem 0 0;
+    }
+
+    .categories-3[data-sidebar="false"] .browse-category {
+        width: 340px;
+    }
+
+    .categories-3[data-sidebar="true"] .browse-category {
+        width: 250px;
+    }
+
+    .categories-2[data-sidebar="false"] .browse-category {
+        width: 518px !important;
+    }
+
+    .categories-2[data-sidebar="true"] .browse-category {
+        width: 382px !important;
+    }
+
+}
+
+
