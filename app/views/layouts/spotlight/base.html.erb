@@ -52,8 +52,12 @@
       <div class="row">
         <% if params[:controller] == "spotlight/home_pages" && params[:action] == "show" && params[:exhibit_id] == "wwi" %>
           <%= render partial: 'wwi/home' %>
+          <div class="wwi-content-wrapper">
+            <%= content_for?(:content) ? yield(:content) : yield %>
+          </div>
+        <% else %>
+          <%= content_for?(:content) ? yield(:content) : yield %>
         <% end %>
-        <%= content_for?(:content) ? yield(:content) : yield %>
       </div>
     </main>
 
