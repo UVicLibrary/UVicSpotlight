@@ -9,6 +9,7 @@ class ImageIiifManifestPresenter < Spotlight::IiifManifestPresenter
   # @return [<JSON>] - the JSON used by the mirador viewer
   def iiif_manifest_json
     manifest = JSON.parse(iiif_manifest.to_h.to_json)
+    clean_canvas_labels(manifest)
     add_attribution(manifest)
     add_logo(manifest)
     add_metadata(manifest)
@@ -16,6 +17,14 @@ class ImageIiifManifestPresenter < Spotlight::IiifManifestPresenter
   end
 
   private
+
+    # Escape the HTML characters in the image titles (i.e. canvas labels)
+    def clean_canvas_labels(manifest)
+      manifest['sequences'][0]['canvases'].each do |canvas|
+        canvas['label'] = Nokogiri::XML.fragment(canvas['label']).text
+      end
+      manifest
+    end
 
     # @return [<Hash>] - the resulting manifest
     # Note: @resource is the SolrDocument and not the Spotlight::Resource
