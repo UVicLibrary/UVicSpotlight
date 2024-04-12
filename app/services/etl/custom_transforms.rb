@@ -6,7 +6,8 @@ module Etl
     end
 
     AddSketchfabUidTransform = lambda do |data, pipeline|
-      data.merge({'spotlight_upload_Sketchfab-uid_tesim' => pipeline.source.uid})
+      uid = pipeline.source.uid || pipeline.source.data['spotlight_upload_Sketchfab-uid_tesim']
+        data.merge({ 'spotlight_upload_Sketchfab-uid_tesim' => uid })
     end
 
   end
