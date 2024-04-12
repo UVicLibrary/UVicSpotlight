@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   mount Blacklight::Engine => '/'
     
 	require 'sidekiq/web'
-	mount Sidekiq::Web => '/sidekiq'
+  authenticate :user, lambda { |u| u.superadmin? } do
+	  mount Sidekiq::Web => '/sidekiq'
+  end
 	
 #  root to: "catalog#index" # replaced by spotlight root path
 #mount FromHyrax::Engine, at: 'from_hyrax'
