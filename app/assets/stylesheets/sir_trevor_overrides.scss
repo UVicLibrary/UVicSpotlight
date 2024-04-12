@@ -7,3 +7,33 @@
 .item-features .carousel-indicators .active:hover {
   background-color: #337ab7;
 }
+
+.content-block.items-block.row {
+  width: 100%;
+}
+
+.st__content-block.st__content-block--image img {
+  max-width: 100%;
+}
+
+.quote__cite {
+  display: flex;
+  justify-content: right;
+  margin-right: 1rem;
+}
+
+.quote__cite-text {
+  display: inline-flex;
+  text-align: end;
+}
+
+.quote__content cite {
+  text-align: center;
+  font-size: 140%;
+}
+
+.quote__content {
+  font-style: italic;
+  padding: 0 2rem 0 3rem;
+  font-size: 1.5rem;
+}

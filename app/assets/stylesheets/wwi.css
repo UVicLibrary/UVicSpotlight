@@ -43,8 +43,7 @@
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
-    border-bottom-left-radius: calc(0.25rem - 1px);
-    border-bottom-right-radius: calc(0.25rem - 1px);
+    border-radius: calc(0.25rem - 1px);
 }
 
 #wwi-carousel .front-card-link:hover {
@@ -54,4 +53,17 @@
 #wwi-carousel {
     border-radius: calc(0.25rem - 1px);
     overflow: hidden;
+}
+
+.wwi-content-wrapper {
+    width: 100%;
+}
+
+.wwi-content-wrapper .quote__content {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    text-align: center;
+    width:70%;
+    color:#668;
 }
