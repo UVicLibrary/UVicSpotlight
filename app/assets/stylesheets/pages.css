@@ -2,3 +2,7 @@
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
+
+.spotlight-flexbox.pull-right {
+    order: 2;
+}
