@@ -6,19 +6,21 @@
  <div class="mirador-viewer" id="mirador-<%= @document.id %>" />
 </body>
 
-<script type="text/javascript">
+<script type="text/javascript" async>
   // Initialize the Mirador viewer
   var mirador = Mirador.viewer({
       "id": "mirador-<%= @document.id %>",
       "windows": [
           {
               "loadedManifest": "<%= request.base_url %>/spotlight/<%= current_exhibit.slug %>/catalog/<%= @document.id %>/manifest.json",
-              "canvasIndex": 1,
-              "thumbnailNavigationPosition": 'far-bottom'
+              "canvasIndex": 0,
+              <% if @document.file_type == "compound object" %>
+                "thumbnailNavigationPosition": 'far-bottom'
+              <% end %>
           }
       ]
   });
-
+<% if @document.file_type == "compound object" %>
   // Only post messages if we're on the catalog#show page
   if (!!window.parent.location.href.match(/catalog\/\d+-\d+/)) {
       // For image compound objects, check every 100ms if Mirador thumbnails
@@ -45,9 +47,10 @@
                           "canvasIndex" : ${selectedImage.closest('.mirador-thumbnail-nav-canvas').data('canvasIndex')}
                       }`);
                       // console.log(imageChanged);
-                  }, 200);
+                  }, 500);
               });
           }
       }, 100);
   }
+  <% end %>
 </script>
