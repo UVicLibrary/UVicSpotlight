@@ -25,13 +25,14 @@ Spotlight::CatalogController.class_eval do
     if @document.uploaded_resource?
       if @resource.compound_object?
         query = "id:(#{@resource.compound_ids.join(" OR ")})"
-        _response, @child_docs = search_service.search_results do |builder|
+        _, @child_docs = search_service.search_results do |builder|
           builder.with({
                            q: query,
-                           rows: 500,
+                           rows: 1000,
                            qt: 'standard'
                        })
         end
+        @child_docs = @child_docs.sort_by { |document| @resource.compound_ids.index(document.id) }
       end
     end
   end
