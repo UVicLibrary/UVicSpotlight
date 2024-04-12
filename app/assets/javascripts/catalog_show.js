@@ -1,8 +1,10 @@
 // Functions used by the catalog#show page
 
 jQuery(document).ready(function() {
-    // Catch messages posted by the Mirador iframe in app/views/catalog/viewers/mirador_fullscreen
-    window.addEventListener('message', event => updatePageMetadata(event.data));
+    if (!!window.parent.location.href.match(/catalog\/\d+-\d+/)) {
+        // Catch messages posted by the Mirador iframe in app/views/catalog/viewers/mirador_fullscreen
+        window.addEventListener('message', event => updatePageMetadata(event.data));
+    }
 });
 
 // Collapse/expand metadata fields when user clicks the field label
@@ -26,14 +28,20 @@ function hideShow(event) {
 // @param[<String>] - a parseable JSON object like '{ "canvasIndex": 1 }',
 // where canvasIndex is the index of the page to render
 function updatePageMetadata(message) {
-    if (typeof(message) == 'string' && JSON.parse(message).hasOwnProperty('canvasIndex')) {
-        details = JSON.parse(message);
-        canvasId = details.canvasIndex;
-        metadataSidebar = $('#metadata-sidebar');
+    if (typeof(message) == 'string') {
+        try {
+            details = JSON.parse(message);
+            canvasId = details.canvasIndex;
+            metadataSidebar = $('#metadata-sidebar');
 
-        metadataSidebar.children().hide();
-        currentPage = metadataSidebar.find('#page_' + canvasId);
-        currentPage.show();
+            metadataSidebar.children().hide();
+            currentPage = metadataSidebar.find('#page_' + canvasId);
+            currentPage.show();
+        } catch(e) {
+            // If it's not a parseable JSON object, then it's
+            // probably an unrelated message and we should do nothing.
+            return;
+        }
     }
 }
 
