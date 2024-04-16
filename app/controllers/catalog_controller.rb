@@ -54,5 +54,22 @@ class CatalogController < ApplicationController
     # Set which views by default only have the title displayed, e.g.,
     # config.view.gallery.title_only_by_default = true
 
+    # Some components can be configured
+    # config.index.document_component = MyApp::SearchResultComponent
+    # config.index.constraints_component = MyApp::ConstraintsComponent
+    # config.index.search_bar_component = MyApp::SearchBarComponent
+    # config.index.search_header_component = MyApp::SearchHeaderComponent
+    # config.index.document_actions.delete(:bookmark)
+
+    # config.add_results_document_tool(:bookmark, partial: 'catalog/bookmark_control', if: :render_bookmarks_control?)
+    # config.add_show_tools_partial(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
+
+    config.add_results_collection_tool(:sort_widget)
+    config.add_results_collection_tool(:per_page_widget)
+    config.add_results_collection_tool(:view_type_group)
+
+    # config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
+    config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
+
   end
 end
