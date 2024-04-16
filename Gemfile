@@ -82,7 +82,9 @@ gem 'blacklight-gallery'
 gem 'blacklight-oembed'
 gem 'devise_invitable'
 
-gem 'sidekiq', '~> 5.2.9'
+gem 'sidekiq', '6.5.6'
+gem 'redis', '<5'
+
 gem 'down'
 gem "posix-spawn" # omit if on JRuby
 gem "http_parser.rb"
