@@ -51,6 +51,15 @@ module CustomCatalogHelper
     "/uploads/spotlight/featured_image/image/#{resource.upload_id}/#{parser.escape(resource.file_name)}"
   end
 
+  def video_thumb_path(resource)
+    filename = "video_thumb_#{resource.file_name.to_s.split(".").first}.jpeg"
+    # The path to the file on the local server
+    path = "#{File.dirname(resource.upload.image.path)}/#{filename}"
+    # The Spotlight url that the file is available at
+    url = "#{File.dirname(resource.upload.image_url)}/#{filename}"
+    url if File.exist?(path)
+  end
+
   private
 
   def media_display_partial(document)

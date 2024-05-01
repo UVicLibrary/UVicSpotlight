@@ -14,7 +14,7 @@
 <% resources.each do |resource| %>
   <%# videos are initially set to display:none, then the first resource is made visible %>
   <% display = (resources.count > 1 ? "none" : "block") %>
-  <video class="pull-left audioplayer" id="audio_<%= page_number %>" style="display: <%= display %>" controls>
+  <video class="pull-left audioplayer" id="audio_<%= page_number %>" style="display: <%= display %>" poster="<%= video_thumb_path(resource) %>" controls>
     <source src="<%= file_url(resource) %>" type="video/mp4">
   </video>
   <% page_number += 1 %>
