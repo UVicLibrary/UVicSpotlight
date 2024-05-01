@@ -314,3 +314,7 @@ h1.page-title {
 .carousel-control-next {
     opacity: 1;
 }
+
+.item-grid-block .img-thumbnail {
+    border: none;
+}
