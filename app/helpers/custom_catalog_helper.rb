@@ -24,11 +24,11 @@ module CustomCatalogHelper
   def field_value(presenter, field)
     value = presenter.field_value(field)
     if multiple?(value)
-      value.split(';').map do |val|
+      sanitize(value.split(/ ?; ?/).map do |val|
         val.start_with?('http') ? render_link_to(val) : scrub_value(val)
-      end.join(';')
+      end.join('; '))
     else
-      value.start_with?('http') ? render_link_to(value) : scrub_value(value)
+      value.start_with?('http') ? sanitize(render_link_to(value)) : scrub_value(value)
     end
   end
 
