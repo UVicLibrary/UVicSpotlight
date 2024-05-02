@@ -3,7 +3,11 @@ Spotlight::FeaturedImageUploader.class_eval do
   include VideoThumbnailer
 
   def cache_dir
-    "tmp/cache"
+    if Rails.env.production?
+      "/home/spotlight/tmp_uploads_cache"
+    else
+      "uploads/tmp"
+    end
   end
 
   def png_name for_file, version_name, format
