@@ -12,18 +12,13 @@
           <%= fa_icon "chevron-down" %>
             Page Title:
         </dt>
-        <dd class="blacklight-full_title_tesim"><%= child_doc['full_title_tesim'].first %></dd>
+        <dd class="blacklight-full_title_tesim"><%= child_doc['full_title_tesim'].try(:first) %></dd>
       </div>
-      <%# if @iiif_urls.nil? %>
-        <%= render partial: "metadata_fields", locals: { fields: document_show_fields(child_doc), document: child_doc } %>
-      <%# end -%>
+      <%= render partial: "metadata_fields", locals: { fields: document_show_fields(child_doc), document: child_doc } %>
       <br/>
-      <% if child_doc.file_type == "image" %>
-        <% download_url = child_doc['thumbnail_url_ssm'].first.gsub('!400,400','full') %>
-        <a role="button" class="btn btn-primary" id="download-current-image" target="_blank" href="<%= download_url %>">
-          Download Current Image
-        </a>
-      <% end %>
+      <a role="button" class="btn btn-primary" id="download-current-image" target="_blank" href="<%= download_item_path(child_doc) %>">
+        Download Current File
+      </a>
     </div>
     <% page_number += 1 %>
   <% end %>
