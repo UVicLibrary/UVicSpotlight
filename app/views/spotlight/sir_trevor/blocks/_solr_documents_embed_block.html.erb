@@ -6,19 +6,10 @@
     <div class="items-col spotlight-flexbox pull-<%= solr_documents_embed_block.content_align %> <%= solr_documents_embed_block.text? ? "col-md-6" : "col-md-12" %> ">
       <% solr_documents_embed_block.each_document do |block_options, document| %>
         <div class="box" data-id="<%= document.id %>" >
-          <% if document['resource_file_type_ssi'] == 'image' %>
-            <% if solr_documents_embed_block.use_mirador? %>
-              <%= render_document_partials document, blacklight_config.view.embed.partials, (blacklight_config.view.embed.locals || {}).reverse_merge(block: solr_documents_embed_block) %>
-              <% if document._source[:full_title_tesim].present? %>
-                <%= link_to document._source[:full_title_tesim].first, "/spotlight/#{params[:exhibit_id]}/catalog/#{document._source[:id]}" %>
-              <% else %>
-                <%= link_to "No title available.", "/spotlight/#{params[:exhibit_id]}/catalog/#{document._source[:id]}" %>
-              <% end %>
-            <% else %>
-              <% size = (solr_documents_embed_block.documents.count > 1 or solr_documents_embed_block.text?) ? '400,' : '600,' %>
-              <%= image_tag(document.uploaded_resource.upload.iiif_url.gsub('400,300', size), class: 'embedded-image', alt: document['full_title_tesim'].first) %>
-            <% end %>
-          <% else %><%# object is not an image, so render the appropriate file viewer %>
+          <% if document.resource.file_type == "image" && !solr_documents_embed_block.use_mirador? %>
+            <% size = (solr_documents_embed_block.documents.count > 1 or solr_documents_embed_block.text?) ? '400,' : '600,' %>
+            <%= image_tag(document.resource.upload.iiif_url.gsub('400,300', size), class: 'embedded-image', alt: document['full_title_tesim'].first) %>
+          <% else %>
             <%= render_document_partials document, blacklight_config.view.embed.partials, (blacklight_config.view.embed.locals || {}).reverse_merge(block: solr_documents_embed_block) %>
             <% if document._source[:full_title_tesim].present? %>
               <%= link_to document._source[:full_title_tesim].first, "/spotlight/#{params[:exhibit_id]}/catalog/#{document._source[:id]}" %>
