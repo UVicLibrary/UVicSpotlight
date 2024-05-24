@@ -59,7 +59,7 @@ class CatalogController < ApplicationController
     # config.index.constraints_component = MyApp::ConstraintsComponent
     # config.index.search_bar_component = MyApp::SearchBarComponent
     # config.index.search_header_component = MyApp::SearchHeaderComponent
-    # config.index.document_actions.delete(:bookmark)
+    config.index.document_actions.delete(:bookmark)
 
     # config.add_results_document_tool(:bookmark, partial: 'catalog/bookmark_control', if: :render_bookmarks_control?)
     # config.add_show_tools_partial(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
