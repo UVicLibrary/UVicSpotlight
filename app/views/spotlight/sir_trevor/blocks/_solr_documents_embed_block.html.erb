@@ -8,7 +8,7 @@
         <div class="box" data-id="<%= document.id %>" >
           <% if document.resource.file_type == "image" && !solr_documents_embed_block.use_mirador? %>
             <% size = (solr_documents_embed_block.documents.count > 1 or solr_documents_embed_block.text?) ? '400,' : '600,' %>
-            <%= image_tag(document.resource.upload.iiif_url.gsub('400,300', size), class: 'embedded-image', alt: document['full_title_tesim'].first) %>
+            <%= image_tag(document.resource.upload.iiif_url.gsub('400,300', size), class: 'embedded-image', alt: document['full_title_tesim'].try(:first)) %>
           <% else %>
             <%= render_document_partials document, blacklight_config.view.embed.partials, (blacklight_config.view.embed.locals || {}).reverse_merge(block: solr_documents_embed_block) %>
             <% if document._source[:full_title_tesim].present? %>
