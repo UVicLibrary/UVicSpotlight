@@ -2,14 +2,13 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  host: <%= Rails.application.credentials.db_host %>
 
 development:
   <<: *default
   pool: 100
   database: spotlight_dev
-  username: <%= Rails.application.credentials.db_user %>
-  password: <%= Rails.application.credentials.db_password %>
+  username: spotlight
+  password: spotlight
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -24,6 +23,7 @@ production:
   <<: *default
   pool: 200
   database: spotlight
+  host: <%= Rails.application.credentials.db_host %>
   username: <%= Rails.application.credentials.db_user %>
   password: <%= Rails.application.credentials.db_password %>
   socket: /tmp/mysql.sock
