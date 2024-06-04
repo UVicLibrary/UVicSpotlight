@@ -1,6 +1,6 @@
 # Spotlight 2024
 
-This is a heavily customized instance of [Spotlight v.2](https://github.com/projectblacklight/spotlight), which the [University of Victoria Libraries](https://www.uvic.ca/library/) uses in production for its [digital exhibits](https://exhibits.library.uvic.ca/).
+This is a heavily customized instance of [Spotlight v.3](https://github.com/projectblacklight/spotlight), which the [University of Victoria Libraries](https://www.uvic.ca/library/) uses in production for its [digital exhibits](https://exhibits.library.uvic.ca/).
 
 We use a combination of Ubuntu on WSL 2 and Docker for our development environments. Although we don't distribute a Docker image ourselves, you can create docker containers for the backend components and connect the Spotlight app to them.
 
