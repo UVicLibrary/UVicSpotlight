@@ -70,7 +70,7 @@ docker run -d -v "$PWD/solr/data:/var/solr/data" -p 8983:8983 --name spotlight_s
 
 Solr should now be running at `localhost:8983`. See the official [Solr documentation](https://solr.apache.org/guide/solr/latest/deployment-guide/solr-in-docker.html) for more about using Solr Docker.
 
-### Create a Solr core
+#### Create a Solr core
 
 Our custom Solr configuration files are stored in `solr/conf`. To create the core configured in `config/blacklight.yml`, go to the **Solr Dashboard (localhost:8983) > Core Admin > Add Core**. Fill out the pop-up form like so:
 
@@ -115,7 +115,9 @@ Since Rails 6, the recommended way to store/access credentials is with `Rails.ap
 
 `RAILS_ENV=production EDITOR="nano" rails credentials:edit`
 
-This will open a menu for setting variables such as database credentials (in production) and the Google Maps API key. When you're done editing credentials, simply close the file/menu. This will generate two files, `config/credentials.yml.enc` and a `master.key`. **Do not publish your master.key when pushing to a remote git branch.** In fact, running `rails credentials:edit` for the first time should automatically add `master.key` to your `.gitignore`.
+This will open a menu for setting variables such as database credentials (in production) and the Google Maps API key. When you're done editing credentials, simply close the file/menu. This will generate two files, `config/credentials.yml.enc` (encrypted credentials) and a `master.key`.
+
+**Never publish your master.key when pushing to a remote git branch.** In fact, running `rails credentials:edit` for the first time should automatically add `master.key` to your `.gitignore`.
 
 For more info on Rails credentials, see [this tutorial](https://webcrunch.com/posts/the-complete-guide-to-ruby-on-rails-encrypted-credentials).
 
