@@ -45,7 +45,7 @@ You can also use Docker. See Docker images and instructions for [mariaDB](https:
 Set up the database by opening the mysql console with `mysql -u root -p`. Then create a new user with the credentials in `config/database.yml`.
 
 ```sql
-CREATE DATABASE spotlight;
+CREATE DATABASE spotlight_dev;
 GRANT ALL ON spotlight.* to 'spotlight'@'localhost' IDENTIFIED BY 'spotlight';
 ```
 
