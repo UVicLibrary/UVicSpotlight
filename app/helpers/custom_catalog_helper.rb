@@ -25,10 +25,10 @@ module CustomCatalogHelper
     value = presenter.field_value(field)
     if multiple?(value)
       sanitize(value.split(/ ?; ?/).map do |val|
-        val.start_with?('http') ? render_link_to(val) : scrub_value(val)
+        val.start_with?('http') ? sanitize(render_link_to(val)) : Nokogiri::XML.fragment(sanitize(scrub_value(val)))
       end.join('; '))
     else
-      value.start_with?('http') ? sanitize(render_link_to(value)) : scrub_value(value)
+      value.start_with?('http') ? sanitize(render_link_to(value)) : Nokogiri::XML.fragment(sanitize(scrub_value(value)))
     end
   end
 
