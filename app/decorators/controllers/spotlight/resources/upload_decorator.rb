@@ -21,14 +21,14 @@ Spotlight::Resources::UploadController.class_eval do
     upload_model if @resource.file_type == "model"
 
     if @resource.save_and_index
-      if @resource.save_and_index
+        @resource.reindex  # Sometimes the resource doesn't show up in Solr until we reindex again
         flash[:notice] = t('spotlight.resources.upload.success')
         return redirect_to new_exhibit_resource_path(@resource.exhibit, tab: :upload) if params['add-and-continue']
-      else
-        flash[:error] = t('spotlight.resources.upload.error')
-      end
-      redirect_to admin_exhibit_catalog_path(@resource.exhibit, sort: :timestamp)
+    else
+      flash[:error] = t('spotlight.resources.upload.error')
     end
+
+    redirect_to admin_exhibit_catalog_path(@resource.exhibit, sort: :timestamp)
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
