@@ -106,6 +106,7 @@ sudo apt install -y \
     imagemagick \
     poppler-utils \
     libvips \
+    nodejs \
     ffmpeg
 ```
 
