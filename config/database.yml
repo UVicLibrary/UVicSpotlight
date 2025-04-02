@@ -9,7 +9,9 @@ development:
   database: spotlight_dev
   username: spotlight
   password: spotlight
-  socket: /var/run/mysqld/mysqld.sock
+  # On older versions of mariadb, this may be:
+  #  socket: /var/run/mysqld/mysqld.sock
+  socket: /run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -17,7 +19,11 @@ development:
 test:
   <<: *default
   database: spotlight_test
-  socket: /tmp/mysql.sock
+  username: spotlight
+  password: spotlight
+  # On older versions of mariadb, this may be:
+  #  socket: /tmp/mysql.sock
+  socket: /run/mysqld/mysqld.sock
 
 production:
   <<: *default
@@ -26,4 +32,6 @@ production:
   host: <%= Rails.application.credentials.db_host %>
   username: <%= Rails.application.credentials.db_user %>
   password: <%= Rails.application.credentials.db_password %>
-  socket: /tmp/mysql.sock
+  # On older versions of mariadb, this may be:
+  #  socket: /tmp/mysql.sock
+  socket: /run/mysqld/mysqld.sock
