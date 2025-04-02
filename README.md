@@ -47,6 +47,8 @@ Set up the database by opening the mysql console with `mysql -u root -p`. Then c
 ```sql
 CREATE DATABASE spotlight_dev;
 GRANT ALL ON spotlight_dev.* to 'spotlight'@'localhost' IDENTIFIED BY 'spotlight';
+CREATE DATABASE spotlight_test;
+GRANT ALL ON spotlight_test.* to 'spotlight'@'localhost' IDENTIFIED BY 'spotlight';
 ```
 
 ### Troubleshooting first-time DB migration
@@ -61,7 +63,7 @@ In some cases, trying to run the migrations may fail with an error message about
 # end
 ```
 
-Then run `rails db:migrate`. Once all the migrations have succeeded, you can uncomment the catalog controller.
+Then run `rails db:schema:load`. Once all the migrations have succeeded, you can uncomment the catalog controller.
 
 ### Solr
 
@@ -116,7 +118,7 @@ sudo apt install -y \
 
 ```
 bundle install
-rails db:migrate RAILS_ENV=development
+rails db:schema:load
 ```
 
 ### Review Settings
