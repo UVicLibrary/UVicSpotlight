@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_11_223201) do
+ActiveRecord::Schema[7.0].define(version: 2025_04_04_174549) do
   create_table "annotot_annotations", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "uuid"
     t.string "canvas"
@@ -281,7 +281,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_223201) do
     t.index ["exhibit_id"], name: "index_spotlight_main_navigations_on_exhibit_id"
   end
 
-  create_table "spotlight_pages", id: :integer, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+  create_table "spotlight_pages", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "title"
     t.string "type"
     t.string "slug"
@@ -318,7 +318,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_223201) do
     t.datetime "updated_at", precision: nil
   end
 
-  create_table "spotlight_resources", id: :integer, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+  create_table "spotlight_resources", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.integer "exhibit_id"
     t.string "type", collation: "latin1_swedish_ci"
     t.string "url", collation: "latin1_swedish_ci"
@@ -374,7 +374,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_223201) do
     t.integer "masthead_id"
   end
 
-  create_table "spotlight_solr_document_sidecars", id: :integer, charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+  create_table "spotlight_solr_document_sidecars", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.integer "exhibit_id"
     t.boolean "public", default: true
     t.text "data"
@@ -409,16 +409,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_223201) do
   end
 
   create_table "tags", id: :integer, charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
-    t.string "name", collation: "utf8_bin"
+    t.string "name", collation: "utf8mb3_bin"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "translations", id: :integer, charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+  create_table "translations", id: :integer, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "locale"
     t.string "key"
-    t.text "value"
-    t.text "interpolations"
+    t.text "value", size: :medium
+    t.text "interpolations", size: :medium
     t.boolean "is_proc", default: false
     t.integer "exhibit_id"
     t.datetime "created_at", precision: nil, null: false

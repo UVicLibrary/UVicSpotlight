@@ -32,7 +32,7 @@ If using a locally-installed MariaDB:
 sudo apt update
 curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash
 sudo apt-get install mariadb-server mariadb-client -y
-sudo service start mariadb
+sudo service start mariadb # or sudo service mariadb start
 sudo mysql_secure_installation
 # Follow instructions to set password for root user
 
@@ -40,14 +40,30 @@ sudo mysql_secure_installation
 mysql -V
 ```
 
-You can also use Docker. See Docker images and instructions for [mariaDB](https://hub.docker.com/r/bitnami/mariadb) or [MySQL](https://hub.docker.com/_/mysql).
+You can also use Docker. See Docker images and instructions for [mariaDB](https://hub.docker.com/r/bitnami/mariadb) or [MySQL](https://hub.docker.com/_/mysql). Note that if you run a Docker image, you'll still need to install MariaDB/MySQL locally in order to connect to it from your app.
 
 Set up the database by opening the mysql console with `mysql -u root -p`. Then create a new user with the credentials in `config/database.yml`.
 
 ```sql
 CREATE DATABASE spotlight_dev;
-GRANT ALL ON spotlight.* to 'spotlight'@'localhost' IDENTIFIED BY 'spotlight';
+GRANT ALL ON spotlight_dev.* to 'spotlight'@'localhost' IDENTIFIED BY 'spotlight';
+CREATE DATABASE spotlight_test;
+GRANT ALL ON spotlight_test.* to 'spotlight'@'localhost' IDENTIFIED BY 'spotlight';
 ```
+
+### Troubleshooting first-time DB migration
+
+In some cases, trying to run the migrations may fail with an error message about the Translations table not existing (even though you may be trying to create the table by running `rails db:migrate` in the first place). To work around this error, comment everything within the `configure_blacklight` line:
+
+```ruby
+# configure_blacklight do |config|
+   # ...
+   # everything in here should be commented out too...
+   # ...
+# end
+```
+
+Then run `rails db:schema:load`. Once all the migrations have succeeded, you can uncomment the catalog controller.
 
 ### Solr
 
@@ -92,6 +108,7 @@ sudo apt install -y \
     imagemagick \
     poppler-utils \
     libvips \
+    nodejs \
     ffmpeg
 ```
 
@@ -101,7 +118,7 @@ sudo apt install -y \
 
 ```
 bundle install
-rails db:migrate RAILS_ENV=development
+rails db:schema:load
 ```
 
 ### Review Settings
