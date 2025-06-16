@@ -5,7 +5,6 @@ class ImportIiifManifestPresenter < ImageIiifManifestPresenter
     add_attribution(manifest)
     add_logo(manifest)
     add_metadata(manifest)
-    update_manifest_id(manifest)
     JSON.pretty_generate(manifest)
   end
 
@@ -18,11 +17,6 @@ class ImportIiifManifestPresenter < ImageIiifManifestPresenter
   # Note: @resource is the SolrDocument and not the Spotlight::Resource
   def iiif_url
     @resource['iiif_manifest_url_ssi']
-  end
-
-  # Use spotlight manifest @id instead of Vault one
-  def update_manifest_id(manifest)
-    manifest['@id'] = manifest_url
   end
 
 end
