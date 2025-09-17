@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_04_04_174549) do
+ActiveRecord::Schema[7.0].define(version: 2025_09_16_232830) do
   create_table "annotot_annotations", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "uuid"
     t.string "canvas"
@@ -160,11 +160,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_04_174549) do
     t.index ["resource_type", "resource_id"], name: "index_spotlight_events_on_resource_type_and_resource_id"
   end
 
-  create_table "spotlight_exhibits", id: :integer, charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+  create_table "spotlight_exhibits", id: :integer, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "title", null: false
     t.string "subtitle"
     t.string "slug"
-    t.text "description"
+    t.text "description", size: :long
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "layout"
