@@ -302,10 +302,11 @@ ActiveSupport::Reloader.to_prepare do
 	# 	2. Add a hash to the array below. The key should be a descriptive name for the change.
 	# 			The value should be the ClassName of the transformation/lambda.
 	# 	3. Open the Rails console and make sure the transform has been added to the indexing pipeline:
-	# 			Run ResourceClassName.indexing_pipeline.transforms. You should see your custom Proc.
+	# 			Run Spotlight::Resources::Upload.indexing_pipeline.transforms. You should see your custom Proc.
 	Spotlight::Resources::Upload.indexing_pipeline.transforms += [
 		{ add_file_type: Etl::CustomTransforms::AddFileTypeTransform },
-  	{ add_sketchfab_uid: Etl::CustomTransforms::AddSketchfabUidTransform }
+  	{ add_sketchfab_uid: Etl::CustomTransforms::AddSketchfabUidTransform },
+  	{ add_sort_fields: Etl::CustomTransforms::AddSortFieldsTransform }
   ]
 
   Spotlight::Resource.class_eval do

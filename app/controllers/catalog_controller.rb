@@ -33,9 +33,8 @@ class CatalogController < ApplicationController
 
 
     config.add_search_field 'all_fields', label: I18n.t('spotlight.search.fields.search.all_fields')
-
     config.add_sort_field 'relevance', sort: 'score desc', label: I18n.t('spotlight.search.fields.sort.relevance')
-
+    config.add_sort_field 'title', sort: 'title_sort_ssi asc', label: 'Title'
 
     # Configure facet fields
     config.add_facet_field 'spotlight_upload_dc_Subjects_ftesim', label: "Subject(s)", limit: true
