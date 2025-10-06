@@ -15,7 +15,7 @@ module Etl
     end
 
     AddSortFieldsTransform = lambda do |data, pipeline|
-      data.merge({ 'sort_title_ssi' => pipeline.source.data['full_title_tesim'] })
+      data.merge({ 'sort_title_ssi' => pipeline.source.sidecar.data['configured_fields']['full_title_tesim'] })
       # TO DO: add date created sort option
     end
 
