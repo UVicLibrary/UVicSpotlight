@@ -58,12 +58,13 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
-gem 'blacklight-spotlight', '3.5.0.3' # '3.1'
+gem 'blacklight-spotlight', '4.0.0' # '3.1'
+gem 'blacklight', '8.0'
+gem 'bootstrap_form', '~> 4.0'
 
 # Changes for Rails 6 and sprockets
 gem 'rails', '7.0.8.1' # '6.1.7'
 # See https://github.com/projectblacklight/blacklight/wiki/Using-Sprockets-to-compile-javascript-assets
-gem 'bootstrap', '~> 4.0'
 gem 'popper_js'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 
@@ -95,3 +96,6 @@ gem 'net-http'
 
 # New for Ruby 3
 gem 'matrix'
+
+gem "bootstrap", "~> 4.0"
+gem "sassc-rails", "~> 2.1"

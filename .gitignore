@@ -26,3 +26,6 @@ solr/log4j2.xml
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+config/master.key
+/solr
+/public

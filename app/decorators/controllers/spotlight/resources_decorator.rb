@@ -40,7 +40,8 @@ Spotlight::ResourcesController.class_eval do
 
   def index
     # Search for documents on new_compound_object page
-    if params[:cdq]
+    #byebug
+    if params[:resource][:cdq]
       search_child_docs
       respond_to do |format|
         format.js {
@@ -81,15 +82,16 @@ Spotlight::ResourcesController.class_eval do
   end
 
   def search_child_docs
-    _response, @results = search_service.search_results do |builder|
+    @response = search_service.search_results do |builder|
       builder.with({
-          q: params[:cdq],
+          q: params[:resource][:cdq],
           rows: 20,
           fl: ["id", "full_title_tesim", "spotlight_upload_description_tesim", "thumbnail_url_ssm"],
           # TO DO: Limit this to images, video, and audio only
           fq:["spotlight_exhibit_slug_#{@exhibit.slug}_bsi:true"]
        })
     end
+    @results = @response.documents
   end
 
   def resource_params

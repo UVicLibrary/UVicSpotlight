@@ -42,7 +42,8 @@
       </label>
     </div>
     <div class="mb-3 col-sm-6 col-md-6">
-        <%= text_field_tag(:cdq, "", class: 'form-control', placeholder: "Title or description", disabled: false, id: "search-field") %>
+        <%= text_field_tag('resource[cdq]', "", class: 'form-control', placeholder: "Title or description", disabled: false, id: "search-field") %>
+        <%#= text_field_tag("", class: 'form-control', placeholder: "Title or description", disabled: false, id: "search-field") %>
         </div>
         <%= button_tag(type: :submit, class: "btn btn-large btn-secondary", disabled: false, id: "submit-search", style: "height: fit-content;") do %>
           Search

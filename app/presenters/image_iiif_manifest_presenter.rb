@@ -1,4 +1,10 @@
 class ImageIiifManifestPresenter < Spotlight::IiifManifestPresenter
+  attr_accessor :resource, :controller
+
+  def initialize(resource, controller)
+    @resource = resource
+    @controller = controller
+  end
 
   # Adds custom properties to the default Spotlight::IiifManifestPresenter
   #   - Display all configured Spotlight metadata fields
@@ -14,6 +20,15 @@ class ImageIiifManifestPresenter < Spotlight::IiifManifestPresenter
     add_logo(manifest)
     add_metadata(manifest)
     JSON.pretty_generate(manifest)
+  end
+
+  def iiif_url
+    # yes this is hacky, and we are appropriately ashamed.
+=begin
+    Spotlight::Engine.config.iiif_service.info_url(uploaded_resource, only_path: false)
+                     .sub(%r{/info\.json\Z}, '')
+=end
+    controller.riiif.info_url(uploaded_resource.upload).sub(%r{/info\.json\Z}, '')
   end
 
   private
