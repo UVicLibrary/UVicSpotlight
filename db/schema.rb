@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_09_16_232830) do
+ActiveRecord::Schema[7.0].define(version: 2025_12_01_231430) do
   create_table "annotot_annotations", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "uuid"
     t.string "canvas"
@@ -333,6 +333,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_16_232830) do
     t.string "uid"
     t.text "compound_ids"
     t.string "parent"
+    t.string "model_id"
     t.index ["index_status"], name: "index_spotlight_resources_on_index_status"
   end
 

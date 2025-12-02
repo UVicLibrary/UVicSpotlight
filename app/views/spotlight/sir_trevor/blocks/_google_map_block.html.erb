@@ -33,20 +33,6 @@ var openInfoWindow;
       lng = parseFloat(items[i][loc][0].match(coordinate)[1]);
       title = items[i].full_title_tesim[0]
       position = new google.maps.LatLng(lat, lng);
-      // var thumbnail_link = items[i].thumbnail_url_ssm;
-      // var thumbnail_link;
-      // if (items[i].thumbnail_url_ssm)  {
-      // thumbnail_link = items[i].thumbnail_url_ssm;
-      // } else if (items[i].spotlight_upload_Sketchfab-uid_tesim) {
-      //      $.ajax({
-      //          url: "https://sketchfab.com/oembed?url=https://sketchfab.com/models/" + items[i].spotlight_upload_Sketchfab-uid_tesim[0],
-      //          type: "GET",
-      //          success: function(data) { success(data); }
-      //      });
-      //      function success(data) {
-      //          thumbnail_link = data.thumbnail_url;
-      //      }
-      // }
 
       content =
         '<h4>'+ title +'</h4>'+

@@ -258,7 +258,7 @@ Spotlight::Engine.config.upload_title_field = Spotlight::UploadFieldConfig.new(
 	  field_name: "full_title_tesim",
 	  label: 'Title')
 # Spotlight::Engine.config.uploader_storage = :file
- Spotlight::Engine.config.allowed_upload_extensions = %w(jpg jpeg jp2 png mp4 ogg stl obj 3ds mp3 wav pdf tif tiff m4a)
+ Spotlight::Engine.config.allowed_upload_extensions = %w(jpg jpeg jp2 png mp4 ogg mp3 wav pdf tif tiff m4a)
 
 # Spotlight::Engine.config.featured_image_thumb_size = [400, 300]
 # Spotlight::Engine.config.featured_image_square_size = [400, 400]
@@ -306,15 +306,17 @@ ActiveSupport::Reloader.to_prepare do
 	Spotlight::Resources::Upload.indexing_pipeline.transforms += [
 		{ add_file_type: Etl::CustomTransforms::AddFileTypeTransform },
   	{ add_sketchfab_uid: Etl::CustomTransforms::AddSketchfabUidTransform },
+  	{ add_3d_model_id: Etl::CustomTransforms::Add3DModelIdTransform },
   	{ add_sort_fields: Etl::CustomTransforms::AddSortFieldsTransform }
   ]
 
   Spotlight::Resource.class_eval do
 		has_many :solr_document_sidecars, dependent: :destroy
 		serialize :compound_ids, Array
-  end
+	end
 
   Translation.class_eval do
     include Spotlight::CustomTranslationExtension
-  end
+	end
+
 end
