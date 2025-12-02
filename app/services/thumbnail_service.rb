@@ -42,21 +42,10 @@ class ThumbnailService
       # Return the thumbnail path for indexing
       "/#{thumbnail_dir_path(@resource)}/#{pdf_name}-thumb.jpg"
     when "model"
-      if @resource.data.has_key? "spotlight_upload_Sketchfab-uid_tesim"
-        uid = (@resource.uid || @resource.data["spotlight_upload_Sketchfab-uid_tesim"])
-        begin
-          model_info = RestClient.get("https://sketchfab.com/oembed?url=https://sketchfab.com/models/#{uid.to_s}")
-          thumbnail_url = JSON.parse(model_info.body)["thumbnail_url"]
-          if thumbnail_url.include?("placeholder") && Rails.application.config.active_job.queue_adapter != :inline
-            Spotlight::ReindexJob.set(wait: 10.minutes).perform_later
-          end
-          thumbnail_url
-        rescue RestClient::NotFound
-          if Rails.application.config.active_job.queue_adapter != :inline
-            Spotlight::ReindexJob.set(wait: 10.minutes).perform_later
-          end
-          "/uploads/spotlight/processing.png"
-        end
+      if @resource.model_id
+        "#{KOMPAKKT_DOMAIN_NAME}/server/previews/entity/#{@resource.model_id}.webp"
+      else
+        "/uploads/spotlight/processing.png"
       end
     when "video"
       # Video thumbnail generation is handled by VideoThumbnailer gem
