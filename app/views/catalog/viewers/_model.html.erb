@@ -1,42 +1,9 @@
-<% resource = document.uploaded_resource %>
-<script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.3.1.js"></script>
-<!-- 3D model on Sketchfab -->
-<% uid = (resource.uid || resource.data['spotlight_upload_Sketchfab-uid_tesim'])  %>
-
-<!-- Based on code from https://sketchfab.com/developers/viewer -->
-<div class="sketchfab-embed-wrapper">
-  <iframe width="100%" height="480px" src="https://sketchfab.com/models/<%= uid %>/embed" id="sketchfab-frame" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true">
+<div>
+  <iframe width="100%" height="480px" src="<%= KOMPAKKT_DOMAIN_NAME %>/viewer/?entity=<%= document.model_id %>&mode=open&locale=en" id="model-iframe" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true">
   </iframe>
-  <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
-    <a href="https://sketchfab.com/models/<%= uid %>?utm_medium=embed&utm_source=website&utm_campaign=share-popup" target="_blank" style="font-weight: bold; color: #1CAAD9;">
-      See it on Sketchfab
-    </a>
-  </p>
-</div> <!-- sketchfab-embed-wrapper -->
-
-<!-- Initialize the viewer -->
-<script type="text/javascript">
-    var iframe = document.getElementById( 'sketchfab-frame' );
-    var uid = '<%= uid %>';
-
-    // By default, the latest version of the viewer API will be used.
-    var client = new Sketchfab( iframe );
-
-    // Alternatively, you can request a specific version.
-    // var client = new Sketchfab( '1.12.1', iframe );
-    client.init( uid, {
-        success: function onSuccess( api ){
-            api.start();
-            api.addEventListener( 'viewerready', function() {
-
-                // API is ready to use
-                // Insert your code here
-                console.log( 'Viewer is ready' );
-
-            } );
-        },
-        error: function onError() {
-            console.log( 'Viewer error' );
-        }
-    } );
-</script>
+</div>
+<style>
+  #model-iframe {
+      background: url("/uploads/spotlight/loading-progress.gif") center center no-repeat;
+  }
+</style>
