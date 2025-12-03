@@ -15,8 +15,8 @@ module Etl
     end
 
     Add3DModelIdTransform = lambda do |data, pipeline|
-      data.merge({ 'spotlight_upload_3d_model_id_tesim' => pipeline.source.model_id })
-      data.merge({ 'thumbnail_url_ssm' => ThumbnailService.new(pipeline.source).create_thumbnail })
+      data.merge({ 'spotlight_upload_3d_model_id_tesim' => pipeline.source.model_id },
+                 { 'thumbnail_url_ssm' => ThumbnailService.new(pipeline.source).create_thumbnail })
     end
 
     AddSortFieldsTransform = lambda do |data, pipeline|

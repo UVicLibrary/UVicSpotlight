@@ -50,7 +50,6 @@ module Exhibits
       en: 'English'
     }
   end
-
-  KOMPAKKT_DOMAIN_NAME = "https://kompakkt.de"
+  
 end
 

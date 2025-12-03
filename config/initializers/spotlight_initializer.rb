@@ -319,4 +319,6 @@ ActiveSupport::Reloader.to_prepare do
     include Spotlight::CustomTranslationExtension
 	end
 
+	KOMPAKKT_DOMAIN_NAME = "https://kompakkt.de"
+
 end
