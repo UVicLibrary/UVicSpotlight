@@ -1,6 +1,6 @@
 <% if show_sort_and_per_page? %>
   <%= render(Blacklight::Response::SortComponent.new(
-    choices: active_sort_fields.map { |_key, config| [(config.try(:original).present? ? config.original.label : config.label), key]},
+    choices: active_sort_fields.map { |key, config| [(config.try(:original).present? ? config.original.label : config.label), key]},
     #choices: active_sort_fields.map { |key, config| [sort_field_label(config.key), key] },
     search_state: search_state,
     selected: current_sort_field&.key)) %>
