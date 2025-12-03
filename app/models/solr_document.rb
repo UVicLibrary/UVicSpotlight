@@ -23,6 +23,10 @@ class SolrDocument
   # Recommendation: Use field names from Dublin Core
   use_extension(Blacklight::Document::DublinCore)
 
+  def model_id
+    self.fetch('spotlight_upload_3d_model_id_tesim', nil).try(:first)
+  end
+
   def file_type
     self['resource_file_type_ssi'] || file_type_from_resource
   end
