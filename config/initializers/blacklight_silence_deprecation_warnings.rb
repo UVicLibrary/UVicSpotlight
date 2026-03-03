@@ -20,7 +20,7 @@ Blacklight::Parameters.class_eval do
   end
 
   def ignored_params
-    %W[exhibit_id id]
+    %W[exhibit_id id utm_campaign utm_medium utm_source utm_term]
   end
 
 end
