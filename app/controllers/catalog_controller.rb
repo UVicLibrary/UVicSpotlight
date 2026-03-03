@@ -6,6 +6,18 @@ class CatalogController < ApplicationController
   # Error: InvalidAuthenticityToken
   skip_before_action :verify_authenticity_token, only: :track
 
+  WHITELISTED_CRAWLERS = %w['Googlebot', 'bingbot','Applebot','facebookexternalhit']
+
+  # Attempt to block bots that frequently stuff parameters into the catalog search path
+  def count_params
+    if URI.parse(request.url).query && params[:search_field] != "advanced" && params[:search_field] != "all_fields"
+      if URI.decode_www_form(URI.parse(request.url).query).flatten.count > 7 && WHITELISTED_CRAWLERS.none? { |str| request.user_agent.include? str }
+        render file: 'public/404.html', layout: false
+        return
+      end
+    end
+  end
+
   configure_blacklight do |config|
     config.show.oembed_field = :oembed_url_ssm
     config.show.partials -= [:show]
