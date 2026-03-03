@@ -83,12 +83,8 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	  label: 'Date searchable',
 	  form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_upload_dc_Type_Genre_tesim",
-	  label: 'Genre',
-	  form_field_type: :text_area),
-	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_dc_Type_Genre_ftesim",
-	  label: 'Genre Facet',
+	  label: 'Genre',
 	  form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_Format_tesim",
@@ -99,12 +95,12 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_Source_tesim",
 	  label: 'Source'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_upload_Language_tesim",
-	  label: 'Language'),
+	# Spotlight::UploadFieldConfig.new(
+	#   field_name: "spotlight_upload_Language_tesim",
+	#   label: 'Language'),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_Language_ftesim",
-	  label: 'Language Facet'),
+	  label: 'Language'),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_Relation_tesim",
 	  label: 'Relation'),
@@ -163,76 +159,21 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	  label: 'Transcript',
 	  form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_upload_dc_Subject_People_tesim",
-	  label: 'People Depicted',
-	  form_field_type: :text_area),
-	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_dc_Subject_People_ftesim",
-	  label: 'People Facet',
+	  label: 'People Depicted',
 	  form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_Sketchfab-uid_tesim",
 	  label: 'Sketchfab Uid'),
 	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_x_dbsm,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_y_dbsm,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_width_dbsm,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_height_dbsm,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_title_tesim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_author_tesim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_description_tesim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_date_tesim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_publisher_tesim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_annotation_publisher-place_tesim",
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_annotation_publisher-date_tesim",
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_people_tesim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_locations_tesim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_transcript_tesim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_genre_tesim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: :spotlight_annotation_public_isim,
-	  label: 'Hidden'),
-	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_parent_tesim",
 	  label: 'Parent'),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_Commentary_tesim",
-	  label: 'Commentary'), #'User Defined 1'
+	  label: 'Commentary'),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_UserDefined_tesim",
 	  label: 'User Defined 2'),
-	Spotlight::UploadFieldConfig.new(
-	  field_name: "sortDate",
-	  label: 'sortDate'),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_dc_box_tesim",
 	  label: 'Geographic Coordinates')
