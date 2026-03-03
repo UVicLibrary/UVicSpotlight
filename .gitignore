@@ -12,6 +12,7 @@ tmp_uploads_cache/*
 .byebug_history
 .idea
 config/secrets.yml
+config/master.key
 
 # Ignore Solr data & logs, but keep the configuration
 # files and data dir (needed to create the core)
