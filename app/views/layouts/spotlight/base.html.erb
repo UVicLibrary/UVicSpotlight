@@ -23,9 +23,11 @@
     <%= description %>
     <%= twitter_card %>
     <%= opengraph %>
+    <%= javascript_tag "Spotlight.sirTrevorIcon = '#{asset_path('spotlight/blocks/sir-trevor-icons.svg')}'" %>
     <%= javascript_tag '$.fx.off = true;' if Rails.env.test? %>
   </head>
   <body class="<%= render_body_class %>">
+    <%= render partial: 'shared/body_preamble' %>
     <div id="skip-link">
       <%= link_to t('blacklight.skip_links.search_field'), '#search_field', class: 'element-invisible element-focusable rounded-bottom py-2 px-3', data: { turbolinks: 'false' } %>
       <%= link_to t('blacklight.skip_links.main_content'), '#main-container', class: 'element-invisible element-focusable rounded-bottom py-2 px-3', data: { turbolinks: 'false' } %>

@@ -3,7 +3,6 @@ Spotlight::CatalogController.class_eval do
   # before_action only: [:show, :edit, :update] do
   #   @resource = Spotlight::Resource.find(params[:id].split("-").last.to_i)
   # end
-
   before_action only: [:video, :manifest] do
     #solr_document_params
     setup_next_and_previous_documents
@@ -57,7 +56,6 @@ Spotlight::CatalogController.class_eval do
 
 
   def edit
-    #byebug
     @document = search_service.fetch params[:id]
     @resource = @document.resource
     @docs = []

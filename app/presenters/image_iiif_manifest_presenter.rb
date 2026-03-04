@@ -25,9 +25,11 @@ class ImageIiifManifestPresenter < Spotlight::IiifManifestPresenter
   def iiif_url
     # yes this is hacky, and we are appropriately ashamed.
 =begin
+    Old version:
     Spotlight::Engine.config.iiif_service.info_url(uploaded_resource, only_path: false)
                      .sub(%r{/info\.json\Z}, '')
 =end
+    # updated version is also hacky, and we are also appropriately ashamed...
     controller.riiif.info_url(uploaded_resource.upload).sub(%r{/info\.json\Z}, '')
   end
 
