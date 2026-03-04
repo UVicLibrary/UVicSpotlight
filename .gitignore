@@ -13,6 +13,9 @@ tmp_uploads_cache/*
 .idea
 config/secrets.yml
 config/master.key
+config/credentials.yml.enc
+config/*.p12
+config/from_hyrax.yml
 
 # Ignore Solr data & logs, but keep the configuration
 # files and data dir (needed to create the core)
