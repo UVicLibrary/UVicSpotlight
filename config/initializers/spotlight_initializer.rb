@@ -226,7 +226,7 @@ Spotlight::Engine.config.upload_title_field = Spotlight::UploadFieldConfig.new(
  Spotlight::Engine.config.sir_trevor_widgets = %w(
    Heading Text List Quote Iframe Video Oembed Rule UploadedItems Browse
    FeaturedPages SolrDocuments SolrDocumentsCarousel SolrDocumentsEmbed
-   SolrDocumentsFeatures SolrDocumentsGrid SearchResults GoogleMap AudioWithImage Footnotes
+   SolrDocumentsFeatures SolrDocumentsGrid SearchResults GoogleMap Footnotes
  )
 #
 # Page configurations made available to widgets

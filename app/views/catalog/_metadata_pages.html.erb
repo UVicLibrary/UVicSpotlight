@@ -14,7 +14,7 @@
         </dt>
         <dd class="blacklight-full_title_tesim"><%= child_doc['full_title_tesim'].try(:first) %></dd>
       </div>
-      <%= render partial: "metadata_fields", locals: { fields: document_show_fields(child_doc), document: child_doc } %>
+      <%= render partial: "metadata_fields", locals: { fields: blacklight_config.show_fields, document: child_doc } %>
       <br/>
       <a role="button" class="btn btn-primary" id="download-current-image" target="_blank" href="<%= download_item_path(child_doc) %>">
         Download Current File

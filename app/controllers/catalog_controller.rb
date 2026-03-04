@@ -2,6 +2,9 @@
 # Simplified catalog controller
 class CatalogController < ApplicationController
   include Blacklight::Catalog
+  include Blacklight::Configurable
+  include Blacklight::SearchContext
+  include Spotlight::Catalog
 
   # Error: InvalidAuthenticityToken
   skip_before_action :verify_authenticity_token, only: :track
@@ -17,8 +20,18 @@ class CatalogController < ApplicationController
       end
     end
   end
+  before_action only: :admin do
+    blacklight_config.view.select! { |k, _v| k == :admin_table }
+    unless blacklight_config.view.key? :admin_table
+      blacklight_config.view.admin_table(document_component: DocumentAdminTableComponent,
+                                         partials: [:index_compact],
+                                         document_actions: [])
+    end
+    blacklight_config.view.admin_table.document_component ||= DocumentAdminTableComponent
+  end
 
   configure_blacklight do |config|
+    config.bootstrap_version = 4
     config.show.oembed_field = :oembed_url_ssm
     config.show.partials -= [:show]
     config.show.partials += [:metadata]
@@ -28,7 +41,7 @@ class CatalogController < ApplicationController
     config.view.gallery(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index_header, :index])
     config.view.masonry(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index])
     config.view.slideshow(document_component: Blacklight::Gallery::SlideshowComponent, partials: [:index])
-    config.view.embed.partials = [:item_viewer]
+    config.view.embed!.partials = [:item_viewer]
 
     config.index.title_field = 'full_title_tesim'
 
@@ -45,8 +58,11 @@ class CatalogController < ApplicationController
 
 
     config.add_search_field 'all_fields', label: I18n.t('spotlight.search.fields.search.all_fields')
-    config.add_sort_field 'relevance', sort: 'score desc', label: I18n.t('spotlight.search.fields.sort.relevance')
     config.add_sort_field 'title', sort: 'sort_title_ssi asc', label: 'Title'
+
+    #config.add_sort_field 'relevance', sort: 'score desc', label: I18n.t('spotlight.search.fields.sort.relevance')
+    blacklight_config.add_sort_field :relevance, default: true,
+                                     sort: "#{blacklight_config.index.relevance_field} score desc"
 
     # Configure facet fields
     config.add_facet_field 'spotlight_upload_dc_Subjects_ftesim', label: "Subject(s)", limit: true

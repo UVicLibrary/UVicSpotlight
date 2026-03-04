@@ -16,7 +16,8 @@
           <tr>
             <td>
               <div class="document-thumbnail spotlight-admin-thumbnail">
-                <%= render_thumbnail_tag(result, { skip_pipeline: true }) %>
+                <%#= render_thumbnail_tag(result, { skip_pipeline: true }) %>
+                <%= document_presenter(result).thumbnail.thumbnail_tag({alt: ''}) %>
               </div>
             </td>
             <td class="doc-id" style="display:none;">

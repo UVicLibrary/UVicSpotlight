@@ -1,7 +1,9 @@
 <%# default partial to display solr document fields in catalog show view -%>
 <br>
 <div class="dl-invert metadata-default">
-  <%= render "metadata_fields", fields: document_show_fields(document), document: document %>
+  <!--Use ShowPresenter#fields instead-->
+  <!-- Currently blacklight_config.show_fields works for rendering the document-->
+  <%= render "metadata_fields", fields: blacklight_config.show_fields, document: document %>
   <br/>
   <div id="object-download">
     <%= render_download_item_link(@document) if action_name == "show" %>
