@@ -4,9 +4,20 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   include Blacklight::Configurable
   include Blacklight::SearchContext
+  include Spotlight::Catalog
 
   # Error: InvalidAuthenticityToken
   skip_before_action :verify_authenticity_token, only: :track
+
+  before_action only: :admin do
+    blacklight_config.view.select! { |k, _v| k == :admin_table }
+    unless blacklight_config.view.key? :admin_table
+      blacklight_config.view.admin_table(document_component: DocumentAdminTableComponent,
+                                         partials: [:index_compact],
+                                         document_actions: [])
+    end
+    blacklight_config.view.admin_table.document_component ||= DocumentAdminTableComponent
+  end
 
   configure_blacklight do |config|
     config.bootstrap_version = 4
