@@ -51,4 +51,4 @@ module Spotlight
     end
   end
 end
-Spotlight::Resources::IiifService.prepend(Spotlight::Resources::IiifServiceDecorator)
+#Spotlight::Resources::IiifService.prepend(Spotlight::Resources::IiifServiceDecorator)
