@@ -33,10 +33,10 @@ class CatalogController < ApplicationController
   configure_blacklight do |config|
     config.bootstrap_version = 4
     config.show.oembed_field = :oembed_url_ssm
-    config.show.partials -= [:show]
-    config.show.partials += [:metadata]
-    config.show.partials.insert(1, :item_viewer)
+    config.show.partials = [:item_viewer, :metadata]
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
+    # Have CustomDocumentComponent be the default document_component
+    config.show.document_component = CustomDocumentComponent
 
     config.view.gallery(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index_header, :index])
     config.view.masonry(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index])

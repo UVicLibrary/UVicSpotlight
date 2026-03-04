@@ -25,7 +25,7 @@ Spotlight::CatalogController.class_eval do
       if @resource.compound_object?
         query = "id:(#{@resource.compound_ids.join(" OR ")})"
         @child_docs = search_service.search_results do |builder|
-          builder.with({
+          builder.merge({
                            q: query,
                            rows: 1000,
                            qt: 'standard'
