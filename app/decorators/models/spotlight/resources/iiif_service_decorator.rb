@@ -12,6 +12,18 @@ module Spotlight
                        end
       end
 
+      def recursive_manifests(thing, &block)
+        return to_enum(:recursive_manifests, thing) unless block_given?
+
+        thing.manifests.each(&block)
+
+        return if thing.collections.blank?
+
+        thing.collections.each do |collection|
+          recursive_manifests(collection, &block)
+        end
+      end
+
       class << self
         def iiif_response(url)
           begin
