@@ -95,9 +95,6 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_Source_tesim",
 	  label: 'Source'),
-	# Spotlight::UploadFieldConfig.new(
-	#   field_name: "spotlight_upload_Language_tesim",
-	#   label: 'Language'),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_Language_ftesim",
 	  label: 'Language'),
@@ -133,12 +130,8 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	  field_name: "spotlight_upload_Identifier-Bibliographic-Citation_tesim",
 	  label: 'Identifier-Bibliographic Citation'),
 	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_upload_dc_Relation_IsPartOf_Collection_tesim",
-	  label: 'Collection',
-	  form_field_type: :text_area),
-	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_dc_Relation_IsPartOf_Collection_ftesim",
-	  label: 'Collection Facet',
+	  label: 'Collection',
 	  form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_dc_Coverage-Spatial_Location_tesim",
