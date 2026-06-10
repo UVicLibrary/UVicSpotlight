@@ -3,7 +3,9 @@
                 data: {
                   'document-id': @document.id.to_s.parameterize,
                   'document-counter': @counter,
-                  'label-toggle': @document.id
+                  'label-toggle': @document.id,
+                  turbolinks: false,
+                  turbo: false
                 },
                 itemscope: true,
                 itemtype: @document.itemtype,
