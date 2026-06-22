@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bot protection
 gem 'bot_challenge_page', github: 'UVicLibrary/bot_challenge_page', branch: 'altcha'
+gem 'rack-attack', '~> 6.8'
 
 # Gems for thumbnail generation
 gem 'video_thumbnailer'

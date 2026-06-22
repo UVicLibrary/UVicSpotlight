@@ -1,5 +1,5 @@
 BotChallengePage.configure do |config|
-
+  
   # Can globally disable in configuration if desired
   config.enabled = true
 
@@ -32,9 +32,15 @@ BotChallengePage.configure do |config|
       # (https://altcha.org/docs/v2/security-recommendations/#replay-attacks)
       theme: "aqua"
     }
+
+  load Rails.root.join("lib","hydra","ip_based_groups.rb")
   
-
-
+  # Filter to omit requests from bot challenge control, executed in controller instance context
+    config.skip_when = ->(_config) {
+      origin_ip = request.remote_ip
+      request.env['warden'].authenticated?(:user) ||
+        Hydra::IpBasedGroups.groups.find { |group| group.name == "uvic" }.include_ip?(origin_ip)
+    }
 
   # For rate-limiting, we need a rails cache store that keeps state, by default
   # will use `config.action_controller.cache_store` or Rails.cache, but if you'd
