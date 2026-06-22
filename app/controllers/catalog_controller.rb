@@ -9,26 +9,18 @@ class CatalogController < ApplicationController
   # Error: InvalidAuthenticityToken
   skip_before_action :verify_authenticity_token, only: :track
 
-  WHITELISTED_CRAWLERS = %w['Googlebot', 'bingbot','Applebot','facebookexternalhit']
+  # This should apply to all CatalogController sub-classes too. They all share a counter though.
+  #
+  # We let bots through if they have NO query params, we want to let collection/focus splash
+  # pages be indexed -- this will actually let bot paginate through entire results with
+  # no query/facets, which we seem to be able to tolerate.
+  bot_challenge if: -> { has_search_parameters? }, except: ["facet", "range_limit"]
 
-  # Attempt to block bots that frequently stuff parameters into the catalog search path
-  def count_params
-    if URI.parse(request.url).query && params[:search_field] != "advanced" && params[:search_field] != "all_fields"
-      if URI.decode_www_form(URI.parse(request.url).query).flatten.count > 7 && WHITELISTED_CRAWLERS.none? { |str| request.user_agent.include? str }
-        render file: 'public/404.html', layout: false
-        return
-      end
-    end
-  end
-  before_action only: :admin do
-    blacklight_config.view.select! { |k, _v| k == :admin_table }
-    unless blacklight_config.view.key? :admin_table
-      blacklight_config.view.admin_table(document_component: DocumentAdminTableComponent,
-                                         partials: [:index_compact],
-                                         document_actions: [])
-    end
-    blacklight_config.view.admin_table.document_component ||= DocumentAdminTableComponent
-  end
+  # facet and range_limit both get challenged immediately, unless they are JS fetch,
+  # in which case they are let in freely.
+  bot_challenge only: ["facet", "range_limit"], unless: -> {
+    request.headers["sec-fetch-dest"] == "empty"
+  }
 
   configure_blacklight do |config|
     config.bootstrap_version = 4

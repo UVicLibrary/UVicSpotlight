@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post "/altcha_challenge", to: "bot_challenge_page/altcha_challenge#verify_challenge", as: :altcha_bot_challenge
+  post "/challenge", to: "bot_challenge_page/bot_challenge_page#verify_challenge", as: :bot_detect_challenge
 
   mount Blacklight::Oembed::Engine, at: 'oembed'
   mount Riiif::Engine => '/images', as: 'riiif'

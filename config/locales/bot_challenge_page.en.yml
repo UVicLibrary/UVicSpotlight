@@ -1,0 +1,3 @@
+en:
+  bot_challenge_page:
+    blurb_html: <p>If you have a UVic Netlink ID or have an account with us, you can <a href="/users/sign_in">log in</a> to prevent this check/message. Your answer will be stored for %{good_for_duration} or the length of your browser session, if session cookies are enabled.<p>If this check is preventing you from using our resources, please <a href="/contact" target="_blank">contact the administrator</a> or email askus@uvic.ca.</p>

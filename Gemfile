@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 #ruby '2.7.0'
 
+# Bot protection
+gem 'bot_challenge_page', github: 'UVicLibrary/bot_challenge_page', branch: 'altcha'
+
 # Gems for thumbnail generation
 gem 'video_thumbnailer'
 gem 'streamio-ffmpeg'

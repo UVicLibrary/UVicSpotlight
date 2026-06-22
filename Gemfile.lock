@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/UVicLibrary/bot_challenge_page.git
+  revision: 1ffa98a21b83fb7dd14ed6b106416d69776d8e81
+  branch: altcha
+  specs:
+    bot_challenge_page (1.2.0)
+      altcha (>= 2.0)
+      http (>= 5.2, < 7)
+      rails (>= 7.1, < 8.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -82,6 +92,8 @@ GEM
       zeitwerk (>= 2.4, < 3.0)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    altcha (2.0.0)
+      base64
     autoprefixer-rails (10.4.16.0)
       execjs (~> 2)
     base64 (0.3.0)
@@ -257,6 +269,9 @@ GEM
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
     hashie (5.0.0)
+    http (6.0.3)
+      http-cookie (~> 1.0)
+      llhttp (~> 0.6.1)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -312,6 +327,7 @@ GEM
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    llhttp (0.6.1)
     logger (1.7.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
@@ -561,6 +577,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.0)
   bootstrap_form (~> 4.0)
+  bot_challenge_page!
   byebug
   devise_invitable
   down

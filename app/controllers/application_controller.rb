@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include BotChallengePage::Controller
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
   layout :determine_layout if respond_to? :layout
@@ -9,7 +10,7 @@ class ApplicationController < ActionController::Base
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
   include Spotlight::Controller
-  # skip_after_action :discard_flash_if_xhr
+  
   layout 'blacklight'
 
   # Patch for load balancer: use HTTPS urls even when config.use_ssl is false
