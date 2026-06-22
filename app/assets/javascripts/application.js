@@ -15,8 +15,8 @@
 //= require turbolinks
 //= require markerclusterer
 //= require sir-trevor
-// require spotlight/sir_trevor/blocks/footnotes.js
-// require spotlight/sir_trevor/blocks/google_map.js
+//= require spotlight/sir_trevor/blocks/footnotes
+//= require spotlight/sir_trevor/blocks/google_map
 //= require tiny-slider
 //= require typeahead.bundle.min.js
 //= require catalog_show
