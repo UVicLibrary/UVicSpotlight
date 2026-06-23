@@ -355,6 +355,7 @@ GEM
     multipart-post (2.4.0)
     mutex_m (0.3.0)
     mysql2 (0.5.6)
+    net-dns (0.20.0)
     net-http (0.4.1)
       uri
     net-imap (0.4.10)
@@ -459,6 +460,8 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     retriable (3.1.2)
+    reversed (0.6.0)
+      net-dns (>= 0.20)
     riiif (2.8.0)
       deprecation (>= 1.0.0)
       iiif-image-api (>= 0.1.0)
@@ -599,6 +602,7 @@ DEPENDENCIES
   rails (= 7.1)
   redis (< 5)
   rest-client
+  reversed
   rsolr (>= 1.0, < 3)
   ruby-oembed
   ruby-vips
