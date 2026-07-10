@@ -165,9 +165,6 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	  field_name: "spotlight_upload_Commentary_tesim",
 	  label: 'Commentary'),
 	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_upload_UserDefined_tesim",
-	  label: 'User Defined 2'),
-	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_dc_box_tesim",
 	  label: 'Geographic Coordinates')
 
