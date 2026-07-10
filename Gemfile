@@ -90,7 +90,7 @@ gem 'blacklight-gallery'
 gem 'blacklight-oembed'
 gem 'devise_invitable'
 
-gem 'sidekiq', '6.5.6'
+gem 'sidekiq', '~> 7.0'
 gem 'redis', '<5'
 
 gem 'down'
