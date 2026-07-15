@@ -13,8 +13,9 @@
 //= require mirador
 //= require sortable-rails-jquery
 //= require turbolinks
-//= require markerclusterer
+// require markerclusterer
 //= require sir-trevor
+//= require spotlight/sir_trevor/locales
 //= require spotlight/sir_trevor/blocks/footnotes
 //= require spotlight/sir_trevor/blocks/google_map
 //= require tiny-slider
