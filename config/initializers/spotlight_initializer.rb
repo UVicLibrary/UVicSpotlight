@@ -156,9 +156,6 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	  label: 'People Depicted',
 	  form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_upload_Sketchfab-uid_tesim",
-	  label: 'Sketchfab Uid'),
-	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_parent_tesim",
 	  label: 'Parent'),
 	Spotlight::UploadFieldConfig.new(
@@ -236,7 +233,6 @@ ActiveSupport::Reloader.to_prepare do
 	# 			Run Spotlight::Resources::Upload.indexing_pipeline.transforms. You should see your custom Proc.
 	Spotlight::Resources::Upload.indexing_pipeline.transforms += [
 		{ add_file_type: Etl::CustomTransforms::AddFileTypeTransform },
-  	{ add_sketchfab_uid: Etl::CustomTransforms::AddSketchfabUidTransform },
   	{ add_3d_model_id: Etl::CustomTransforms::Add3DModelIdTransform },
   	{ add_sort_fields: Etl::CustomTransforms::AddSortFieldsTransform }
   ]

@@ -9,11 +9,6 @@ module Etl
       data.merge({ 'resource_file_type_ssi' => pipeline.source.file_type })
     end
 
-    AddSketchfabUidTransform = lambda do |data, pipeline|
-      return data unless pipeline.source.uid.present?
-      data.merge({ 'spotlight_upload_Sketchfab-uid_tesim' => pipeline.source.uid })
-    end
-
     Add3DModelIdTransform = lambda do |data, pipeline|
       return data unless pipeline.source.model_id.present?
       data.merge({ 'spotlight_upload_3d_model_id_tesim' => pipeline.source.model_id },
