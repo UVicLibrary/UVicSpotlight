@@ -14,7 +14,7 @@ class CatalogController < ApplicationController
   # We let bots through if they have NO query params, we want to let collection/focus splash
   # pages be indexed -- this will actually let bot paginate through entire results with
   # no query/facets, which we seem to be able to tolerate.
-  bot_challenge if: -> { has_search_parameters? }, except: ["facet", "range_limit"]
+  bot_challenge if: -> { action_name != "track" && has_search_parameters? }, except: ["facet", "range_limit"]
 
   # facet and range_limit both get challenged immediately, unless they are JS fetch,
   # in which case they are let in freely.
