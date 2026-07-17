@@ -3,11 +3,9 @@
 //
 // Required by Blacklight
 //= require popper
-// Twitter Typeahead for autocomplete
 //= link_tree ../../../vendor/assets
 //= require leaflet
 //= require clipboard
-//= require twitter/typeahead
 //= require bootstrap
 //= require blacklight/blacklight
 //= require mirador
@@ -19,6 +17,7 @@
 //= require spotlight/sir_trevor/blocks/footnotes
 //= require spotlight/sir_trevor/blocks/google_map
 //= require tiny-slider
+// Twitter Typeahead for autocomplete
 //= require typeahead.bundle.min.js
 //= require catalog_show
 //= require spotlight/spotlight
