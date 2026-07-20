@@ -1,0 +1,23 @@
+/* solr_documents_carousel_block.html.erb */
+
+.blacklight-icon-arrow_back_ios svg,
+.blacklight-icon-arrow_forward_ios svg {
+    /*filter: invert(100%) sepia(0%) saturate(7473%) hue-rotate(184deg) brightness(98%) contrast(99%);*/
+    width: 40px;
+    height: 40px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    opacity: 1;
+}
+
+.col-sm-6, .item-features .carousel-indicators.col-sm-6 {
+    font-size: 0.9rem;
+}
+
+.list-group-item.active,
+.item-features .carousel-indicators .active,
+.item-features .carousel-indicators .active:hover {
+    background-color: #337ab7;
+}

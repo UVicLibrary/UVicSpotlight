@@ -1,0 +1,22 @@
+
+.quote__cite {
+    display: flex;
+    justify-content: right;
+    margin-right: 1rem;
+}
+
+.quote__cite-text {
+    display: inline-flex;
+    text-align: end;
+}
+
+.quote__content cite {
+    text-align: center;
+    font-size: 140%;
+}
+
+.quote__content {
+    font-style: italic;
+    padding: 0 2rem 0 3rem;
+    font-size: 1.5rem;
+}

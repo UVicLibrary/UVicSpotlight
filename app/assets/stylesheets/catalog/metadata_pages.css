@@ -1,0 +1,39 @@
+/*****************/
+/* METADATA PAGE */
+/****************/
+
+#document:not(.documents-list) .metadata-field dt,
+#metadata-sidebar .metadata-field dt {
+    margin-top: 1rem;
+    color: #337ab7;
+}
+
+#documents.documents-list .metadata-field {
+    margin-top: 1rem;
+}
+
+#documents.documents-list .metadata-field dt {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.dl-invert.metadata-default dt:hover {
+    text-decoration: underline;
+}
+
+.dl-invert.metadata-default dt, #object-download {
+    font-weight: bold !important;
+}
+
+.blacklight-spotlight_upload_dc_description_transcript_tesim {
+    white-space: pre-line;
+}
+
+.dl-invert.metadata-default {
+    clear:both;
+    /*background-color: rgba(222,205,184,.4);*/
+    padding:30px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}

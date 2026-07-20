@@ -1,56 +1,3 @@
-/*****************/
-/* METADATA PAGE */
-/****************/
-
-/* page {
-	padding: 30px;
-	margin-left: 60%;
-} */
-
-#document:not(.documents-list) .metadata-field dt,
-#metadata-sidebar .metadata-field dt {
-    margin-top: 1rem;
-    color: #337ab7;
-}
-
-/*#document .metadata-field dt {*/
-/*    font-weight: 500;*/
-/*}*/
-
-#documents.documents-list .metadata-field {
-    margin-top: 1rem;
-}
-
-#documents.documents-list .metadata-field dt {
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 0.25rem;
-}
-
-    /*.document-list .metadata-field {*/
-/*    margin-top: 10px;*/
-/*}*/
-
-.dl-invert.metadata-default dt:hover {
-    text-decoration: underline;
-}
-
-.dl-invert.metadata-default dt, #object-download {
-    font-weight: bold !important;
-}
-
-.blacklight-spotlight_upload_dc_description_transcript_tesim {
-    white-space: pre-line;
-}
-
-.dl-invert.metadata-default {
-    clear:both;
-    /*background-color: rgba(222,205,184,.4);*/
-    padding:30px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-}
-
 /*************************/
 /* CATALOG#SHOW SIDEBAR */
 /*************************/
@@ -87,6 +34,10 @@
 /**********/
 /* FACETS */
 /**********/
+
+#sidebar li {
+    margin-bottom: 0.25rem;
+}
 
 /* Applied filter lists */
 .appliedFilter.filter-spotlight_upload_dc_coverage-spatial_location_ftesim .filterValue,

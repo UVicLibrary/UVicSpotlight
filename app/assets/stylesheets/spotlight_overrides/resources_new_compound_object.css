@@ -1,0 +1,84 @@
+/* New manifest form */
+
+/* Font Awesome remove icon */
+/* Used in both sir-trevor blocks and new compound object page */
+a.remove-id i.fa-times {
+    color: #dc3545;
+}
+
+.item-ids-input {
+    display: none;
+}
+
+.invalid-feedback {
+    width: 100%;
+    margin-top: .25rem;
+    color: #dc3545;
+    display: inline-block;
+    position: relative;
+    left: 20%;
+}
+
+.panel-heading.new-manifest-panel .document-thumbnail img {
+    border: 1px solid #777777;
+    width: 60px;
+    height: 60px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    margin-right: 1em;
+}
+.panel-heading.new-manifest-panel .document-thumbnail {
+    display: inline;
+    float: left;
+}
+
+.panel-heading.new-manifest-panel {
+    min-height: 80px;
+}
+
+#resources-lookup form {
+    display: inline-block;
+    padding-left: 2em;
+}
+
+#search-option .control-label {
+    text-align: left;
+    margin-bottom: 1.5%;
+    margin-left: 3%;
+}
+
+#search-option .control-label input {
+    text-align: left;
+    margin-right: 5%;
+}
+
+.ghost {
+    opacity: .7;
+    background: #C8EBFB;
+}
+
+.remove-button, .remove-id {
+    position: absolute !important;
+    top: 0.5em !important;
+    right: 0.5em !important;
+}
+
+th.doc-id-column {
+    width: 10%;
+}
+
+tr .title {
+    width: 40%;
+}
+
+tr .description {
+    width: 30%;
+}
+
+.manifest-image {
+    padding-right: 10%;
+}
+
+.panel-group > ol {
+    list-style-type: none;
+}

@@ -1,0 +1,52 @@
+/* -----
+For custom footnotes block
+----- */
+
+.footnote-container {
+    position: relative;
+}
+
+.add-footnote {
+    position: absolute;
+    top: 20px;
+    right: 5px;
+    color: #9B9B9B !important;
+}
+
+.tooltip-inner {
+    white-space:nowrap;
+    max-width:none;
+}
+
+.remove-footnote:hover, .remove-footnote:focus {
+    color: #d9534f !important;
+    opacity: 1;
+}
+
+.add-footnote:hover, .add-footnote:focus {
+    color: #337ab7 !important;
+}
+
+.remove-footnote {
+    display: inline-block;
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    color: #9B9B9B !important;
+}
+
+.footnote-container textarea.st-text-block {
+    width: 95%;
+}
+
+a[href^="#footnote"] {
+    position: relative;
+    bottom: 0.5em;
+    font-size: 0.8em;
+    left: 0.1em;
+}
+
+.footnote-text {
+    font-size: 13px;
+    padding-bottom: 1em;
+}

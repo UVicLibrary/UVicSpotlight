@@ -1,0 +1,35 @@
+h1.page-title {
+    margin-bottom: 2.5rem;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #337AB7;
+    border-color: #204d74;
+}
+
+/* Next and previous page links */
+.next-prev-links {
+    margin-top: 1.5rem;
+    display: block;
+}
+
+.go-to-prev {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    margin-bottom: 10%;
+}
+
+.go-to-next {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    margin-bottom: 10%;
+}

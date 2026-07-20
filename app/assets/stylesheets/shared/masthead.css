@@ -1,0 +1,14 @@
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-item a:not(.dropdown-item),
+.navbar-dark .navbar-nav .nav-item,
+.image-masthead .exhibit-navbar .navbar-nav .nav-link {
+    color: #E6E6E6;
+}
+
+.navbar-dark .navbar-nav .nav-item a:not(.dropdown-toggle) {
+    margin-right: 1rem;
+}
+
+.navbar-dark .navbar-nav.mr-auto {
+    margin-right: 0 !important;
+}

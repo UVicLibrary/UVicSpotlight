@@ -1,0 +1,18 @@
+.custom-navbar-brand {
+    width: 160px;
+    height: 40px;
+    background: transparent url(/uploads/spotlight/LIBR_white.png) no-repeat top left;
+    display: inline-block;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 0;
+    margin-right: 20px;
+    padding-left: 0;
+    margin-top: 8px;
+}
+
+.navbar.navbar-dark:not(#exhibit-navbar) {
+    background-color: #002754 !important;
+    color: #fff;
+}

@@ -1,0 +1,14 @@
+/* The wwi exhibit thumbnail has a transparent background,
+ which ends up looking black. We make the background white
+ to give it more contrast */
+.exhibit-card {
+    background: #f5f5f5;
+}
+
+.exhibit-card .card-title a {
+    color: #333;
+}
+
+.page-item.active .page-link {
+    background-color: #337AB7;
+}

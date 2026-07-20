@@ -72,3 +72,11 @@ table.table th {
 .page-sidebar .nav-heading {
     font-weight: 400;
 }
+
+.page-sidebar .nav-link:hover {
+    text-decoration: underline;
+}
+
+#main-container #sidebar ol.sidenav li > h4 > a {
+    color: #337ab7;
+}

@@ -9,15 +9,12 @@
 @import "spotlight/spotlight";
 
 //Import custom css files
-@import "browse_categories";
-@import "catalog_admin";
-@import "custom";
-@import "custom_blacklight_styles";
-@import "custom_blacklight_gallery";
-@import "wwi";
-@import "dashboard";
-@import "pages";
-@import "sir_trevor_overrides";
+@import "blacklight_overrides/*";
+@import "catalog/*";
+@import "sir_trevor_overrides/*";
+@import "shared/*";
+@import "spotlight_overrides/*";
+@import "wwi/*";
 
 // Import all top-level css files. To include a file in a
 // subdirectory, use @import "relative_path/to/file"

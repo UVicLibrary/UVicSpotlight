@@ -1,0 +1,16 @@
+#sortAndPerPage {
+    margin-bottom: 0.5rem;
+}
+
+/* Delete button */
+td.delete-button-cell, #documents tr th:nth-child(4), #documents tr.doc-row td:nth-child(4) {
+    text-align: center;
+}
+
+a, .page-links a, .pagination a {
+    color: #337ab7;
+}
+
+.img-thumbnail {
+    border: none;
+}
