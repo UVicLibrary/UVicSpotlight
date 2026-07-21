@@ -21,7 +21,7 @@
 <!-- Item IDs field -->
   <div class="form-group item-ids-field">
     <div class = "col-sm-6 col-md-6 item-ids-input" style="display:block;">
-      <input class="form-control" type="hidden" name="resources_upload[compound_ids][]" id="resources_upload_compound_ids" value>
+      <input class="form-control" type="hidden" name="resources_upload[compound_ids]" id="resources_upload_compound_ids" value>
     </div>
   </div>
 
@@ -94,8 +94,6 @@
         idsInOrder.push($(this).attr('id'));
       });
       var quotedIds = '["' + idsInOrder.join('","') + '"]';
-      // var quotedIds = "['" + idsInOrder.join("','") + "']";
-      // var quotedIds = idsInOrder;
       $('#resources_upload_compound_ids').val(quotedIds);
     }
 

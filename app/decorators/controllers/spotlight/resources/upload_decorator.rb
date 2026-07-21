@@ -1,36 +1,40 @@
-Spotlight::Resources::UploadController.class_eval do
+module Spotlight
+  module Resources
+    module UploadControllerDecorator
 
-  attr_accessor :featured_image
+      # OVERRIDE Spotlight v.4.7.0: Reindex items right away instead of deferring to Sidekiq
+      # because users expect to see the item right away.
+      def create
+        super
+        @resource.reindex
+      end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  def create
-    @resource.attributes = resource_params
-    # We need to set a featured_image for each resource, even if the
-    # file itself is not an image. The resource won't save and index
-    # without it.
-    @resource.upload = Spotlight::FeaturedImage.create(image: params[:resources_upload][:url])
+      private
 
-    # Is compound object
-    if params[:resources_upload][:compound_ids].presence
-      @resource.compound_ids = JSON.parse(params[:resources_upload][:compound_ids].first)
-    else
-      @resource.file_name = set_file_name
+      # OVERRIDE Spotlight v.4.7.0: Create a featured image for compound objects, even if
+      # there is no file attached. This is required for proper manifest generation.
+      def build_resource
+        @resource ||= begin
+          super.tap do |resource|
+            resource.build_upload(image: params[:resources_upload][:url]) if resource.upload.nil?
+          end
+        end
+      end
+
+      # @return[Array <String>] - the IDs of the child solr documents
+      def compound_id_params
+        if params.require(:resources_upload).permit(:compound_ids).present?
+          JSON.parse(params.require(:resources_upload).permit(:compound_ids).fetch(:compound_ids))
+        else
+          []
+        end
+      end
+
+      def resource_params
+        params.require(:resources_upload).permit(data: data_param_keys).merge(compound_ids: compound_id_params)
+      end
+
     end
-
-    if @resource.save_and_index
-        @resource.reindex  # Sometimes the resource doesn't show up in Solr until we reindex again
-        flash[:notice] = t('spotlight.resources.upload.success')
-        return redirect_to new_exhibit_resource_path(@resource.exhibit, tab: :upload) if params['add-and-continue']
-    else
-      flash[:error] = t('spotlight.resources.upload.error')
-    end
-
-    redirect_to admin_exhibit_catalog_path(@resource.exhibit, sort: :timestamp)
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
-
-  def set_file_name
-    @resource.upload.image.file.filename
-  end
-
 end
+Spotlight::Resources::UploadController.prepend(Spotlight::Resources::UploadControllerDecorator)
