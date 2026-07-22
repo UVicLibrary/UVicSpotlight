@@ -1,6 +1,8 @@
 module Etl
   module CustomTransforms
-    # Add custom indexing fields to this file.
+    # Add custom indexing fields to this file. Don't forget to add new transforms
+    # to the Spotlight initializer!
+    #
     #   data - the index document that is eventually pushed to Solr
     #   pipeline.source - the resource object, call pipeline.source.sidecar['data'] to get
     #                     metadata entered into the edit form
@@ -18,6 +20,11 @@ module Etl
     AddSortFieldsTransform = lambda do |data, pipeline|
       data.merge({ 'sort_title_ssi' => pipeline.source.sidecar.data['configured_fields']['full_title_tesim'] })
       # TO DO: add date created sort option
+    end
+
+    AddCompoundIdsTransform = lambda do |data, pipeline|
+      return data unless pipeline.source.compound_ids.present?
+      data.merge({ 'compound_ids_ssim' => pipeline.source.compound_ids })
     end
 
   end

@@ -234,7 +234,8 @@ ActiveSupport::Reloader.to_prepare do
 	Spotlight::Resources::Upload.indexing_pipeline.transforms += [
 		{ add_file_type: Etl::CustomTransforms::AddFileTypeTransform },
   	{ add_3d_model_id: Etl::CustomTransforms::Add3DModelIdTransform },
-  	{ add_sort_fields: Etl::CustomTransforms::AddSortFieldsTransform }
+  	{ add_sort_fields: Etl::CustomTransforms::AddSortFieldsTransform },
+		{ add_compound_ids: Etl::CustomTransforms::AddCompoundIdsTransform }
   ]
 
   Spotlight::Resource.class_eval do
