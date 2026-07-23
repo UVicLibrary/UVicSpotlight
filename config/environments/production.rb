@@ -11,7 +11,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
@@ -50,11 +50,23 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.assume_ssl = true
+  
+  config.action_dispatch.trusted_proxies = Rails.application.credentials.trusted_proxies.split(",").map { |proxy| IPAddr.new(proxy) }
+
+  config.action_mailer.default_url_options = { host: "exhibits.library.uvic.ca", protocol: "https" }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
-  #
-  #config.action_mailer.default_url_options = { protocol: Settings.ssl_configured ? 'https' : 'http' }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              Rails.application.credentials.action_mailer_address,
+    port:                 Rails.application.credentials.action_mailer_port,
+    domain:               Rails.application.credentials.action_mailer_domain
+  }
+
+  config.action_mailer.default_options = { from: 'spotlight-no-reply@library.uvic.ca' }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -78,4 +90,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Temporary setting to allow cupid spotlight to get assets from somewhere else
+  config.assets.prefix = "/cupid-assets"
+
+  config.public_file_server.enabled = true
 end
