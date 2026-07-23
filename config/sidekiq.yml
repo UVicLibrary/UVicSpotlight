@@ -5,4 +5,3 @@
   - event
   - mailers
 :verbose: true
-:logfile: /home/spotlight/exhibits/log/sidekiq.log
