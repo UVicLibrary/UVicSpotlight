@@ -235,7 +235,8 @@ ActiveSupport::Reloader.to_prepare do
 		{ add_file_type: Etl::CustomTransforms::AddFileTypeTransform },
   	{ add_3d_model_id: Etl::CustomTransforms::Add3DModelIdTransform },
   	{ add_sort_fields: Etl::CustomTransforms::AddSortFieldsTransform },
-		{ add_compound_ids: Etl::CustomTransforms::AddCompoundIdsTransform }
+		{ add_compound_ids: Etl::CustomTransforms::AddCompoundIdsTransform },
+		{ transform_facet_fields: Etl::CustomTransforms::TransformFacetFieldsTransform }
   ]
 
   Spotlight::Resource.class_eval do
