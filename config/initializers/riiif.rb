@@ -8,8 +8,10 @@ ActiveSupport::Reloader.to_prepare do
   #
   Riiif::Engine.config.cache_duration = 365.days
 
-  if Rails.env.production?
-    Riiif::ImagemagickCommandFactory.external_command = "gm convert"
-    Riiif::ImageMagickInfoExtractor.external_command = "gm identify"
-  end
+  Riiif::Engine.config.use_vips = true
+
+  # if Rails.env.production?
+  #   Riiif::ImagemagickCommandFactory.external_command = "gm convert"
+  #   Riiif::ImageMagickInfoExtractor.external_command = "gm identify"
+  # end
 end

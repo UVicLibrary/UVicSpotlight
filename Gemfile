@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-#ruby '2.7.0'
+
+# Must be a version that supports image transformation with VIPS
+gem 'riiif', '>= 2.8.1'
+gem 'ruby-vips'
+
+gem 'rails', '~> 7.2.0'
 
 # Bot protection
 gem 'bot_challenge_page', github: 'UVicLibrary/bot_challenge_page', branch: 'altcha'
@@ -12,27 +17,20 @@ gem 'video_thumbnailer'
 gem 'streamio-ffmpeg'
 gem 'rest-client'
 
-# gem 'mime-types'
 gem 'httparty'
 gem 'sortable-rails'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 6' #, '~> 5.0'
+gem 'sass-rails', '>= 6'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
-
-# NO LONGER USING FROM_HYRAX REMOVE
-#gem 'from_hyrax', '~> 0.2.7'
-
-gem 'ruby-vips'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
@@ -43,6 +41,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'solr_wrapper', '>= 0.3'
+  gem 'rspec'
 end
 
 group :development do
@@ -65,24 +65,16 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
-gem 'blacklight-spotlight', '4.7.1' # '3.1'
+gem 'blacklight-spotlight', '4.7.1'
 gem 'blacklight', '8.3.0'
+
+gem "bootstrap", "~> 4.0"
 gem 'bootstrap_form', '~> 4.0'
-
-# Changes for Rails 6 and sprockets
-gem 'rails', '7.1'
-# See https://github.com/projectblacklight/blacklight/wiki/Using-Sprockets-to-compile-javascript-assets
-gem 'popper_js'
-gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
-
-group :development, :test do
-  gem 'solr_wrapper', '>= 0.3'
-end
-
-gem 'rsolr', '>= 1.0', '< 3'
-
 # Replaces deprecated icons in Bootstrap 4
 gem 'font-awesome-rails'
+gem "sassc-rails", "~> 2.1"
+
+gem 'rsolr', '>= 1.0', '< 3'
 
 gem 'jquery-rails'
 gem 'sitemap_generator'
@@ -104,5 +96,4 @@ gem 'net-http'
 # New for Ruby 3
 gem 'matrix'
 
-gem "bootstrap", "~> 4.0"
-gem "sassc-rails", "~> 2.1"
+

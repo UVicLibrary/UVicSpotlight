@@ -240,7 +240,7 @@ ActiveSupport::Reloader.to_prepare do
 
   Spotlight::Resource.class_eval do
 		has_many :solr_document_sidecars, dependent: :destroy
-		serialize :compound_ids, Array
+		serialize :compound_ids, type: Array
 	end
 
   Translation.class_eval do
