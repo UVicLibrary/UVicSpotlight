@@ -227,17 +227,14 @@ ActiveSupport::Reloader.to_prepare do
 	# Resource indexing pipeline
 	# To index a custom field to a SolrDocument:
 	# 	1. Define a custom transform in app/services/etl/custom_transforms.
-	# 	2. Add a hash to the array below. The key should be a descriptive name for the change.
-	# 			The value should be the ClassName of the transformation/lambda.
-	# 	3. Open the Rails console and make sure the transform has been added to the indexing pipeline:
+	# 	2. Open the Rails console and make sure the transform has been added to the indexing pipeline:
 	# 			Run Spotlight::Resources::Upload.indexing_pipeline.transforms. You should see your custom Proc.
-	Spotlight::Resources::Upload.indexing_pipeline.transforms += [
-		{ add_file_type: Etl::CustomTransforms::AddFileTypeTransform },
-  	{ add_3d_model_id: Etl::CustomTransforms::Add3DModelIdTransform },
-  	{ add_sort_fields: Etl::CustomTransforms::AddSortFieldsTransform },
-		{ add_compound_ids: Etl::CustomTransforms::AddCompoundIdsTransform },
-		{ transform_facet_fields: Etl::CustomTransforms::TransformFacetFieldsTransform }
-  ]
+	custom_transforms = Etl::CustomTransforms.constants.map do |constant|
+		key = constant.to_s.underscore.sub('_transform','').to_sym
+		val = "Etl::CustomTransforms::#{constant}".constantize
+		{ key => val }
+	end
+	Spotlight::Resources::Upload.indexing_pipeline.transforms += custom_transforms
 
   Spotlight::Resource.class_eval do
 		has_many :solr_document_sidecars, dependent: :destroy

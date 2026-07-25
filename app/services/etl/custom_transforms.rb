@@ -11,7 +11,7 @@ module Etl
       data.merge({ 'resource_file_type_ssi' => pipeline.source.file_type })
     end
 
-    Add3DModelIdTransform = lambda do |data, pipeline|
+    AddModelIdTransform = lambda do |data, pipeline|
       return data unless pipeline.source.model_id.present?
       data.merge({ 'spotlight_upload_3d_model_id_tesim' => pipeline.source.model_id },
                  { 'thumbnail_url_ssm' => ThumbnailService.new(pipeline.source).create_thumbnail })
