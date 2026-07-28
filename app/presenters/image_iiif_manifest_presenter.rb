@@ -53,7 +53,7 @@ class ImageIiifManifestPresenter < Spotlight::IiifManifestPresenter
 
     # @return [<Hash>] - the resulting manifest
     def add_logo(manifest)
-      path = "#{controller.request.base_url}#{ActionController::Base.helpers.asset_path("libr_logo_comb.jpg")}"
+      path = "/uploads/spotlight/libraries-uac-dark-blue-horizontal.jpg"
       manifest['logo'] = path
       manifest
     end
