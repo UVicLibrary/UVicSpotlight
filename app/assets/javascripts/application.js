@@ -3,7 +3,6 @@
 //
 // Required by Blacklight
 //= require popper
-//= link_tree ../../../vendor/assets
 //= require leaflet
 //= require clipboard
 //= require bootstrap
@@ -21,3 +20,5 @@
 //= require typeahead.bundle.min.js
 //= require catalog_show
 //= require spotlight/spotlight
+// Scripts that call window.Spotlight must be included after spotlight core
+//= require spotlight/sir_trevor/format_bar/footnote
