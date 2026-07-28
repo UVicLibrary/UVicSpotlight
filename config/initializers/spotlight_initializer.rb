@@ -164,21 +164,6 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_dc_box_tesim",
 	  label: 'Geographic Coordinates')
-
-
-#   UploadFieldConfig.new(
-#     field_name: config.upload_description_field,
-#     label: -> { I18n.t(:"spotlight.search.fields.#{config.upload_description_field}") },
-#     form_field_type: :text_area
-#   ),
-#   UploadFieldConfig.new(
-#     field_name: :spotlight_upload_attribution_tesim,
-#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_attribution_tesim') }
-#   ),
-#   UploadFieldConfig.new(
-#     field_name: :spotlight_upload_date_tesim,
-#     label: -> { I18n.t(:'spotlight.search.fields.spotlight_upload_date_tesim') }
-#   )
  ]
 
 
@@ -210,11 +195,9 @@ Spotlight::Engine.config.upload_title_field = Spotlight::UploadFieldConfig.new(
 #   Spotlight::Engine.config.ga_debug_mode = false
 
 # ==> Sir Trevor Widget Configuration
- Spotlight::Engine.config.sir_trevor_widgets = %w(
-   Heading Text List Quote Iframe Video Oembed Rule UploadedItems Browse
-   FeaturedPages SolrDocuments SolrDocumentsCarousel SolrDocumentsEmbed
-   SolrDocumentsFeatures SolrDocumentsGrid SearchResults GoogleMap Footnotes
- )
+# Add custom block types
+Spotlight::Engine.config.sir_trevor_widgets += ["GoogleMap", "Footnotes"]
+
 #
 # Page configurations made available to widgets
 # Spotlight::Engine.config.page_configurations = {
@@ -235,15 +218,6 @@ ActiveSupport::Reloader.to_prepare do
 		{ key => val }
 	end
 	Spotlight::Resources::Upload.indexing_pipeline.transforms += custom_transforms
-
-  Spotlight::Resource.class_eval do
-		has_many :solr_document_sidecars, dependent: :destroy
-		serialize :compound_ids, type: Array
-	end
-
-  Translation.class_eval do
-    include Spotlight::CustomTranslationExtension
-	end
 
 	KOMPAKKT_DOMAIN_NAME = "https://kompakkt.de"
 
