@@ -1,24 +1,29 @@
 //= require jquery3
 //= require rails-ujs
-//
+
 // Required by Blacklight
 //= require popper
 //= require leaflet
 //= require clipboard
 //= require bootstrap
-//= require blacklight/blacklight
+//= require tiny-slider
+
 //= require mirador
 //= require sortable-rails-jquery
 //= require turbolinks
 //= require markerclusterer
-//= require sir-trevor
-//= require spotlight/sir_trevor/locales
-//= require spotlight/sir_trevor/blocks/footnotes
-//= require spotlight/sir_trevor/blocks/google_map
-//= require tiny-slider
 // Twitter Typeahead for autocomplete
 //= require typeahead.bundle.min.js
-//= require catalog_show
+
+// JavaScript from gems
+//= require blacklight/blacklight
+//= require sir-trevor
 //= require spotlight/spotlight
+
+// Custom JavaScript
+//= require spotlight_overrides/sir_trevor/locales
+//= require spotlight_overrides/sir_trevor/blocks/footnotes
+//= require spotlight_overrides/sir_trevor/blocks/google_map
+//= require catalog_show
 // Scripts that call window.Spotlight must be included after spotlight core
-//= require spotlight/sir_trevor/format_bar/footnote
+//= require spotlight_overrides/sir_trevor/format_bar/footnote
