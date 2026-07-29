@@ -9,11 +9,6 @@ Bundler.require(*Rails.groups)
 module Exhibits
   class Application < Rails::Application
 
-    # Prevents errors related to Psych gem
-    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, DateTime, Time]
-
-    # config.assets.initialize_on_precompile = true
-
     # Since Rails 6/7, the new autoloader, Zeitwerk, will eagerload any dir in app.
     # However, we don't want to eagerload our decorators just yet, since Spotlight and
     # other gems need to be loaded before we load our decorators.
@@ -26,18 +21,9 @@ module Exhibits
       end
     end
 
-    config.after_initialize do
-      # Psych Allow YAML Classes
-      # config.active_record.yaml_column_permitted_classes = [Symbol, Hash, Array,
-      # ActiveSupport::HashWithIndifferentAccess, ActiveModel::Attribute.const_get(:FromDatabase), Time]
-    end
-
-        # config.action_mailer.default_url_options = { host: "mail", from: "noreply@example.com" }
-    # Initialize configuration defaults for originally generated Rails version.
-    # config.load_defaults 5.2
+    # Since Rails 7
     config.load_defaults 7.0
     config.autoloader = :zeitwerk
-    # config.autoloader = :classic
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
