@@ -12,9 +12,9 @@ module Etl
     end
 
     AddModelIdTransform = lambda do |data, pipeline|
-      return data unless pipeline.source.model_id.present?
-      data.merge({ 'spotlight_upload_3d_model_id_tesim' => pipeline.source.model_id },
-                 { 'thumbnail_url_ssm' => ThumbnailService.new(pipeline.source).create_thumbnail })
+      return data unless data['spotlight_upload_3d_model_url_tesim'].present?
+      model_id = data['spotlight_upload_3d_model_url_tesim'].split("/").last.split("?").first
+      data.merge({ 'spotlight_upload_3d_model_id_tesim' => model_id })
     end
 
     AddSortFieldsTransform = lambda do |data, pipeline|

@@ -42,11 +42,8 @@ class ThumbnailService
       # Return the thumbnail path for indexing
       "/#{thumbnail_dir_path(@resource)}/#{pdf_name}-thumb.jpg"
     when "model"
-      if @resource.model_id
-        "#{KOMPAKKT_DOMAIN_NAME}/server/previews/entity/#{@resource.model_id}.webp"
-      else
-        "/uploads/spotlight/processing.png"
-      end
+      model_id = @resource.data['spotlight_upload_3d_model_url_tesim'].split("/").last.split("?").first
+      "#{@resource.class::MODEL_BASE_URL}/server/previews/entity/#{model_id}.webp"
     when "video"
       # Video thumbnail generation is handled by VideoThumbnailer gem
       # See app/uploaders/spotlight/featured_image_uploader and

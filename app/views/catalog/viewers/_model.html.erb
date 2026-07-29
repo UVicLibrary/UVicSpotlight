@@ -1,9 +1,4 @@
 <div>
-  <iframe width="100%" height="480px" src="<%= KOMPAKKT_DOMAIN_NAME %>/viewer/?entity=<%= document.model_id %>&mode=open&locale=en" id="model-iframe" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true">
+  <iframe width="100%" height="480px" src="<%= document.model_base_url %>/viewer/?entity=<%= document.model_id %>&mode=open" id="model-iframe" allow="autoplay; fullscreen; xr-spatial-tracking" loading="lazy" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true">
   </iframe>
 </div>
-<style>
-  #model-iframe {
-      background: url("/uploads/spotlight/loading-progress.gif") center center no-repeat;
-  }
-</style>

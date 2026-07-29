@@ -163,7 +163,11 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	  label: 'Commentary'),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_dc_box_tesim",
-	  label: 'Geographic Coordinates')
+	  label: 'Geographic Coordinates'),
+	Spotlight::UploadFieldConfig.new(
+	  field_name: "spotlight_upload_3d_model_url_tesim",
+		label: '3D Model URL'
+	)
  ]
 
 
@@ -171,7 +175,7 @@ Spotlight::Engine.config.upload_title_field = Spotlight::UploadFieldConfig.new(
 	  field_name: "full_title_tesim",
 	  label: 'Title')
 # Spotlight::Engine.config.uploader_storage = :file
- Spotlight::Engine.config.allowed_upload_extensions = %w(jpg jpeg jp2 png mp4 ogg mp3 wav pdf tif tiff m4a)
+ Spotlight::Engine.config.allowed_upload_extensions = %w(jpg jpeg jp2 png mp4 ogg mp3 wav pdf tif tiff m4a zip stl obj 3ds)
 
 # Spotlight::Engine.config.featured_image_thumb_size = [400, 300]
 # Spotlight::Engine.config.featured_image_square_size = [400, 400]
@@ -205,9 +209,8 @@ Spotlight::Engine.config.sir_trevor_widgets += ["GoogleMap", "Footnotes"]
 # }
 #
 
+# Add our custom indexing rules to the indexing pipeline
 ActiveSupport::Reloader.to_prepare do
-
-	# Resource indexing pipeline
 	# To index a custom field to a SolrDocument:
 	# 	1. Define a custom transform in app/services/etl/custom_transforms.
 	# 	2. Open the Rails console and make sure the transform has been added to the indexing pipeline:
@@ -218,7 +221,4 @@ ActiveSupport::Reloader.to_prepare do
 		{ key => val }
 	end
 	Spotlight::Resources::Upload.indexing_pipeline.transforms += custom_transforms
-
-	KOMPAKKT_DOMAIN_NAME = "https://kompakkt.de"
-
 end

@@ -7,7 +7,6 @@ class SolrDocument
 
   include Spotlight::SolrDocument::AtomicUpdates
 
-
   # self.unique_key = 'id'
 
   # Email uses the semantic field mappings below to generate the body of an email.
@@ -25,6 +24,10 @@ class SolrDocument
 
   def model_id
     self.fetch('spotlight_upload_3d_model_id_tesim', nil).try(:first)
+  end
+
+  def model_base_url
+    "https://kompakkt.de"
   end
 
   def file_type

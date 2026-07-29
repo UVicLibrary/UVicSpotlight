@@ -9,6 +9,8 @@ module Spotlight
 
     FILE_TYPES_LIST = ["image", "video", "compound object", "pdf", "model", "audio"]
 
+    MODEL_BASE_URL = "https://kompakkt.de"
+
     def file_type
       if self.compound_ids? or self.imported_compound_object?
         "compound object"
