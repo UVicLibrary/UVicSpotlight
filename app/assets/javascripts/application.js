@@ -8,7 +8,6 @@
 //= require bootstrap
 //= require tiny-slider
 
-//= require mirador
 //= require sortable-rails-jquery
 //= require turbolinks
 //= require markerclusterer

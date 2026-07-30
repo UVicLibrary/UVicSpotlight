@@ -1,12 +1,9 @@
-<%= javascript_include_tag "application" %>
-<%= stylesheet_link_tag "application" %>
-
 <body style="margin-bottom: 0 !important;">
- <!-- Mirador renders the viewer in this div -->
- <div class="mirador-viewer" id="mirador-<%= @document.id %>" />
+    <!-- Mirador renders the viewer in this div -->
+    <div class="mirador-viewer" style="height: 100%" id="mirador-<%= @document.id %>" />
 </body>
-
-<script type="text/javascript" async>
+<script type=text/javascript src="/mirador/mirador_v4.1.0.js"></script>
+<script type="text/javascript">
   // Initialize the Mirador viewer
   var mirador = Mirador.viewer({
       "id": "mirador-<%= @document.id %>",
@@ -14,43 +11,80 @@
           {
               "loadedManifest": "<%= request.base_url %>/spotlight/<%= current_exhibit.slug %>/catalog/<%= @document.id %>/manifest.json",
               "canvasIndex": 0,
-              <% if @document.file_type == "compound object" %>
-                "thumbnailNavigationPosition": 'far-bottom'
-              <% end %>
+              "maximized": true
           }
-      ]
+      ],
+      thumbnailNavigation: {
+          <% if @document.file_type == "compound object" %>
+          defaultPosition: "far-bottom",
+          <% else %>
+          defaultPosition: "off",
+          <% end %>
+          displaySettings: true,
+          showThumbnailLabels: true
+      }
   });
 <% if @document.file_type == "compound object" %>
+  // This script runs from within a Mirador iframe. When the user selects a canvas/image to view
+  // in a compound object, we need to send a message to the parent window (the catalog#show page)
+  // to dynamically update the metadata page (app/views/catalog/metadata_pages) with
+  // the selected canvas's metadata.
+
   // Only post messages if we're on the catalog#show page
   if (!!window.parent.location.href.match(/catalog\/\d+-\d+/)) {
-      // For image compound objects, check every 100ms if Mirador thumbnails
-      // are loaded and use them to determine what image is currently selected.
-      var readyStateCheckInterval = setInterval(function() {
-          element = $('div.mirador-current-canvas-grouping.mirador87').find('img');
-          if (element.length > 0) {
-              clearInterval(readyStateCheckInterval);
+      const targetNode = document.getElementById("mirador-<%= @document.id %>");
+      // Create a mutation observer (https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/MutationObserver)
+      // to check when canvas navigation tools (thumbnails, arrows) are loaded.
 
-              // Send a message to the parent window (catalog#show page) that has the iframe
-              // https://javascriptbit.com/transfer-data-between-parent-window-and-iframe-postmessage-api/
-              window.parent.postMessage(`{
-                "canvasIndex" : ${element.closest('.mirador-thumbnail-nav-canvas').data('canvasIndex')}
-              }`);
+      // Firstly, we define a callback:
+      const checkNavigationLoaded = (mutationList, observer) => {
+          for (const mutation of mutationList) {
+              if (mutation.addedNodes.length > 0) {
+                  for (const node of mutation.addedNodes) {
+                      if (node.attributes && node.attributes['class'] && node.attributes['class'].value.includes('mirador-next-canvas-button')) {
+                          console.log('Thumbnail and arrow navigation loaded');
+                          observer.disconnect();
 
-              // Dispatch an event when a different image is selected (i.e. user clicks
-              // the next or previous buttons, or an image thumbnail)
-              let navTools = $('.mirador-osd-navigation').add($('.mirador-thumbnail-nav-container'));
-              navTools.on('click', function() {
-                  // Waiting to allow time for selected image to have the mirador87 class
-                  setTimeout(function() {
-                      selectedImage = $('div.mirador-current-canvas-grouping.mirador87').find('img');
-                      window.parent.postMessage(`{
-                          "canvasIndex" : ${selectedImage.closest('.mirador-thumbnail-nav-canvas').data('canvasIndex')}
-                      }`);
-                      // console.log(imageChanged);
-                  }, 500);
-              });
+                          let thumbnails = document.querySelectorAll('.mirador-thumbnail-nav-container');
+                          let arrows = document.getElementsByClassName('mirador-osd-navigation');
+                          function getCanvasIndex(elem) {
+                              return elem.closest('.mirador-thumbnail-nav-canvas').attributes['data-canvas-index'].value;
+                          }
+
+                          for (const thumb of thumbnails) {
+                              thumb.addEventListener("click", (event) => {
+                                  console.log(getCanvasIndex(event.target));
+                                  // Post the canvas index to the parent window
+                                  window.parent.postMessage(`{
+                                      "canvasIndex" : ${getCanvasIndex((event.target))}
+                                  }`);
+                              });
+                          }
+
+                          arrows[0].addEventListener("click", () => {
+                              const getSelectedCanvas = (mutationList, observer) => {
+                                  for (const mutation of mutationList) {
+                                      if (mutation.target.attributes['class'].value.includes('mui-slruz5')) {
+                                          console.log(getCanvasIndex(mutation.target));
+                                          // Post the canvas index to the parent window
+                                          window.parent.postMessage(`{
+                                              "canvasIndex" : ${getCanvasIndex((mutation.target))}
+                                          }`);
+                                      }
+                                  }
+                                  observer.disconnect();
+                              }
+                              new MutationObserver(getSelectedCanvas).observe(document.querySelector('.mirador-thumb-navigation'), { attributes: true, childList: true, subtree: true });
+                          });
+                      }
+                  }
+              }
           }
-      }, 100);
+      };
+
+      // After defining the callback, we create/set the observer
+      const NavigationObserver = new MutationObserver(checkNavigationLoaded);
+      NavigationObserver.observe(targetNode, { attributes: false, childList: true, subtree: true });
   }
   <% end %>
 </script>
