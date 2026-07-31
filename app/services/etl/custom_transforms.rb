@@ -29,7 +29,8 @@ module Etl
 
     # Index facet fields as ssim to preserve capitalization (tesim and ftesim fields are lowercase)
     TransformFacetFieldsTransform = lambda do |data, _pipeline|
-      facet_fields = CatalogController.blacklight_config.facet_fields.keys.select { |key| data.keys.include?(key) }
+      facet_fields = ["spotlight_upload_dc_Date_tesi"] +
+        CatalogController.blacklight_config.facet_fields.keys.select { |key| data.keys.include?(key) }
       return data if facet_fields.empty?
 
       transformed = facet_fields.each_with_object({}) do |field, hash|
