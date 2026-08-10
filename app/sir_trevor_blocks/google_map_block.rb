@@ -19,14 +19,14 @@ class GoogleMapBlock < SirTrevorRails::Block
       :q=>query,
       :start=>0,
       :rows=>500,
-      :fl=> ["id", "spotlight_exhibit_slugs_ssim", "full_title_tesim", "spotlight_upload_dc_description_tesim", "thumbnail_url_ssm", "spotlight_upload_dc_Coverage-Spatial_Location_tesim"],
-      :fq=> ["spotlight_upload_dc_Coverage-Spatial_Location_tesim:[* TO *]", slug_filter],
+      :fl=> ["id", "spotlight_exhibit_slugs_ssim", "full_title_tesim", "spotlight_upload_dc_description_tesim", "thumbnail_url_ssm", "spotlight_upload_dc_Coverage-Spatial_Location_tesim", "spotlight_upload_dc_box_tesim"],
+      :fq=> ["spotlight_upload_dc_box_tesim:[* TO *]", slug_filter],
       :wt=> "ruby"
     }
 
-    # only return items that have a valid lat/long in its location field
+    # only return items that have a valid lat/long in its coordinates field
     res['response']['docs'].each do |d|
-      if d["spotlight_upload_dc_Coverage-Spatial_Location_tesim"][0].match(/(-?\d{1,3}\.\d+)/) != nil
+      if d["spotlight_upload_dc_box_tesim"][0].match(/(-?\d{1,3}\.\d+)/) != nil
         items.push(d)
       end
     end

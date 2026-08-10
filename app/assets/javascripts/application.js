@@ -10,7 +10,7 @@
 
 //= require sortable-rails-jquery
 //= require turbolinks
-//= require markerclusterer
+// require markerclusterer
 // Twitter Typeahead for autocomplete
 //= require typeahead.bundle.min.js
 
