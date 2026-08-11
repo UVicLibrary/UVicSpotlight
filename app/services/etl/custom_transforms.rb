@@ -44,5 +44,26 @@ module Etl
       data.merge(transformed)
     end
 
+    AddDateFieldsTransform = lambda do |data, _pipeline|
+      return data unless data["spotlight_upload_dc_Date_tesi"].present?
+      year_range_values = []
+      sort_date_values = []
+
+      data["spotlight_upload_dc_Date_tesi"].split("\;").map(&:strip).each do |date|
+        begin # Try to parse EDTF-compatible dates
+          service = EdtfDateService.new(date)
+          year_range_values << service.year_range
+          sort_date_values << service.first_solr_date
+        rescue EdtfDateService::InvalidEdtfDateError
+          # Intentionally blank
+        end
+      end
+      return data unless (year_range_values && sort_date_values)
+      data.merge({
+        "spotlight_year_range_isim" => year_range_values.flatten.uniq,
+        "spotlight_sort_date_tesi" => sort_date_values.sort.first
+      })
+    end
+
   end
 end

@@ -199,6 +199,12 @@ GEM
     down (5.1.1)
       addressable (~> 2.5)
     drb (2.2.3)
+    edtf (3.3.0)
+      activesupport (>= 3.0, < 9.0)
+    edtf-humanize (2.3.1)
+      activesupport (>= 4)
+      edtf (>= 2.3, < 4)
+      roman (~> 0.2.0)
     erubi (1.12.0)
     execjs (2.9.1)
     faraday (1.10.3)
@@ -482,6 +488,7 @@ GEM
       roar (~> 1.2)
       test_xml (>= 0.1.6)
       uber (< 0.2.0)
+    roman (0.2.0)
     rsolr (2.5.0)
       builder (>= 2.1.2)
       faraday (>= 0.9, < 3, != 2.0.0)
@@ -497,6 +504,14 @@ GEM
     rspec-mocks (3.13.8)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
+    rspec-rails (8.0.4)
+      actionpack (>= 7.2)
+      activesupport (>= 7.2)
+      railties (>= 7.2)
+      rspec-core (>= 3.13.0, < 5.0.0)
+      rspec-expectations (>= 3.13.0, < 5.0.0)
+      rspec-mocks (>= 3.13.0, < 5.0.0)
+      rspec-support (>= 3.13.0, < 5.0.0)
     rspec-support (3.13.7)
     ruby-oembed (0.17.0)
     ruby-progressbar (1.10.1)
@@ -606,6 +621,7 @@ DEPENDENCIES
   byebug
   devise_invitable
   down
+  edtf-humanize
   font-awesome-rails
   http_parser.rb
   httparty
@@ -625,6 +641,7 @@ DEPENDENCIES
   riiif (>= 2.8.1)
   rsolr (>= 1.0, < 3)
   rspec
+  rspec-rails
   ruby-oembed
   ruby-vips
   sass-rails (>= 6)

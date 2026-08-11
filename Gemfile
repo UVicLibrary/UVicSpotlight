@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+# EDTF date parsing/indexing
+gem 'edtf-humanize'
+
 # Must be a version that supports image transformation with VIPS
 gem 'riiif', '>= 2.8.1'
 gem 'ruby-vips'
@@ -43,6 +46,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'solr_wrapper', '>= 0.3'
   gem 'rspec'
+  gem 'rspec-rails'
 end
 
 group :development do
