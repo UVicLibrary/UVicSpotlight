@@ -7,7 +7,7 @@
           <%= fa_icon "chevron-down" %><%= field.label + ":" %>
         </dt>
       <dd class="blacklight-<%= field_name.parameterize %>">
-        <%= field_value(document_presenter(document), field) %>
+        <%= sanitize(field_value(document_presenter(document), field)) %>
       </dd>
     </div>
     <!-- show field_name <%= field_name %> -->

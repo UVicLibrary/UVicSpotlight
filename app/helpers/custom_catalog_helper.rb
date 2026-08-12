@@ -21,17 +21,21 @@ module CustomCatalogHelper
   end
 
   # Overrides Blacklight::ShowPresenter method
+  # @param [Blacklight::ShowPresenter]
+  # @param [Blacklight::Configuration::IndexField]
   def field_value(presenter, field)
-    value = presenter.field_value(field)
-    if multiple?(value)
-      # This stops random injection of spaces after "
-      value = value.gsub("&quot\;",'"')
-      scrub_value(value.split(/\s?;\s?/).map do |val|
-        val.start_with?('http') ? render_link_to(val) : val
-      end.join('; '))
-    else
-      value.start_with?('http') ? sanitize(render_link_to(value)) : sanitize(scrub_value(value))
-    end
+    # Coerce string values into an array
+    Array.wrap(presenter.field_value(field)).flatten.map do |val|
+      val = scrub_value(val)
+      if val.match?('https')
+        link = val.match(/(https:\/\/.+?)($|\s)/)[1]
+        val.gsub(link, render_link_to(link))
+      elsif date_field?(field)
+        render_date(val)
+      else
+        val
+      end
+    end.join('; ')
   end
 
   def media_display(document, locals = {})
@@ -51,15 +55,6 @@ module CustomCatalogHelper
   def file_url(resource)
     parser = URI::Parser.new
     "/uploads/spotlight/featured_image/image/#{resource.upload_id}/#{parser.escape(resource.file_name)}"
-  end
-
-  def video_thumb_path(resource)
-    filename = "video_thumb_#{resource.file_name.to_s.split(".").first}.jpeg"
-    # The path to the file on the local server
-    path = "#{File.dirname(resource.upload.image.path)}/#{filename}"
-    # The Spotlight url that the file is available at
-    url = "#{File.dirname(resource.upload.image_url)}/#{filename}"
-    url if File.exist?(path)
   end
 
   private
@@ -83,12 +78,21 @@ module CustomCatalogHelper
     end
   end
 
-  def multiple?(value)
-    value.include? ";"
+  def scrub_value(value)
+    # This stops random injection of spaces after "
+    value.gsub("&quot\;",'"').gsub("&lt;", "<").gsub("&gt;", ">")
   end
 
-  def scrub_value(value)
-    sanitize(value.gsub("&lt;", "<").gsub("&gt;", ">"))
+  def date_field?(field)
+    field.key == "spotlight_upload_dc_Date_tesi"
+  end
+
+  def render_date(value)
+    begin
+      EdtfDateService.new(value).humanized
+    rescue EdtfDateService::InvalidEdtfDateError
+      value
+    end
   end
 
 end
