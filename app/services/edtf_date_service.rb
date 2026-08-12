@@ -86,7 +86,7 @@ class EdtfDateService
           result = apply_humanized_approximate_or_uncertain(@parsed_date.humanize, @date_string.last)
         end
       end
-      delete_prefix(result)
+      result ? delete_prefix(result) : @date_string
     end
 
     class InvalidEdtfDateError < StandardError; end
