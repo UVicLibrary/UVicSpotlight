@@ -27,13 +27,23 @@ module Etl
       data.merge({ 'compound_ids_ssim' => pipeline.source.compound_ids })
     end
 
-    # Index facet fields as ssim to preserve capitalization (tesim and ftesim fields are lowercase)
+    # Index facet fields as ssim to preserve capitalization (tesim and ftesim fields are automatically
+    # coerced into lowercase as part of tokenization)
     TransformFacetFieldsTransform = lambda do |data, _pipeline|
-      facet_fields = ["spotlight_upload_dc_Date_tesi"] +
-        CatalogController.blacklight_config.facet_fields.keys.select { |key| data.keys.include?(key) }
-      return data if facet_fields.empty?
+      # For each potential facet field, find the matching upload field
+      facet_fields = CatalogController.blacklight_config.facet_fields.map(&:first)
+      upload_fields = Spotlight::Engine.config.upload_fields.map(&:field_name)
+      matching_fields = upload_fields.select do |upload_field|
+        root = upload_field.split("_")[0..-2].join("_") # The field name sans Solr suffix
+        next unless facet_fields.include?(root + "_facet_ssim")
+        if upload_fields.include?(root + "_ftesim") || upload_fields.include?(root + "_ftesi")
+          upload_field.ends_with?("ftesim") || upload_field.ends_with?("ftesi")
+        else
+          true
+        end
+      end + ["spotlight_upload_dc_Date_tesi"]
 
-      transformed = facet_fields.each_with_object({}) do |field, hash|
+      transformed = matching_fields.each_with_object({}) do |field, hash|
         next if data[field].blank?
         # Convert key: e.g. spotlight_upload_dc_Subjects_ftesim => spotlight_upload_dc_Subjects_facet_ssim
         new_key = field.split("_")[0..-2].join("_") + "_facet_ssim"

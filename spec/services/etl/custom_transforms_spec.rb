@@ -210,4 +210,37 @@ RSpec.describe Etl::CustomTransforms do
       end
     end
   end
+
+  describe 'facet_indexing' do
+    let(:data) do
+      {
+        "spotlight_upload_dc_Subjects_tesim" => "Subject",
+        "spotlight_upload_dc_Subjects_ftesim" => "Subject facet",
+        "spotlight_upload_dc_Date-Created_Searchable_tesi" => "Date searchable",
+        "spotlight_upload_dc_Date-Created_Searchable_ftesi" => "Date searchable facet",
+        "spotlight_upload_dc_Type_Genre_ftesim" => "Genre facet",
+        "spotlight_upload_Format_tesim" => "Format",
+        "spotlight_upload_Language_ftesim" => "Language facet",
+        "spotlight_upload_dc_Relation_IsPartOf_Collection_ftesim" => "Collection facet",
+        "spotlight_upload_dc_Coverage-Spatial_Location_tesim" => "Location",
+        "spotlight_upload_dc_Coverage-Spatial_Location_ftesim" => "Location facet",
+        "spotlight_upload_Coverage-Temporal_tesim" => "Coverage Temporal",
+        "spotlight_upload_dc_Subject_People_ftesim" => "People facet"
+      }
+    end
+
+    it 'indexes the facet data to the correct ssim fields' do
+      expect(Etl::CustomTransforms::TransformFacetFieldsTransform.call(data, nil)).to eq(data.merge(
+        { "spotlight_upload_dc_Subjects_facet_ssim" => ["Subject facet"],
+          "spotlight_upload_dc_Date-Created_Searchable_facet_ssim" => ["Date searchable facet"],
+          "spotlight_upload_dc_Type_Genre_facet_ssim" => ["Genre facet"],
+          "spotlight_upload_Format_facet_ssim" => ["Format"],
+          "spotlight_upload_Language_facet_ssim" => ["Language facet"],
+          "spotlight_upload_dc_Relation_IsPartOf_Collection_facet_ssim" => ["Collection facet"],
+          "spotlight_upload_dc_Coverage-Spatial_Location_facet_ssim" => ["Location facet"],
+          "spotlight_upload_Coverage-Temporal_facet_ssim" => ["Coverage Temporal"],
+          "spotlight_upload_dc_Subject_People_facet_ssim" => ["People facet"] }
+      ))
+    end
+  end
 end
