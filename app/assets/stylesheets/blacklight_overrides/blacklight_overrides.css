@@ -52,20 +52,6 @@
     display: inline-block;
 }
 
-/* Facet labels */
-#facet-spotlight_upload_dc_subject_people_ftesim ul.facet-values,
-#facet-spotlight_upload_dc_coverage-spatial_location_ftesim ul.facet-values,
-#facet-spotlight_upload_language_ftesim ul.facet-values,
-/* Custom (exhibit-specific) fields */
-#facet-exhibit_marybutts_people-referenced-in-letter_ftesim ul.facet-values,
-#facet-exhibit_marybutts_texts-referenced-in-letter_ftesim ul.facet-values,
-#facet-exhibit_marybutts_places-referenced-in-letter_ftesim ul.facet-values,
-#facet-exhibit_marybutts_sent-to-location_ftesim ul.facet-values,
-#facet-spotlight_upload_dc_subjects_ftesim ul.facet-values span::first-letter
-{
-    text-transform: capitalize;
-}
-
 .documents-list .document .documentHeader.row .index_title.document-title-heading {
     font-weight: 500 !important;
     font-size: 1.5rem !important;
