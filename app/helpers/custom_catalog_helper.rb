@@ -26,7 +26,6 @@ module CustomCatalogHelper
   def field_value(presenter, field)
     # Coerce string values into an array
     Array.wrap(presenter.field_value(field)).flatten.map do |val|
-      val = scrub_value(val)
       if val.match?('https')
         link = val.match(/(https:\/\/.+?)($|\s)/)[1]
         val.gsub(link, render_link_to(link))
@@ -76,11 +75,6 @@ module CustomCatalogHelper
     link_to(field_value) do
       field_value
     end
-  end
-
-  def scrub_value(value)
-    # This stops random injection of spaces after "
-    value.gsub("&quot\;",'"').gsub("&lt;", "<").gsub("&gt;", ">")
   end
 
   def date_field?(field)
