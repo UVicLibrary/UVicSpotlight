@@ -36,6 +36,8 @@ module Etl
       matching_fields = upload_fields.select do |upload_field|
         root = upload_field.split("_")[0..-2].join("_") # The field name sans Solr suffix
         next unless facet_fields.include?(root + "_facet_ssim")
+        # If there are both non-faceted and faceted versions of the same field,
+        # take only the faceted version
         if upload_fields.include?(root + "_ftesim") || upload_fields.include?(root + "_ftesi")
           upload_field.ends_with?("ftesim") || upload_field.ends_with?("ftesi")
         else
