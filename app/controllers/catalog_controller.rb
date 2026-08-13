@@ -48,24 +48,21 @@ class CatalogController < ApplicationController
     config.document_solr_path = 'get'
     config.document_unique_id_param = 'ids'
 
-
     config.add_search_field 'all_fields', label: I18n.t('spotlight.search.fields.search.all_fields')
     config.add_sort_field 'title', sort: 'sort_title_ssi asc', label: 'Title'
+    config.add_sort_field :relevance, default: true, sort: "#{blacklight_config.index.relevance_field} score desc"
 
-    #config.add_sort_field 'relevance', sort: 'score desc', label: I18n.t('spotlight.search.fields.sort.relevance')
-    blacklight_config.add_sort_field :relevance, default: true,
-                                     sort: "#{blacklight_config.index.relevance_field} score desc"
-
-    # Configure facet fields
-    config.add_facet_field 'spotlight_upload_dc_Subjects_ftesim', label: "Subject(s)", limit: true
-    config.add_facet_field 'spotlight_upload_dc_Date-Created_Searchable_ftesi', label: 'Date', limit: true
-    config.add_facet_field 'spotlight_upload_dc_Type_Genre_ftesim', label: 'Genre', limit: true
-    config.add_facet_field 'spotlight_upload_Language_ftesim', label: 'Language', limit: true
-    config.add_facet_field "spotlight_upload_dc_Coverage-Spatial_Location_ftesim", label: 'Location(s)', limit: true
-    config.add_facet_field "spotlight_upload_dc_Subject_People_ftesim", label: 'People', limit: true
-    config.add_facet_field "spotlight_upload_dc_Relation_IsPartOf_Collection_ftesim", label: 'Collection', limit: true
-    config.add_facet_field "spotlight_upload_Format_tesim", label: 'Format', limit: true
-    config.add_facet_field "spotlight_upload_Coverage-Temporal_tesim", label: 'Coverage - Temporal', limit: true
+    # ftesim fields will force lowercase as part of tokenization, so we need to copy facet values to a ssim field
+    # (see app/services/etl/custom_transforms.rb).
+    config.add_facet_field 'spotlight_upload_dc_Subjects_facet_ssim', label: "Subject(s)", limit: true
+    config.add_facet_field 'spotlight_upload_dc_Date-Created_Searchable_facet_ssim', label: 'Date', limit: true
+    config.add_facet_field 'spotlight_upload_dc_Type_Genre_facet_ssim', label: 'Genre', limit: true
+    config.add_facet_field 'spotlight_upload_Language_facet_ssim', label: 'Language', limit: true
+    config.add_facet_field "spotlight_upload_dc_Coverage-Spatial_Location_facet_ssim", label: 'Location(s)', limit: true
+    config.add_facet_field "spotlight_upload_dc_Subject_People_facet_ssim", label: 'People', limit: true
+    config.add_facet_field "spotlight_upload_dc_Relation_IsPartOf_Collection_facet_ssim", label: 'Collection', limit: true
+    config.add_facet_field "spotlight_upload_Format_facet_ssim", label: 'Format', limit: true
+    config.add_facet_field "spotlight_upload_Coverage-Temporal_facet_ssim", label: 'Coverage - Temporal', limit: true
 
     config.add_field_configuration_to_solr_request!
     config.add_facet_fields_to_solr_request!
