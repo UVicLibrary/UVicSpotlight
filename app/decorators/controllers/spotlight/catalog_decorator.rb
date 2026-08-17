@@ -101,6 +101,24 @@ module Spotlight
       end
     end
 
+    private
+
+    # OVERRIDE Spotlight v.4.7.0 - Remove leading and trailing whitespace in
+    # metadata values before saving them
+    def solr_document_params
+      super.tap do |results|
+        results[:sidecar][:data].each do |key, value|
+          if key == "configured_fields"
+            results[:sidecar][:data]['configured_fields'].each do |k, v|
+              results[:sidecar][:data]['configured_fields'][k] = v.strip
+            end
+          else
+            value.is_a?(Array) ? results[:sidecar][:data][key] = value.map(&:strip) : results[:sidecar][:data][key] = value.strip
+          end
+        end
+      end
+    end
+
   end
 end
 Spotlight::CatalogController.prepend(Spotlight::CatalogControllerDecorator)
