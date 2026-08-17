@@ -75,12 +75,12 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	  label: 'Date',
 	  form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_upload_dc_Date-Created_Searchable_ftesi", # ftesim to ftesi
-	  label: 'Date searchable',
-	  form_field_type: :text_area),
+		field_name: "spotlight_upload_dc_Date-Created_Searchable_tesi", # ftesim to ftesi
+		label: 'Date searchable',
+		form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_upload_dc_Date-Created_Searchable_tesi", # ftesim to ftesi
-	  label: 'Date searchable',
+	  field_name: "spotlight_upload_dc_Date-Created_Searchable_ftesi", # ftesim to ftesi
+	  label: 'Date searchable Facet',
 	  form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_dc_Type_Genre_ftesim",
