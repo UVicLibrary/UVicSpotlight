@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_01_231430) do
+ActiveRecord::Schema[7.2].define(version: 2026_08_18_000121) do
   create_table "annotot_annotations", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "uuid"
     t.string "canvas"
@@ -164,7 +164,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_01_231430) do
     t.string "title", null: false
     t.string "subtitle"
     t.string "slug"
-    t.text "description", size: :medium
+    t.text "description", size: :long
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "layout"
@@ -330,10 +330,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_01_231430) do
     t.integer "index_status"
     t.integer "upload_id"
     t.string "file_name"
-    t.string "uid"
     t.text "compound_ids"
     t.string "parent"
-    t.string "model_id"
     t.index ["index_status"], name: "index_spotlight_resources_on_index_status"
   end
 
