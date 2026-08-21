@@ -1,14 +1,14 @@
 public/tmp
-public/uploads/spotlight/exhibit_thumbnail
-public/uploads/spotlight/featured_image
-public/uploads/spotlight/masthead
-public/uploads/spotlight/temporary_image
+public/*assets*
+public/robots.txt
+public/uploads/spotlight
 public/uploads/tmp
 
 log/*
 
 tmp/*
 tmp_uploads_cache/*
+.bundle
 .byebug_history
 .idea
 config/secrets.yml
@@ -33,4 +33,3 @@ yarn-debug.log*
 .yarn-integrity
 config/master.key
 /solr
-/public
