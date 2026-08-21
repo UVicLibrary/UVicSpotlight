@@ -53,7 +53,7 @@ class ImageIiifManifestPresenter < Spotlight::IiifManifestPresenter
 
     # @return [<Hash>] - the resulting manifest
     def add_logo(manifest)
-      path = "/uploads/spotlight/libraries-uac-dark-blue-horizontal.jpg"
+      path = "/core/libraries-uac-dark-blue-horizontal.jpg"
       manifest['logo'] = path
       manifest
     end

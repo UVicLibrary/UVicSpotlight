@@ -33,7 +33,7 @@ class ThumbnailService
         # https://github.com/teenacmathew/Video-Thumbnailer
         "/#{thumbnail_dir_path(first_resource)}/video_thumb_#{first_resource.file_name.split('.').first}.jpeg"
       elsif @resource.made_of == "audio"
-        "/uploads/spotlight/audio.png"
+        "/core/audio.png"
       end
     when "pdf"
       pdf_name = File.basename(@resource.file_name, '.pdf')
@@ -50,7 +50,7 @@ class ThumbnailService
       # https://github.com/teenacmathew/Video-Thumbnailer
       "/#{thumbnail_dir_path(@resource)}/video_thumb_#{@resource.file_name.split('.').first}.jpeg"
     when "audio"
-      "/uploads/spotlight/audio.png"
+      "/core/audio.png"
     end
   end
 
