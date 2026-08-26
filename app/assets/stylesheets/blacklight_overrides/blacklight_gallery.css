@@ -8,3 +8,17 @@ div.documents-gallery .caption-area .document-metadata dd {
 div.documents-gallery .caption-area .document-metadata dt {
     text-align: left;
 }
+
+div#documents.row.documents-gallery {
+    display: flex;
+        .thumbnail-container {
+            .document-thumbnail {
+                height: 160px;
+                & > a, .img-thumbnail {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+}
