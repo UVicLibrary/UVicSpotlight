@@ -30,9 +30,10 @@ class CatalogController < ApplicationController
     # Have CustomDocumentComponent be the default document_component
     config.show.document_component = CustomDocumentComponent
 
-    config.view.gallery(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index_header, :index])
-    config.view.masonry(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index])
-    config.view.slideshow(document_component: Blacklight::Gallery::SlideshowComponent, partials: [:index])
+    config.view.gallery(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index_header, :index], icon: Blacklight::Gallery::Icons::GalleryComponent)
+    config.view.masonry(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index], icon: Blacklight::Gallery::Icons::MasonryComponent)
+    config.view.slideshow(document_component: Blacklight::Gallery::SlideshowComponent, partials: [:index], icon: Blacklight::Gallery::Icons::SlideshowComponent)
+
     config.view.embed!.partials = [:item_viewer]
 
     config.index.title_field = 'full_title_tesim'
