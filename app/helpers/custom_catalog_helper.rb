@@ -8,9 +8,11 @@ module CustomCatalogHelper
   def field_value(presenter, field)
     # Coerce string values into an array
     Array.wrap(presenter.field_value(field)).flatten.map do |val|
-      if val.match?('https')
-        link = val.match(/(https:\/\/.+?)($|\s)/)[1]
-        val.gsub(link, render_link_to(link))
+      if val.match?('http')
+        val.scan((/(https?:\/\/.+?)($|\s|\;)/)).map(&:first).each do |link|
+          val.gsub!(link, render_link_to(link))
+        end
+        val
       elsif parent_field?(field)
         render_parent_link_to(val)
       elsif date_field?(field)
@@ -24,7 +26,7 @@ module CustomCatalogHelper
   def render_download_item_link(document)
     # Don't render a download link for compound objects
     return '' if resource_for(document).compound_object?
-    sanitize("<a href='#{download_item_path(document)}'>Download Item</a>")
+    link_to("Download item", download_item_path(document), target: '_blank')
   end
 
   def download_item_path(document)
@@ -74,7 +76,7 @@ module CustomCatalogHelper
   end
 
   def render_link_to(field_value)
-    link_to(field_value) do
+    link_to(field_value, target: "_blank") do
       field_value
     end
   end
@@ -86,7 +88,7 @@ module CustomCatalogHelper
   def render_parent_link_to(field_value)
     parent = Blacklight::SearchService.new(config: blacklight_config).fetch(field_value)
     title = parent.fetch(blacklight_config.index.title_field).first
-    link_to("/spotlight/#{current_exhibit.slug}" + solr_document_path(field_value)) do
+    link_to("/spotlight/#{current_exhibit.slug}" + solr_document_path(field_value), target: "_blank") do
       title
     end
   end
