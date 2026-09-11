@@ -67,6 +67,8 @@ class CatalogController < ApplicationController
     config.add_field_configuration_to_solr_request!
     config.add_facet_fields_to_solr_request!
 
+    config.add_show_field("parent_ids_ssim", label: 'Parent')
+
     # Set which views by default only have the title displayed, e.g.,
     # config.view.gallery.title_only_by_default = true
 

@@ -2,6 +2,25 @@ module CustomCatalogHelper
 
   # Custom methods for the catalog#show page.
 
+  # Overrides Blacklight::ShowPresenter method
+  # @param [Blacklight::ShowPresenter]
+  # @param [Blacklight::Configuration::IndexField]
+  def field_value(presenter, field)
+    # Coerce string values into an array
+    Array.wrap(presenter.field_value(field)).flatten.map do |val|
+      if val.match?('https')
+        link = val.match(/(https:\/\/.+?)($|\s)/)[1]
+        val.gsub(link, render_link_to(link))
+      elsif parent_field?(field)
+        render_parent_link_to(val)
+      elsif date_field?(field)
+        render_date(val)
+      else
+        val
+      end
+    end.join('; ')
+  end
+
   def render_download_item_link(document)
     # Don't render a download link for compound objects
     return '' if resource_for(document).compound_object?
@@ -18,23 +37,6 @@ module CustomCatalogHelper
     end
     # TO DO: imported objects
     # download_url = "#{document._source["jpeg_url_ssm"].first}"
-  end
-
-  # Overrides Blacklight::ShowPresenter method
-  # @param [Blacklight::ShowPresenter]
-  # @param [Blacklight::Configuration::IndexField]
-  def field_value(presenter, field)
-    # Coerce string values into an array
-    Array.wrap(presenter.field_value(field)).flatten.map do |val|
-      if val.match?('https')
-        link = val.match(/(https:\/\/.+?)($|\s)/)[1]
-        val.gsub(link, render_link_to(link))
-      elsif date_field?(field)
-        render_date(val)
-      else
-        val
-      end
-    end.join('; ')
   end
 
   def media_display(document, locals = {})
@@ -74,6 +76,18 @@ module CustomCatalogHelper
   def render_link_to(field_value)
     link_to(field_value) do
       field_value
+    end
+  end
+
+  def parent_field?(field)
+    field.key == "parent_ids_ssim"
+  end
+
+  def render_parent_link_to(field_value)
+    parent = Blacklight::SearchService.new(config: blacklight_config).fetch(field_value)
+    title = parent.fetch(blacklight_config.index.title_field).first
+    link_to("/spotlight/#{current_exhibit.slug}" + solr_document_path(field_value)) do
+      title
     end
   end
 

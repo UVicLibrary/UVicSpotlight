@@ -27,6 +27,12 @@ module Etl
       data.merge({ 'compound_ids_ssim' => pipeline.source.compound_ids })
     end
 
+    AddParentIdTransform = lambda do |data, pipeline|
+      parent_resource = Spotlight::Resource.where.not(compound_ids: nil).find { |r| r.compound_ids.include?(data[:id]) }
+      return data unless parent_resource
+      data.merge({ "parent_ids_ssim" => parent_resource.compound_id })
+    end
+
     # Index facet fields as ssim to preserve capitalization (tesim and ftesim fields are automatically
     # coerced into lowercase as part of tokenization)
     TransformFacetFieldsTransform = lambda do |data, _pipeline|
