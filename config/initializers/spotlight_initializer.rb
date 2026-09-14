@@ -156,9 +156,6 @@ Spotlight::Engine.config.filter_resources_by_exhibit = true
 	  label: 'People Depicted',
 	  form_field_type: :text_area),
 	Spotlight::UploadFieldConfig.new(
-	  field_name: "spotlight_upload_parent_tesim",
-	  label: 'Parent'),
-	Spotlight::UploadFieldConfig.new(
 	  field_name: "spotlight_upload_Commentary_tesim",
 	  label: 'Commentary'),
 	Spotlight::UploadFieldConfig.new(
