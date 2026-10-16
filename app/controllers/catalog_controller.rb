@@ -64,6 +64,12 @@ class CatalogController < ApplicationController
     config.add_facet_field "spotlight_upload_dc_Relation_IsPartOf_Collection_facet_ssim", label: 'Collection', limit: true
     config.add_facet_field "spotlight_upload_Format_facet_ssim", label: 'Format', limit: true
     config.add_facet_field "spotlight_upload_Coverage-Temporal_facet_ssim", label: 'Coverage - Temporal', limit: true
+    # Query facet field: https://workshop.projectblacklight.org/v8.0.0.alpha/facet_fields/
+    config.add_facet_field "compound_ids_ssim", label: 'Object Type', query: {
+      compound_objects: { label: "Compound Objects", fq: "compound_ids_ssim:[* TO *]" },
+      all_objects: { label: "All Objects", fq: "-parent_ids_ssim:[* TO *]" },
+      files: { label: "Files", fq: "parent_ids_ssim:[* TO *]" }
+    }
 
     config.add_field_configuration_to_solr_request!
     config.add_facet_fields_to_solr_request!
