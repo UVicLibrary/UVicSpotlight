@@ -10,7 +10,7 @@ assignees: ''
 **Description**
 A clear and concise description of what the bug is.
 
-**Exhibit**
+**Exhibit(s) affected**
 Which exhibit(s) does this bug affect?
 
 **Steps To Reproduce**
