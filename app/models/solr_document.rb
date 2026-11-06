@@ -38,6 +38,10 @@ class SolrDocument
     self.try(:uploaded_resource) || Spotlight::Resource.find(self.id.split('-').last.to_i)
   end
 
+  def thumbnail_url
+    self.fetch(Spotlight::Engine.config.thumbnail_field).first
+  end
+
   def compound_ids
     self.fetch('compound_ids_ssim', [])
   end
