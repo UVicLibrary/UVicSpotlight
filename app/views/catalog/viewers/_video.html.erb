@@ -13,6 +13,6 @@
 <% documents.each do |doc| %>
   <% display = (documents.index(doc) == 0 ? "block" : "none") %>
   <video class="pull-left audioplayer" id="audio_<%= documents.index(doc) %>" style="display: <%= display %>" poster="<%= doc.thumbnail_url %>" controls>
-    <source src="<%= file_url(doc.resource) %>" type="video/mp4">
+    <source src="<%= doc.upload_url %>" type="video/mp4">
   </video>
 <% end %>

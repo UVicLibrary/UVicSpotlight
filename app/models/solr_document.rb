@@ -42,6 +42,10 @@ class SolrDocument
     self.fetch(Spotlight::Engine.config.thumbnail_field).first
   end
 
+  def upload_url
+    self.fetch("upload_file_url_ssi", nil)
+  end
+
   def compound_ids
     self.fetch('compound_ids_ssim', [])
   end
