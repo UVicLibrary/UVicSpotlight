@@ -164,7 +164,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_08_18_000121) do
     t.string "title", null: false
     t.string "subtitle"
     t.string "slug"
-    t.text "description", size: :long
+    t.text "description", size: :medium
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "layout"

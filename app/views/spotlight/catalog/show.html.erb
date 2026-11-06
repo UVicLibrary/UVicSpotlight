@@ -3,5 +3,5 @@
   <%= render 'show_main_content' %>
 </div>
 <div id="metadata-sidebar" class="<%= show_sidebar_classes %>">
-  <%= render partial: "metadata_pages" if @resource.compound_object? %>
+  <%= render partial: "metadata_pages" if @document.compound_object? %>
 </div>

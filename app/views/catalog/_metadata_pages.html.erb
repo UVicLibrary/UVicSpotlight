@@ -1,11 +1,10 @@
 <%# Renders file-level metadata for compound objects %>
 <% if @child_docs %>
-  <% page_number = 0 %>
   <% @child_docs.each do |child_doc| %>
-    <% display = (page_number == 0 ? "block" : "none") %>
-    <div class="page metadata-page" id="page_<%= page_number %>" data-canvas-id="<%= child_doc.id %>" style="display: <%= display %>;">
-      <% if @exhibit.users.include? current_or_guest_user %>
-        <%= exhibit_edit_link child_doc, [:edit, current_exhibit, child_doc], class: 'pull-right btn btn-primary' if can?(:curate, current_exhibit) %>
+    <% display = (@child_docs.index(child_doc) == 0 ? "block" : "none") %>
+    <div class="page metadata-page" id="page_<%= @child_docs.index(child_doc) %>" data-canvas-id="<%= child_doc.id %>" style="display: <%= display %>;">
+      <% if can? :edit, child_doc %>
+        <%= exhibit_edit_link child_doc, [:edit, current_exhibit, child_doc], class: 'pull-right btn btn-primary' %>
       <% end %>
       <div class="metadata-field">
         <dt class="blacklight-full_title_tesim" onclick="hideShow(event)">
@@ -20,6 +19,5 @@
         Download Current File
       </a>
     </div>
-    <% page_number += 1 %>
   <% end %>
 <% end %>

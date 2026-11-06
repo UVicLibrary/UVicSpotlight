@@ -38,10 +38,38 @@ class SolrDocument
     self.try(:uploaded_resource) || Spotlight::Resource.find(self.id.split('-').last.to_i)
   end
 
+  def compound_ids
+    self.fetch('compound_ids_ssim', [])
+  end
+
+  def compound_object?
+    compound_ids.any?
+  end
+
+  def child_docs
+    return [] unless compound_object?
+    @child_docs ||= search_service.search_results do |builder|
+      query = "id:(#{compound_ids.join(" OR ")})"
+      builder.merge({
+                      q: query,
+                      rows: 1000,
+                      qt: 'standard'
+                    })
+    end.docs.sort_by { |document| compound_ids.index(document.id) }
+  end
+
   private
 
   def file_type_from_resource
     resource.file_type
+  end
+
+  def search_service
+    Blacklight::SearchService.new(config: blacklight_config)
+  end
+
+  def blacklight_config
+    @config ||= self.class.send(:blacklight_config)
   end
 
 end

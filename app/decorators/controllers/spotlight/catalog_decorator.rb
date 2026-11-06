@@ -16,25 +16,8 @@ module Spotlight
 
     def show
       super
-
-      authenticate_user! && authorize!(:curate, current_exhibit) if @document.private? current_exhibit
-
-      add_document_breadcrumbs(@document)
-      @resource = @document.resource
-
-      if @document.uploaded_resource?
-        if @resource.compound_object?
-          query = "id:(#{@resource.compound_ids.join(" OR ")})"
-          @child_docs = search_service.search_results do |builder|
-            builder.merge({
-                            q: query,
-                            rows: 1000,
-                            qt: 'standard'
-                          })
-          end.docs
-          @child_docs = @child_docs.sort_by { |document| @resource.compound_ids.index(document.id) }
-        end
-      end
+      # For rendering child docs metadata in view/catalogs/metadata_pages
+      @child_docs = @document.child_docs
     end
 
     # OVERRIDE spotlight v.4.7.0: Save and reindex the resource
