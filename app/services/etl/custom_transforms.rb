@@ -27,7 +27,7 @@ module Etl
       data.merge({ 'compound_ids_ssim' => pipeline.source.compound_ids })
     end
 
-    AddParentIdTransform = lambda do |data, pipeline|
+    AddParentIdTransform = lambda do |data, _pipeline|
       parent_resource = Spotlight::Resource.where.not(compound_ids: nil).find { |r| r.compound_ids.include?(data[:id]) }
       return data unless parent_resource
       data.merge({ "parent_ids_ssim" => parent_resource.compound_id })
@@ -80,6 +80,16 @@ module Etl
       data.merge({
         "spotlight_year_range_isim" => year_range_values.flatten.uniq,
         "spotlight_sort_date_tesi" => sort_date_values.sort.first
+      })
+    end
+
+    AddUploadFileUrlTransform = lambda do |data, pipeline|
+      # Index the file url so we can display audio/video files without a database query
+      resource = pipeline.source
+      return data unless resource.file_type == "video" || resource.file_type == "audio"
+      data.merge({
+        # "/uploads/spotlight/featured_image/image/#{resource.upload_id}/#{parser.escape(resource.file_name)}"
+        "upload_file_url_ssi" => URI::Parser.new.escape(resource.upload.image_url)
       })
     end
 
