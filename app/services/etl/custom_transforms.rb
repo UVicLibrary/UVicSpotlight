@@ -86,7 +86,7 @@ module Etl
     AddUploadFileUrlTransform = lambda do |data, pipeline|
       # Index the file url so we can display audio/video files without a database query
       resource = pipeline.source
-      return data unless resource.file_type == "video" || resource.file_type == "audio"
+      return data unless ["video","audio","pdf"].include? resource.file_type
       data.merge({
         # "/uploads/spotlight/featured_image/image/#{resource.upload_id}/#{parser.escape(resource.file_name)}"
         "upload_file_url_ssi" => URI::Parser.new.escape(resource.upload.image_url)
