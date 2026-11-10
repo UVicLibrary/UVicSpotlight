@@ -47,7 +47,7 @@ unless throttle_off
 
   Rack::Attack.blocklist('block inhuman number of search params in catalog requests') do |req|
     # Requests are blocked if the return value is truthy
-    if req.path.starts_with?('/catalog')
+    if req.path.starts_with?(/\/spotlight\/.+\/catalog/)
       # Use ActionDispatch::Request's #remote_ip to prevent IP spoofing
       # https://github.com/rack/rack-attack/issues/145
       origin_ip = req.remote_ip
