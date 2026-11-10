@@ -24,7 +24,7 @@
   <%= render partial: 'document_visibility_control', locals: { document: document} %>
 </td>
 <td class="delete-button-cell">
-  <%= button_to exhibit_resource_path(current_exhibit, resource_id_for(document)), class: "btn btn-sm btn-danger", method: :delete, data: { confirm: "Are you sure? Once deleted, an item cannot be recovered." } do %>
+  <%= button_to exhibit_resource_path(current_exhibit, document.resource), class: "btn btn-sm btn-danger", method: :delete, data: { confirm: "Are you sure? Once deleted, an item cannot be recovered." } do %>
     Delete
   <% end %>
 </td>

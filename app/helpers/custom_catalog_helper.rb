@@ -25,7 +25,7 @@ module CustomCatalogHelper
 
   def render_download_item_link(document)
     # Don't render a download link for compound objects
-    return '' if resource_for(document).compound_object?
+    return '' if document.compound_object?
     link_to("Download item", download_item_path(document), target: '_blank')
   end
 
@@ -49,23 +49,14 @@ module CustomCatalogHelper
     end
   end
 
-  def resource_id_for(document)
-    document.id.split("-").last
-  end
-
   private
 
   def media_display_partial(document)
-    resource = resource_for(document)
-    if resource.file_type == "compound object"
-      "catalog/viewers/" + resource.made_of
+    if document.file_type == "compound object"
+      "catalog/viewers/" + document.resource.made_of
     else
-      "catalog/viewers/" + resource.file_type
+      "catalog/viewers/" + document.file_type
     end
-  end
-
-  def resource_for(document)
-    Spotlight::Resource.find(resource_id_for(document))
   end
 
   def render_link_to(field_value)

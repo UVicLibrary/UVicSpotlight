@@ -69,7 +69,7 @@ class SolrDocument
   private
 
   def file_type_from_resource
-    resource.file_type
+    self.resource.file_type
   end
 
   def search_service
