@@ -9,6 +9,10 @@ Bundler.require(*Rails.groups)
 module Exhibits
   class Application < Rails::Application
 
+    # Prevents errors related to Psych gem
+    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess,
+                                                          Symbol, DateTime, Time]
+
     # Since Rails 6/7, the new autoloader, Zeitwerk, will eagerload any dir in app.
     # However, we don't want to eagerload our decorators just yet, since Spotlight and
     # other gems need to be loaded before we load our decorators.
