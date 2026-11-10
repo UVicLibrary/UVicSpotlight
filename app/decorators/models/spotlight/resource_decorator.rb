@@ -16,9 +16,7 @@ module Spotlight
         "compound object"
       elsif self.file_name?
         mime_type = Rack::Mime.mime_type(File.extname(self.file_name))
-        if mime_type.include?('ogg')
-          "video/audio"
-        elsif mime_type.include?('video')
+        if mime_type.include?('video')
           "video"
         elsif mime_type.include?('audio')
           "audio"
