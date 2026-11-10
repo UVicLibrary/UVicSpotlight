@@ -30,15 +30,13 @@ module CustomCatalogHelper
   end
 
   def download_item_path(document)
-    resource = resource_for(document)
-    case resource.file_type
+    case document.file_type
     when "image"
-      "/images/#{resource.upload_id}/full/full/0/default.jpg"
+      # "/images/#{resource.upload_id}/full/full/0/default.jpg"
+      document.thumbnail_url.sub('!400,400','full')
     else
-      file_url(resource)
+      document.upload_url
     end
-    # TO DO: imported objects
-    # download_url = "#{document._source["jpeg_url_ssm"].first}"
   end
 
   def media_display(document, locals = {})
@@ -53,11 +51,6 @@ module CustomCatalogHelper
 
   def resource_id_for(document)
     document.id.split("-").last
-  end
-
-  def file_url(resource)
-    parser = URI::Parser.new
-    "/uploads/spotlight/featured_image/image/#{resource.upload_id}/#{parser.escape(resource.file_name)}"
   end
 
   private
