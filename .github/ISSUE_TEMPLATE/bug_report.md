@@ -20,11 +20,11 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+**Expected behavior (Optional if Obvious)**
 A clear and concise description of what you expected to happen.
 
 **Screenshots (Optional)**
 If helpful, add screenshots to help explain your problem.
 
-**Additional context**
+**Additional context (Optional)**
 Add any other context about the problem here.
