@@ -4,21 +4,21 @@
 			Title: "Explore",
 			Subtitle: "Browse the Collection",
 			Description: "Photographs, Letters, Scrapbooks, &c.",
-			Image: "/uploads/spotlight/resources/upload/url/2459/small_1999-033.1.7.2_Map1_1.jpg",
+			Image: "/wwi/explore.jpg",
 			Link: "/spotlight/wwi/feature/discover"
 		},
 		{
 			Title: "Stories",
 			Subtitle: "Personal Histories",
 			Description: "Read the stories of Canada's citizens.",
-			Image: "/uploads/spotlight/resources/upload/url/3749/small_2000-030_ScrpBk_017_a.jpg",
+			Image: "/wwi/stories.jpg",
 			Link: "/spotlight/wwi/feature/stories"
 		},
 		{
 			Title: "Learn",
 			Subtitle: "Students & Teachers",
 			Description: "Use this exhibit in the class room.",
-			Image: "/uploads/spotlight/wwi/learn_FrontPage.jpg",
+			Image: "/wwi/learn.jpg",
 			Link: "/spotlight/wwi/feature/learn"
 		}
 	]
@@ -28,13 +28,10 @@
 		<%# See Bootstrap 4 docs on carousel: https://getbootstrap.com/docs/4.0/components/carousel/ %>
 		<div id="wwi-carousel" class="carousel slide mb-3" data-ride="carousel" data-interval="3000">
 			<div class="carousel-inner">
-				<% id_arr = [1717,4063,2824,3616] %>
-				<% id_arr.each do |id|
-					fi = Spotlight::FeaturedImage.find(id)
-					source ="/" + fi.image.store_path + fi.image.file.filename
-				%>
-					<div class="carousel-item wwi-slide <%= "active" if id == id_arr.first %>">
-						<img src="<%= source %>" >
+				<% paths = Dir.glob(Rails.root.join('public','wwi','carousel','*')) %>
+				<% paths.each do |path| %>
+					<div class="carousel-item wwi-slide <%= "active" if path == paths.first %>">
+						<img src="<%= path.sub(Rails.root.join('public').to_s,'') %>" >
 					</div>
 				<% end %>
 			</div>
