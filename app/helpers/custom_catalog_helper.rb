@@ -43,12 +43,6 @@ module CustomCatalogHelper
     render(media_display_partial(document), locals.merge(document: document))
   end
 
-  def child_resources(doc_ids)
-    doc_ids.map do |id|
-      Spotlight::Resource.find(id.split("-").last)
-    end
-  end
-
   private
 
   def media_display_partial(document)
