@@ -50,6 +50,10 @@ class SolrDocument
     self.fetch('compound_ids_ssim', [])
   end
 
+  def child_file_type
+    self.fetch("child_file_type_ssi", nil)
+  end
+
   def compound_object?
     compound_ids.any?
   end

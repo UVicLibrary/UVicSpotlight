@@ -47,7 +47,7 @@ module CustomCatalogHelper
 
   def media_display_partial(document)
     if document.file_type == "compound object"
-      "catalog/viewers/" + document.resource.made_of
+      "catalog/viewers/" + document.child_file_type
     else
       "catalog/viewers/" + document.file_type
     end
