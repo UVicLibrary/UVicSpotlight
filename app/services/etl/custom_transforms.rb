@@ -11,7 +11,14 @@ module Etl
       data.merge({ 'resource_file_type_ssi' => pipeline.source.file_type })
     end
 
-    AddModelIdTransform = lambda do |data, pipeline|
+    AddCompoundFileTypeTransform = lambda do |data, pipeline|
+      return data unless pipeline.source.file_type == 'compound object'
+      # Get the file type of the first child document/resource. We expect all children of a
+      # compound object to have the same file type.
+      data.merge({ "child_file_type_ssi" => SolrDocument.find(pipeline.source.compound_ids[0]).file_type })
+    end
+
+    AddModelIdTransform = lambda do |data, _pipeline|
       return data unless data['spotlight_upload_3d_model_url_tesim'].present?
       model_id = data['spotlight_upload_3d_model_url_tesim'].split("/").last.split("?").first
       data.merge({ 'spotlight_upload_3d_model_id_tesim' => model_id })
