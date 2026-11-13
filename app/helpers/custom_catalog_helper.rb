@@ -10,7 +10,7 @@ module CustomCatalogHelper
     Array.wrap(presenter.field_value(field)).flatten.map do |val|
       if val.match?('http')
         val.scan((/(https?:\/\/.+?)($|\s|\;)/)).map(&:first).each do |link|
-          val.gsub!(link, render_link_to(link))
+          val = val.sub(link, render_link_to(link))
         end
         val
       elsif parent_field?(field)

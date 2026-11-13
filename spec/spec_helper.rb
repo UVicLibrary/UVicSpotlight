@@ -38,6 +38,15 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  # https://stackoverflow.com/questions/26332615/in-rspec-can-we-turn-off-verify-partial-doubles-for-one-test
+  config.around(:each, verify_stubs: false) do |ex|
+    config.mock_with :rspec do |mocks|
+      mocks.verify_partial_doubles = false
+      ex.run
+      mocks.verify_partial_doubles = true
+    end
+  end
+
   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
   # have no way to turn it off -- the option exists only for backwards
   # compatibility in RSpec 3). It causes shared context metadata to be

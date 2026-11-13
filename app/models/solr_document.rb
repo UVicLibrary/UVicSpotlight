@@ -35,7 +35,7 @@ class SolrDocument
   end
 
   def resource
-    self.try(:uploaded_resource) || Spotlight::Resource.find(self.id.split('-').last.to_i)
+    Spotlight::Resource.find(self.id.split('-').last.to_i)
   end
 
   def thumbnail_url
