@@ -14,6 +14,10 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
+ENV["RAILS_ENV"] ||= 'test'
+
+require_relative 'support/presenter_test_helpers'
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -46,6 +50,9 @@ RSpec.configure do |config|
       mocks.verify_partial_doubles = true
     end
   end
+
+  # Copied from blacklight
+  config.include PresenterTestHelpers, type: :presenter
 
   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
   # have no way to turn it off -- the option exists only for backwards

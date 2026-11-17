@@ -2,27 +2,6 @@ module CustomCatalogHelper
 
   # Custom methods for the catalog#show page.
 
-  # Overrides Blacklight::ShowPresenter method
-  # @param [Blacklight::ShowPresenter]
-  # @param [Blacklight::Configuration::IndexField]
-  def field_value(presenter, field)
-    # Coerce string values into an array
-    Array.wrap(presenter.field_value(field)).flatten.map do |val|
-      if val.match?('http')
-        val.scan((/(https?:\/\/.+?)($|\s|\;)/)).map(&:first).each do |link|
-          val = val.sub(link, render_link_to(link))
-        end
-        val
-      elsif parent_field?(field)
-        render_parent_link_to(val)
-      elsif date_field?(field)
-        render_date(val)
-      else
-        val
-      end
-    end.join('; ')
-  end
-
   def render_download_item_link(document)
     # Don't render a download link for compound objects
     return '' if document.compound_object?

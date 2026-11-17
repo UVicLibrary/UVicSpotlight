@@ -4,10 +4,6 @@ require 'rails_helper'
 RSpec.describe CustomCatalogHelper, type: :helper do
 
   let(:document) { SolrDocument.new(
-    "spotlight_upload_dc_description_tesim" => ["Description"],
-    "spotlight_upload_Relation_tesim" => relation,
-    "spotlight_upload_dc_Date_tesi" => date,
-    "parent_ids_ssim" => ["1-1"],
     "thumbnail_url_ssm" => ["/images/1/full/!400,400/0/default.jpg"],
     "upload_file_url_ssi" => "/path/to/upload.mp4"
   ) }
@@ -18,8 +14,6 @@ RSpec.describe CustomCatalogHelper, type: :helper do
       "child_file_type_ssi" => "image"
     })
   }
-  let(:relation) { ["https://example.com/related; https://example.com/other_link"] }
-  let(:date) { ["1912-04-15"] }
 
   let(:presenter) { Blacklight::ShowPresenter.new(document, CatalogController) }
 
@@ -29,89 +23,6 @@ RSpec.describe CustomCatalogHelper, type: :helper do
 
   before do
     allow(presenter).to receive(:field_value).with(field).and_return(presenter.document.fetch(field.key, nil))
-  end
-
-  describe '#field_value' do
-    subject { helper.field_value(presenter, field) }
-
-    context 'with one or more URLs' do
-      let(:field) { Blacklight::Configuration::IndexField.new(key: "spotlight_upload_Relation_tesim") }
-      let(:rendered) { Capybara.string(subject) }
-
-      context 'with multiple URLs' do
-        context 'with spaces and semicolons' do
-          it 'renders the expected links' do
-            expect(rendered).to have_link("https://example.com/related",
-                                          href: "https://example.com/related", target: "_blank")
-            expect(rendered).to have_link("https://example.com/other_link",
-                                          href: "https://example.com/other_link", target: "_blank")
-          end
-        end
-
-        context 'with semicolons but without spaces' do
-          let(:relation) { ["https://example.com/related;https://example.com/other_link"] }
-          it 'renders the expected links' do
-            expect(rendered).to have_link("https://example.com/related",
-                                          href: "https://example.com/related", target: "_blank")
-            expect(rendered).to have_link("https://example.com/other_link",
-                                          href: "https://example.com/other_link", target: "_blank")
-          end
-        end
-      end
-
-      context 'with a single URL' do
-        let(:relation) { ["https://example.com/related"] }
-
-        it 'renders the expected link' do
-          expect(rendered).to have_link("https://example.com/related",
-                                        href: "https://example.com/related", target: "_blank")
-        end
-      end
-    end
-
-    context 'with a parent field', verify_stubs: false do
-      let(:field) { Blacklight::Configuration::IndexField.new(key: "parent_ids_ssim") }
-
-      before do
-        allow_any_instance_of(Blacklight::SearchService).to receive(:fetch).and_return(
-          SolrDocument.new(id: "1-1", full_title_tesim: ["Parent Title"])
-        )
-        allow(helper).to receive(:blacklight_config).and_return(Spotlight::Engine.blacklight_config)
-        allow(helper).to receive(:current_exhibit).and_return(Spotlight::Exhibit.new(slug: "test"))
-      end
-
-      it 'renders a link to the parent' do
-        rendered = Capybara.string(subject)
-        expect(rendered).to have_link("Parent Title",
-                                      href: "/spotlight/test/catalog/1-1", target: "_blank")
-      end
-    end
-
-    context 'with a date field' do
-      let(:field) { Blacklight::Configuration::IndexField.new(key: "spotlight_upload_dc_Date_tesi") }
-
-      context 'with a valid EDTF date' do
-        it 'displays the humanized EDTF date' do
-          expect(subject).to eq "April 15, 1912"
-        end
-      end
-
-      context 'with a non-EDTF date' do
-        let(:date) { ["04/15/1912"] }
-
-        it 'gracefully displays the text value' do
-          expect(subject).to eq "04/15/1912"
-        end
-      end
-    end
-
-    context 'with a text field' do
-      let(:field) { Blacklight::Configuration::IndexField.new(key: "spotlight_upload_dc_description_tesim") }
-
-      it 'displays the value' do
-        expect(subject).to eq "Description"
-      end
-    end
   end
 
   describe '#render_download_item_link' do

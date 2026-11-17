@@ -29,14 +29,14 @@ class CatalogController < ApplicationController
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
     # Have CustomDocumentComponent be the default document_component
     config.show.document_component = CustomDocumentComponent
+    # Custom presenter that calls custom field component for rendering special metadata fields
+    config.show.document_presenter_class = CustomIndexShowPresenter
 
     config.view.gallery(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index_header, :index], icon: Blacklight::Gallery::Icons::GalleryComponent)
     config.view.masonry(document_component: Blacklight::Gallery::DocumentComponent, partials: [:index], icon: Blacklight::Gallery::Icons::MasonryComponent)
     config.view.slideshow(document_component: Blacklight::Gallery::SlideshowComponent, partials: [:index], icon: Blacklight::Gallery::Icons::SlideshowComponent)
 
     config.view.embed!.partials = [:item_viewer]
-
-    config.index.title_field = 'full_title_tesim'
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = {
@@ -84,6 +84,9 @@ class CatalogController < ApplicationController
     # config.index.constraints_component = MyApp::ConstraintsComponent
     # config.index.search_bar_component = MyApp::SearchBarComponent
     # config.index.search_header_component = MyApp::SearchHeaderComponent
+    config.index.title_field = 'full_title_tesim'
+    # Display fields differently based on field values by using CustomMetadataFieldComponent class
+    config.index.document_presenter_class = CustomIndexShowPresenter
     config.index.document_actions.delete(:bookmark)
 
     # config.add_results_document_tool(:bookmark, partial: 'catalog/bookmark_control', if: :render_bookmarks_control?)
