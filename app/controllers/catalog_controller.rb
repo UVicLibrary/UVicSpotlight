@@ -98,6 +98,13 @@ class CatalogController < ApplicationController
 
     # config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
     config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
+  end
 
+  def exhibit_specific_blacklight_config
+    begin
+      super
+    rescue RuntimeError # Invalid or missing exhibit in request URL
+      render 404
+    end
   end
 end
