@@ -50,7 +50,7 @@ class CustomFieldPresenter < Blacklight::FieldPresenter
     # config = try(:blacklight_config) || view_context.blacklight_config
     parent = Blacklight::SearchService.new(config: blacklight_config).fetch(field_value)
     title = parent.fetch(blacklight_config.index.title_field).first
-    component.new(field: field_config).link_to("/spotlight/#{current_exhibit.slug}" + solr_document_path(field_value), target: "_blank") do
+    component.new(field: field_config).link_to("/spotlight/#{current_exhibit.slug}" + solr_document_path(field_value)) do
       title
     end
   end

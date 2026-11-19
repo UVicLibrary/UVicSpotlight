@@ -67,7 +67,7 @@ RSpec.describe CustomFieldPresenter, type: :presenter do
       it 'renders a link to the parent' do
         rendered = Capybara.string(subject)
         expect(rendered).to have_link("Parent Title",
-                                      href: "/spotlight/test/catalog/1-1", target: "_blank")
+                                      href: "/spotlight/test/catalog/1-1")
       end
     end
 

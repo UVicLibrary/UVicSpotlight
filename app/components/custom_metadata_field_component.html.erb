@@ -5,6 +5,6 @@
     <%= label %>
   <% end %>
   <% component.with_value do %>
-    <%= sanitize(@field.render) %>
+    <%= sanitize(@field.render, attributes: ["href", "target"]) %>
   <% end %>
 <% end %>
