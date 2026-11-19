@@ -104,7 +104,7 @@ class CatalogController < ApplicationController
     begin
       super
     rescue RuntimeError # Invalid or missing exhibit in request URL
-      render 404
+      render status: 404, plain: 'Not Found'
     end
   end
 end
