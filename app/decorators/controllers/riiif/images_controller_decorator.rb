@@ -10,6 +10,8 @@ module Riiif
         super
       rescue Vips::Error
         render plain: "Requested region is outside image area", status: 400
+      rescue Riiif::ImageNotFoundError
+        render 404
       rescue ArgumentError
         Rails.logger.warn "ArgumentError: request uri = #{request.uri}"
         raise
