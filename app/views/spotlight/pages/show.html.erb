@@ -22,15 +22,7 @@
     <% end %>
   </div>
   <div class="next-prev-links">
-    <% if previous_page %>
-      <span class = "go-to-prev">
-        <%= link_to "< " + previous_page.title.truncate(50, separator: ' '), exhibit_feature_page_path(@exhibit, previous_page) %>
-      </span>
-    <% end %>
-    <% if next_page %>
-      <span class = "go-to-next">
-        <%= link_to next_page.title.truncate(50, separator: ' ') + " >", exhibit_feature_page_path(@exhibit, next_page) %>
-      </span>
-    <% end %>
+    <%= link_to_previous_page(@page) if previous_page(@page) %>
+    <%= link_to_next_page(@page) if next_page(@page) %>
   </div>
 <% end %>

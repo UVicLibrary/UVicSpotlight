@@ -8,7 +8,15 @@ class Ability
   def initialize(user)
     user ||= Spotlight::Engine.user_class.new
     super
+    add_read_page_permissions(user)
     remove_bulk_update_permissions(user)
+  end
+
+  private
+
+  # Added so that can? :read, page returns the correct results
+  def add_read_page_permissions(user)
+    can :read, Spotlight::Page, exhibit_id: user.viewer_roles.pluck(:resource_id)
   end
 
   def remove_bulk_update_permissions(user)
