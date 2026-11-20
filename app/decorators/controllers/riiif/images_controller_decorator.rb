@@ -8,13 +8,11 @@ module Riiif
     def show
       begin
         super
-      rescue Vips::Error
-        render plain: "Requested region is outside image area", status: 400
+      rescue Vips::Error, ArgumentError
+        Rails.logger.warn "ArgumentError: request uri = #{request.path}"
+        render plain: "Invalid image request", status: 400
       rescue Riiif::ImageNotFoundError
         render status: 404, plain: 'Not Found'
-      rescue ArgumentError
-        Rails.logger.warn "ArgumentError: request uri = #{request.uri}"
-        raise
       end
     end
 

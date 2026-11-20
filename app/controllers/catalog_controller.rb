@@ -22,6 +22,11 @@ class CatalogController < ApplicationController
     request.headers["sec-fetch-dest"] == "empty"
   }
 
+  rescue_from RuntimeError do |_exception|
+    Rails.logger.warn "Runtime Error from #{request.path}"
+    render status: 404, plain: 'Not Found'
+  end
+
   configure_blacklight do |config|
     config.bootstrap_version = 4
     config.show.oembed_field = :oembed_url_ssm
@@ -98,13 +103,5 @@ class CatalogController < ApplicationController
 
     # config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
     config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
-  end
-
-  def exhibit_specific_blacklight_config
-    begin
-      super
-    rescue RuntimeError # Invalid or missing exhibit in request URL
-      render status: 404, plain: 'Not Found'
-    end
   end
 end
