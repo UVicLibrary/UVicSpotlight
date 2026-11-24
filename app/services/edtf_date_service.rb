@@ -48,9 +48,7 @@ class EdtfDateService
   # @return [Array <Integer>] - a range of years for blacklight_range_limit gem
   def year_range
     case @parsed_date
-    when EDTF::Set
-      @parsed_date.to_a.map { |date| self.class.new(date.to_s).year_range }.flatten.uniq.sort
-    when Array # A set of complex dates (e.g. intervals) that edtf ruby gem can't handle
+    when EDTF::Set, Array # A set of complex dates (e.g. intervals) that edtf ruby gem can't handle
       @parsed_date.map { |date| self.class.new(date.to_s).year_range }.flatten.uniq.sort
     when EDTF::Interval
       if @parsed_date.open?
@@ -84,9 +82,16 @@ class EdtfDateService
       result = @parsed_date.humanize.capitalize
     else
       case @parsed_date
-      when Array # when we have a date set
-        @parsed_date.map do |date|
-          self.class.new(date.to_s).humanized.to_sentence
+      when EDTF::Set
+        result = @parsed_date.humanize
+      when Array # when we have a date set that edtf gem can't parse
+        dates = @parsed_date.map do |date|
+          date.try(:humanize) ? date.humanize : self.class.new(date.to_s).humanized
+        end
+        if @date_string.include?("[") # choice of...
+          result = dates.to_sentence(two_words_connector: " or ", last_word_connector: ", or ")
+        elsif @date_string.include?("{") # inclusive set
+          result = dates.to_sentence
         end
       when EDTF::Interval
         from_date = @date_string.split('/')[0].gsub('/..','open')
@@ -100,9 +105,14 @@ class EdtfDateService
         end
         result = "#{from}#{I18n.t('edtf.terms.interval_connector_day')}#{to}"
       when EDTF::Century, EDTF::Decade, EDTF::Season
+        # edtf gem doesn't handle centuries, decades, or seasons with qualifiers,
+        # so we need to apply it ourselves
         result = apply_humanized_approximate_or_uncertain(@parsed_date, @date_string.last)
       when Date
+        # edtf gem doesn't pre-1000 AD dates with qualifiers, so we need to apply it ourselves
         result = apply_humanized_approximate_or_uncertain(@parsed_date.humanize, @date_string.last)
+      when String # "unknown" or "no date"
+        result = @parsed_date
       end
     end
     delete_prefix(result)
@@ -125,8 +135,14 @@ class EdtfDateService
       raise InvalidEdtfDateError.new("Tilde (~) should go at the end of approximate dates instead of the start")
     end
 
-    # Remove all uncertainty and approximation markers before parsing.
-    # They will be added back later if necessary.
+    # Date sets like the examples on this page (https://www.loc.gov/standards/datetime/)
+    # can be parsed directly by the edtf gem. This includes sets of single dates (e.g. YYYY-MM-DD),
+    # dates with qualifiers (e.g. approx, uncertain), and the special ".." syntax.
+    return Date.edtf(date_string) if Date.edtf(date_string) && Date.edtf(date_string).is_a?(EDTF::Set)
+
+    # Remove all uncertainty and approximation markers before parsing
+    # because edtf gem can't handle some types of dates with qualifiers
+    # (e.g. decades, sets, seasons). The qualifiers will be added back later if necessary.
     date_string = strip_markers(date_string.gsub('/..','/open'))
     return Date.edtf(date_string) if Date.edtf(date_string) && !interval?
 
@@ -169,7 +185,17 @@ class EdtfDateService
     matches = date_string.match(/\[(.*?)\]|\{(.*?)\}/)[1..].select(&:present?)
                                                            .first # We only expect one match per string
                                                            .split(",").map(&:strip)
-    matches.map { |date| self.parse_date(date) }
+    matches.map do |date|
+      # If date includes the special ".." syntax, then wrap it in brackets so it can be parsed correctly
+      if date.include?("..")
+        if date_string.include?("[")
+          date = "[#{date}]"
+        elsif date_string.include?("{")
+          date = "{#{date}}"
+        end
+      end
+      self.parse_date(date)
+    end
   end
 
   # Delete the 0 at the front of a pre-1000 date, e.g. 0900 -> 900
