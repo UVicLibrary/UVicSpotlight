@@ -5,6 +5,12 @@
 #   missing/deleted image.images, add a "Image not found" message to the export.
 # - Write exhibit exports to a tmpfile so we can stream it later instead of reading
 #   the entire export into memory
+# - Record an uploaded file's filepath (instead of writing its contents to a binary string?!)
+#   to prevent out-of-memory errors
+
+# TO DO:
+# - Override #deserialize_featured_image to read file contents from a file path
+#   instead of a binary string
 module Spotlight
   module ExhibitImportExportServiceDecorator
 
@@ -28,7 +34,8 @@ module Spotlight
 
     private
 
-    # OVERRIDE: Handle missing/deleted images
+    # OVERRIDE: Handle missing/deleted images and write file path instead of the
+    # binary contents of the entire file
     def serialize_featured_image(id)
       begin
         image = Spotlight::FeaturedImage.find(id)
@@ -41,13 +48,42 @@ module Spotlight
       if file
         img = {
           image: {
-            filename: file.filename, content_type: file.content_type, content: Base64.encode64(file.read)
+            # This used to include content: Base64.encode64(file.read)
+            filename: file.filename, content_type: file.content_type, filepath: file.file
           }
         }
       end
       image.as_json(except: %i[id image]).merge(img || {}).deep_symbolize_keys
     end
+
+    def attach_attachments(json)
+      return json unless json[:attachments]
+
+      json[:attachments].each do |attachment|
+        a = exhibit.attachments.find(attachment[:id])
+        file = a.file.file
+
+        if a.file?
+          attachment[:file] = {
+            filename: file.filename,
+            content_type: file.content_type,
+            # content: Base64.encode64(file.read)
+            filepath: file.file
+          }
+        else
+          attachment[:file] = {
+            image: "No file found for ID: #{a.id}"
+          }
+        end
+        attachment.delete(:id)
+      end
+
+      json
+    end
   end
+
+  # TO DO: Override #deserialize_featured_image to read file contents from a
+  # file path instead of a binary string
 
 end
 Spotlight::ExhibitImportExportService.prepend(Spotlight::ExhibitImportExportServiceDecorator)
