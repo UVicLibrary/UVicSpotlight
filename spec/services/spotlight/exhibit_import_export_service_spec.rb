@@ -4,11 +4,29 @@ require 'rails_helper'
 RSpec.describe Spotlight::ExhibitImportExportService do
 
   describe '#serialize_featured_image' do
+    subject { described_class.new(Spotlight::Exhibit.new).send(:serialize_featured_image, 0) }
+
     context 'when image does not exist' do
       it 'rescues ActiveRecord::RecordNotFound exception' do
-        expect(described_class.new(Spotlight::Exhibit.new)
-                              .send(:serialize_featured_image, 0))
-                              .to eq({ image: "Image not found for ID: 0" })
+        expect(subject).to eq({ image: "Image not found for ID: 0" })
+      end
+    end
+
+    context 'with an image' do
+      let(:image) { Spotlight::FeaturedImage.new }
+      let(:uploader) { Spotlight::FeaturedImageUploader.new }
+      let(:file) { CarrierWave::SanitizedFile.new(tempfile: "path/to/file.jpg", content_type: "image/jpeg") }
+
+      before do
+        allow(Spotlight::FeaturedImage).to receive(:find).and_return(image)
+        allow(image).to receive(:image).and_return(uploader)
+        allow(uploader).to receive(:file).and_return(file)
+      end
+
+      it 'returns a hash with a file path' do
+        expect(subject[:image]).to include("filename": "file.jpg",
+                                           "content_type": "image/jpeg",
+                                           "filepath": "path/to/file.jpg")
       end
     end
   end
