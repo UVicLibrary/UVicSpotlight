@@ -8,33 +8,11 @@ class ThumbnailService
     @resource = resource
   end
 
-  # The file path to the thumbnail
-  def full_thumbnail_dir_path
-    Rails.root.join("public", thumbnail_dir_path(@resource))
-  end
-
-  def thumbnail_dir_path(resource)
-    "uploads/spotlight/featured_image/image/#{resource.upload_id}"
-  end
-
-  # Creates thumbnails based on file type and returns the
-  # path to the generated thumbnail
+  # @return [String] - the path to the created thumbnail
   def create_thumbnail
     case @resource.file_type
     when "image"
-      riiif.image_path(@resource.upload_id, size: '!400,400')
-    when "compound object"
-      if @resource.made_of == "image"
-        riiif.image_path(first_resource(@resource).upload_id, size: '!400,400')
-      elsif @resource.made_of == "video"
-        first_resource = first_resource(@resource)
-        # Video thumbnail generation is handled by VideoThumbnailer gem
-        # See app/uploaders/spotlight/featured_image_uploader and
-        # https://github.com/teenacmathew/Video-Thumbnailer
-        "/#{thumbnail_dir_path(first_resource)}/video_thumb_#{first_resource.file_name.split('.').first}.jpeg"
-      elsif @resource.made_of == "audio"
-        "/core/audio.png"
-      end
+      Spotlight::RiiifService.thumbnail_url(@resource.upload_id)
     when "pdf"
       pdf_name = File.basename(@resource.file_name, '.pdf')
       # Run vips from the command line
@@ -48,19 +26,35 @@ class ThumbnailService
       # Video thumbnail generation is handled by VideoThumbnailer gem
       # See app/uploaders/spotlight/featured_image_uploader and
       # https://github.com/teenacmathew/Video-Thumbnailer
-      "/#{thumbnail_dir_path(@resource)}/video_thumb_#{@resource.file_name.split('.').first}.jpeg"
+      video_thumb_path(@resource)
     when "audio"
       "/core/audio.png"
+    when "compound object"
+      child = @resource.first_child
+      case child.file_type
+      when "image"
+        Spotlight::RiiifService.thumbnail_url(child.upload_id)
+      when "video"
+        video_thumb_path(child)
+      when "audio"
+        "/core/audio.png"
+      end
     end
   end
 
-  def riiif
-    Riiif::Engine.routes.url_helpers
+  private
+
+  def video_thumb_path(resource)
+    "/#{thumbnail_dir_path(resource)}/video_thumb_#{resource.file_name.split('.').first}.jpeg"
   end
 
-  # Find the first resource in the compound_ids (attribute)
-  def first_resource(compound_object)
-    @first_resource ||= Spotlight::Resource.find(compound_object.compound_ids.first.split("-")[1])
+  # The absolute file path to the upload dir, needed for vips to generate a pdf thumbnail
+  def full_thumbnail_dir_path
+    Rails.root.join("public", thumbnail_dir_path(@resource))
   end
 
+  def thumbnail_dir_path(resource)
+    # "uploads/spotlight/featured_image/image/#{resource.upload_id}"
+    resource.upload.image.store_dir
+  end
 end

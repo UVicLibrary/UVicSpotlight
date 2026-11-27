@@ -64,6 +64,11 @@ module Spotlight
       super
     end
 
+    def first_child
+      return nil unless self.compound_object?
+      Spotlight::Resource.find(self.compound_ids.first.split("-").last.to_i)
+    end
+
     private
 
     def delete_document
